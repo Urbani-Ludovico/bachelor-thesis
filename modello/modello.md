@@ -69,7 +69,7 @@ $T$: tempo massimo
 - $\alpha$: percentuale di effetto della crescita sulla popolazione sana
 - $\beta_\cdot$: moltiplicatore per la decrescita sulla popolazione a cui è riferita
 - $\gamma_\cdot$: moltiplicatore di rischio per la funzione di infortunio sulla popolazione a cui è riferita
-- $\lambda\left(\bar{F}_f(t), \bar{F}_p(t), \gamma_\cdot\right)$: funzione di probabilità dell'infortunio al tempo $t$ con peso $\gamma_\cdot$
+- $\lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_\cdot\right)$: funzione di probabilità dell'infortunio al tempo $t$ con peso $\gamma_\cdot$
 - $\pi$: probabilità che l'infortunio sia di tipo grave ($I$) invece che malconcio ($M$)
 - $u(t)$: termine di controllo, influenza dell'allenatore sulla prevenzione da infortuni
 - $\rho$: tasso di transizione da $I$ a $M$
@@ -81,7 +81,7 @@ $T$: tempo massimo
 ## Ipotesi
 
 - $\mu: [0, 1] \longrightarrow [0, +\infty)$
-- $\nu: {[0, 1]}^2 \longrightarrow [0, 1]$
+- $\nu: [0, 1] \times [0, +\infty) \longrightarrow [0, 1]$
 - $\alpha \in [0, 1]$
 - $\beta_S, \beta_P, \beta_I, \beta_M \in [0, +\infty)$
 - $\gamma_S, \gamma_P, \gamma_M \in [0, +\infty)$
@@ -91,7 +91,7 @@ $T$: tempo massimo
 - $u_{\min} \in [0, 1]$
 - $\rho \in [0, 1]$
 - $c_f, c_p: [0, T] \longrightarrow [0, +\infty)$
-- $r_f, r_p: [0, T] \longrightarrow [0, 1]$
+- $r_f, r_p: [0, T] \times [0, +\infty) \longrightarrow [0, 1]$
 - $A_{\max} \in [1, +\infty)$
 
 Vincoli:
