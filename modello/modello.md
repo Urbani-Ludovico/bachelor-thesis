@@ -6,7 +6,7 @@ Modellizzazione, a tempo discreto, di un periodo di allenamento di un gruppo di 
 ## Ipotesi iniziali
 
 - Il tempo e $t \in \{0, 1, \dots, T\}$, dove $T$ è il tempo massimo (orizzonte del modello). Si suppone che le sedute di allenamento siano distribuite circa omogeneamente nel tempo, così che un passo $t \to t+1$ corrisponda a una seduta e il recupero tra due passi consecutivi sia confrontabile.
-- La popolazione di atleti è omogenea: a parte la suddivisione nei compartimenti descritti sotto, gli atleti hanno lo stesso livello e la stessa esposizione al carico.
+- La popolazione di atleti è omogenea: a parte la suddivisione descritta sotto, gli atleti hanno lo stesso livello e la stessa esposizione al carico.
 - Si parla prevalentemente di atleti non alle prime armi, quindi con possibili infortuni pregressi ($P$).
 - Il carico di allenamento non è costante: può essere nullo (es. sessione di recupero), inferiore al massimo (es. lavoro tecnico) oppure superiore al massimo (overtraining).
 - L'orizzonte $T$ è breve: non c'è abbastanza tempo affinché un atleta malconcio ($M$) torni in $S$ o in $P$. L'unico percorso di recupero previsto è $I \to M$.
@@ -85,7 +85,7 @@ Significato dei termini:
 - $\gamma_\cdot$: moltiplicatore di rischio nella funzione di infortunio sulla popolazione a cui è riferito
 - $\lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_\cdot\right)$: probabilità che un atleta si infortuni nella seduta $t$, in funzione delle fatiche medie, della densità sul tatami e del moltiplicatore di rischio $\gamma_\cdot$
 - $\pi$: probabilità che un infortunio sia grave ($I$) invece che lieve ($M$)
-- $u(t)$: termine di controllo, efficacia della prevenzione degli infortuni da parte dell'allenatore ($u = 0$: nessuna prevenzione)
+- $u(t)$: termine di controllo, efficacia della prevenzione degli infortuni da parte dell'allenatore ($u=0$: nessuna prevenzione, $u=1$: prevenzione perfetta)
 - $\rho$: tasso di transizione da $I$ a $M$
 - $c_\cdot(t)$: carico della seduta al tempo $t$ (0: riposo, 1: carico massimo, $>1$: overtraining)
 - $r_\cdot\left(t, \bar{F}_\cdot(t)\right)$: recupero medio al tempo $t$, dato lo stato di fatica
@@ -100,7 +100,7 @@ Significato dei termini:
 - $\gamma_S, \gamma_P, \gamma_M \in [0, +\infty)$
 - $\lambda: [0, +\infty)^4 \longrightarrow [0, 1]$
 - $\pi \in [0, 1]$
-- $u: \{0, \dots, T\} \longrightarrow [u_{\min}, 1]$ con $0 \leq u_{\min} < 1$ (la prevenzione non può azzerare il rischio)
+- $u: \{0, \dots, T\} \longrightarrow [u_{\min}, 1]$ con $0 \leq u_{\min} < 1$
 - $\rho \in [0, 1]$
 - $c_f, c_p: \{0, \dots, T\} \longrightarrow [0, +\infty)$
 - $r_f, r_p: \{0, \dots, T\} \times [0, +\infty) \longrightarrow [0, 1]$, con $r_\cdot(t, F) \leq F + c_\cdot(t)$ (il recupero non può superare la fatica presente), che garantisce $\bar{F}_\cdot \geq 0$
@@ -169,6 +169,7 @@ e analogamente per $P$ e $M$.
 
 
 ## Problema di controllo
+
 L'obiettivo è minimizzare gli atleti infortunati o malconci (in particolare gli infortunati) mantenendo il carico di allenamento più alto possibile. Poiché sono due obiettivi in conflitto, conviene combinarli in un'unica funzione. I controlli sono $u$, $c_f$ e $c_p$:
 
 $$
@@ -179,4 +180,6 @@ Con pesi:
 - $w_I \geq w_M \geq 0$ (un infortunio grave pesa di più)
 - $w_c, w_u \geq 0$
 
-E vincoli $u \in [u_{\min}, 1]$.
+E vincoli:
+- $u \in [u_{\min}, 1]$
+- $c_f, c_p \leq c_{\max}$
