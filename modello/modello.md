@@ -55,11 +55,11 @@ $$
 
         \bar{F}_f(t+1) &= \bar{F}_f(t) \\
             &+ c_f(t) \\
-            &- r_f\left(t, \bar{F}_f(t)\right) \\[5pt]
+            &- r(t) \bar{F}_f(t) \\[5pt]
 
         \bar{F}_p(t+1) &= \bar{F}_p(t) \\
             &+ c_p(t) \\
-            &- r_p\left(t, \bar{F}_p(t)\right)
+            &- r(t) \bar{F}_p(t)
     \end{aligned}\right.
 $$
 
@@ -74,7 +74,7 @@ Significato dei termini:
 - $(1-u)\lambda$: probabilità effettiva di infortunio di un singolo atleta, ridotta dalla prevenzione dell'allenatore. Il terzo argomento di $\lambda$, $\frac{S+P+M}{A_{\max}}$, è la densità sul tatami: gli infortunati $I$ non si allenano e quindi non contano.
 - $\pi$: un nuovo infortunio è grave (porta in $I$) con probabilità $\pi$, lieve (porta in $M$) con probabilità $1-\pi$.
 - $\rho I$: gli infortunati guariscono parzialmente e passano in $M$.
-- $\bar{F}_\cdot$: ogni seduta aggiunge il carico $c_\cdot(t)$ e il gruppo ne recupera una parte $r_\cdot$.
+- $\bar{F}_\cdot$: ogni seduta aggiunge il carico $c_\cdot(t)$ e il gruppo ne recupera una parte $r$.
 
 ## Parametri e funzioni
 
@@ -88,22 +88,22 @@ Significato dei termini:
 - $u(t)$: termine di controllo, efficacia della prevenzione degli infortuni da parte dell'allenatore ($u=0$: nessuna prevenzione, $u=1$: prevenzione perfetta)
 - $\rho$: tasso di transizione da $I$ a $M$
 - $c_\cdot(t)$: carico della seduta al tempo $t$ (0: riposo, 1: carico massimo, $>1$: overtraining)
-- $r_\cdot\left(t, \bar{F}_\cdot(t)\right)$: recupero medio al tempo $t$, dato lo stato di fatica
+- $r(t)$: recupero medio al tempo $t$
 - $A_{\max}$: numero massimo di atleti sul tatami affinché l'allenamento sia sicuro e il rischio di collisione sia basso
 
 ## Ipotesi sui domini
 
 - $\mu: [0, 1] \longrightarrow [0, +\infty)$
-- $\nu: [0, 1] \times [0, +\infty) \longrightarrow [0, 1]$
+- $\nu: {[0, 1]}^2 \longrightarrow [0, 1]$
 - $\alpha \in [0, 1]$
-- $\beta_S, \beta_P, \beta_I, \beta_M \in [0, +\infty)$
-- $\gamma_S, \gamma_P, \gamma_M \in [0, +\infty)$
-- $\lambda: [0, +\infty)^4 \longrightarrow [0, 1]$
+- $\beta_S, \beta_P, \beta_I, \beta_M \in [0, 1]$
+- $\gamma_S, \gamma_P, \gamma_M \in [0, 1]$
+- $\lambda: [0, +\infty)^3 \times [0, 1] \longrightarrow [0, 1]$
 - $\pi \in [0, 1]$
 - $u: \{0, \dots, T\} \longrightarrow [u_{\min}, 1]$ con $0 \leq u_{\min} < 1$
 - $\rho \in [0, 1]$
 - $c_f, c_p: \{0, \dots, T\} \longrightarrow [0, +\infty)$
-- $r_f, r_p: \{0, \dots, T\} \times [0, +\infty) \longrightarrow [0, 1]$, con $r_\cdot(t, F) \leq F + c_\cdot(t)$ (il recupero non può superare la fatica presente), che garantisce $\bar{F}_\cdot \geq 0$
+- $r: \{0, \dots, T\} \longrightarrow [0, 1]$
 - $A_{\max} \in [1, +\infty)$
 
 
@@ -168,7 +168,61 @@ e analogamente per $P$ e $M$.
 - Un malconcio che si infortuna di nuovo entra in $I$ con probabilità $\pi$ e resta in $M$ con probabilità $1-\pi$.
 
 
-## Problema di controllo
+# Funzioni
+
+## Crescita
+
+$$
+    \mu(x) = \omega_\mu \exp\left(-\frac{1}{2}\left(\frac{x}{\sigma_\mu}\right)^{2}\right)
+$$
+
+Dove:
+
+- $\omega_\mu \in [0, +\infty)$
+- $\sigma_\mu \in (0, +\infty)$
+
+## Decrescita
+
+$$
+    \nu(x, \beta) = \beta \exp\left(-\frac{1}{2}\left(\frac{x - 1}{\sigma_\nu}\right)^{2}\right)
+$$
+
+Dove:
+
+- $\beta \in [0, 1]$
+- $\sigma_\nu \in (0, +\infty)$
+
+## Infortunio
+
+$$
+    \lambda\left(f_f, f_p, d, \gamma\right) = \gamma \frac{1}{1 + \exp\left(-\omega_f f_f - \omega_p f_p - \omega_d d + b\right)}
+$$
+
+Dove:
+
+- $\gamma \in [0,1]$
+- $b \in [0, +\infty)$ fattore di soglia, senza di esso anche un atleta fresco con densità del tatami tendente a zero ha un tasso di infortunio alto.
+- $\omega_f, \omega_p, \omega_d \in [0, +\infty)$
+
+Proprietà:
+
+- $\lambda \in [0, \gamma]$
+- Crescente rispetto a $f_f$, $f_p$ e $d$
+- Lineare rispetto a $\gamma$
+- Appartenente a $\mathcal{C}^{\infty}$
+
+## Recupero
+
+$$
+    r\left(t\right) = \omega_r \frac{1}{1 + \exp\left(\sigma_r t\right)}
+$$
+
+Dove:
+
+- $\omega_r \in [0, 2]$
+- $\sigma_r \in [0, +\infty)$
+
+# Problema di controllo
 
 L'obiettivo è minimizzare gli atleti infortunati o malconci (in particolare gli infortunati) mantenendo il carico di allenamento più alto possibile. Poiché sono due obiettivi in conflitto, conviene combinarli in un'unica funzione. I controlli sono $u$, $c_f$ e $c_p$:
 
@@ -182,4 +236,4 @@ Con pesi:
 
 E vincoli:
 - $u \in [u_{\min}, 1]$
-- $c_f, c_p \leq c_{\max}$
+- $c_f, c_p \leq c_{\max} \in [0, +\infty)$
