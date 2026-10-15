@@ -73,3 +73,17 @@ Le condizioni iniziali su $ \bar{F}_f(0) $ e $ \bar{F}_p(0) $ ammettono un livel
 La scelta di porre $ \bar{F}_f(0) = \bar{F}_p(0) = 0 $ non è obbligatoria, ma è conveniente per due motivi. In primo luogo, semplifica l'analisi del modello, eliminando la necessità di stimare la fatica iniziale del gruppo. In secondo luogo, rende più chiari i confronti tra scenari diversi, perché tutti partono dallo stesso stato di freschezza. Se si volesse modellare un gruppo che entra nel periodo con fatica residua, basterebbe porre $ \bar{F}_f(0) > 0 $ e/o $ \bar{F}_p(0) > 0 $, senza modificare la struttura delle equazioni. \par
 
 La scelta di porre $ S(0) \geq 0 $ e $ P(0) \geq 0 $, con $ S(0) + P(0) > 0 $, riflette il fatto che il gruppo può iniziare con una composizione arbitraria di atleti sani e con infortuni pregressi. Il modello non richiede che tutti gli atleti siano sani, né che tutti abbiano infortuni pregressi. La composizione iniziale è un parametro del modello, che può essere variato per studiare scenari diversi.
+
+\section{Funzioni}
+
+Nelle equazioni del modello sono presenti cinque funzioni, che regolano i processi di ingresso, uscita, infortunio, carico e recupero. Esse costituiscono il legame tra i parametri e la dinamica delle variabili di stato, e la loro specificazione è necessaria per poter simulare e analizzare il modello.
+
+\begin{itemize}
+    \item Funzione di crescita $\mu$: descrive il numero di nuovi atleti che entrano nel gruppo complessivo in ogni seduta. Riflette le dinamiche di iscrizione a una stagione sportiva, con ingressi tipicamente concentrati all'inizio del periodo e progressivamente decrescenti. La funzione dipende dalla frazione di tempo trascorsa e da parametri che ne controllano l'ampiezza e la forma.
+    \item Funzione di abbandono $\nu$: descrive la frazione di atleti che abbandona il gruppo in ogni seduta, per motivi diversi. Il suo profilo temporale può essere opposto a quello della funzione di crescita: gli abbandoni tendono a concentrarsi alla fine del periodo, quando l'entusiasmo iniziale si riduce o sopraggiungono altri impegni. La funzione è modulata da un moltiplicatore specifico per la popolazione a cui si applica.
+    \item Funzione di infortunio $\lambda$: descrive la probabilità che un atleta si infortuni in una seduta. Dipende dalla fatica fisica e psicologica media del gruppo, dalla densità di atleti sul tatami e da un moltiplicatore di rischio specifico per la popolazione a cui è applicata. La funzione è crescente rispetto a fatica e densità e si satura a un valore massimo.
+    \item Funzione di carico $c$: fornisce il tasso di carico di ogni seduta di allenamento per le due componenti della fatica, fisica e psicologica. Può essere costante, periodica o variabile nel tempo, e rappresenta l'entrata principale che determina l'accumulo di fatica.
+    \item Funzione di recupero $r$: descrive il tasso di smaltimento della fatica in ogni seduta. Il recupero può essere massimo all'inizio del periodo, quando gli atleti sono freschi, e decrescere nel tempo, man mano che la fatica si accumula.
+\end{itemize}
+
+Queste funzioni verranno specificate in dettaglio più avanti, dove verranno definite le loro forme analitiche, i parametri, i domini e le proprietà. Le loro interazioni determinano l'evoluzione del sistema e la composizione del gruppo nel tempo.
