@@ -6,3 +6,35 @@ Si assume che le sedute di allenamento siano distribuite circa omogeneamente nel
 Questa scelta è motivata dal fatto che gli allenamenti sono eventi discreti, separati da periodi di riposo, e che il modello intende descrivere l'evoluzione del gruppo seduta dopo seduta. L'ipotesi di distribuzione omogenea permette inoltre di trattare il tempo come una variabile regolare e di evitare la complessità aggiuntiva legata a pianificazioni irregolari, senza perdere la capacità di descrivere i fenomeni principali. \par
 
 In questa prima formulazione, il modello non include un parametro di controllo. Le funzioni che descrivono l'efficacia della prevenzione e i carichi di allenamento sono trattate come parametri esogeni, assegnati dall'esterno. Questa scelta permette di studiare il comportamento del sistema in risposta a diversi scenari di allenamento e prevenzione, senza aggiungere la complessità dell'ottimizzazione del parametro. Pertanto l'aggiunta del controllo è rinviata a una fase successiva. In questo modo è possibile analizzare separatamente due aspetti distinti: da un lato la dinamica del sistema in condizioni assegnate, dall'altro la ricerca delle condizioni ottimali.
+
+\section{Variabili}
+
+Gli atleti sono suddivisi in quattro popolazioni, che rappresentano stati diversi rispetto alla condizione fisica e alla capacità di allenarsi. La suddivisione riflette la necessità di distinguere non solo tra atleti sani e infortunati, ma anche tra diversi livelli di rischio e capacità di allenarsi. Questa distinzione è importante perché il rischio di infortunio, la capacità di partecipare all'allenamento e la dinamica di recupero non sono uniformi tra tutti gli atleti, e trattarli come un unico gruppo omogeneo comporterebbe una perdita significativa di informazione. \par
+
+Le popolazioni sono:
+\begin{itemize}
+    \item Atleti sani $S$: atleti non infortunati e senza infortuni pregressi. Si possono allenare senza limitazioni e sono considerati il gruppo di riferimento per il rischio di infortunio. La loro condizione fisica è ottimale e non presentano vulnerabilità residue legate a eventi precedenti.
+    \item Atleti con pregressi $P$: atleti che hanno avuto infortuni prima dell'inizio del periodo preso in considerazione. Pur essendo pienamente allenabili, sono considerati più a rischio rispetto ai sani, in quanto un infortunio pregresso può lasciare una vulnerabilità residua, una ridotta stabilità articolare o una minore tolleranza al carico. Questi atleti partecipano all'allenamento senza restrizioni formali, ma la loro storia clinica giustifica un trattamento differenziato nel modello del rischio.
+    \item Atleti infortunati $I$: atleti che si sono infortunati durante il periodo preso in considerazione e non si stanno allenando. Sono temporaneamente esclusi dall'attività e non contribuiscono alla densità sul tatami. La loro presenza è rilevante perché rappresenta l'esito più grave del rischio di infortunio e perché il loro recupero parziale alimenta il gruppo $M$.
+    \item Atleti ``malconci'' $M$: atleti con infortuni lievi o che sono parzialmente guariti dall'infortunio e possono continuare ad allenarsi con qualche restrizione. Partecipano all'allenamento, ma la loro condizione fisica non è ottimale e il loro rischio di incorrere in un nuovo infortunio è considerato maggiore rispetto a quello degli atleti sani. Questi atleti rappresentano una categoria intermedia: non sono abbastanza compromessi da dover sospendere l'attività, ma non sono nemmeno in condizioni ottimali.
+\end{itemize}
+
+Le popolazioni $S$, $P$, $I$, $M$ sono rappresentate come numeri reali non negativi, non come conteggi interi. Questa scelta è giustificata dal fatto che il modello è pensato per gruppi sufficientemente numerosi, per i quali le fluttuazioni sono trascurabili e l'approssimazione continua è adeguata. Inoltre, la rappresentazione continua permette di utilizzare strumenti analitici che sarebbero più complessi in un modello a conteggi interi. \par
+
+La scelta di distinguere quattro popolazioni, invece di due o tre, è motivata dalla necessità di rappresentare separatamente:
+\begin{itemize}
+    \item il rischio di infortunio, che è diverso per sani, pregressi e malconci;
+    \item la capacità di allenarsi, che distingue gli infortunati dagli altri;
+    \item il recupero parziale, che non riporta l'atleta allo stato di sano ma lo rende nuovamente allenabile.
+\end{itemize}
+
+\subsection{Accumulo di fatica}
+A queste popolazioni si aggiungono due variabili di stato che descrivono l'accumulo di fatica negli atleti:
+\begin{itemize}
+    \item Fatica fisica del gruppo $\bar{F}_f$: rappresenta il livello medio di affaticamento muscolare e articolare del gruppo che si allena. Aumenta con il carico di allenamento e diminuisce con il recupero.
+    \item Fatica psicologica del gruppo $\bar{F}_f$: rappresenta il livello medio di affaticamento mentale del gruppo che si allena. Aumenta con il carico di allenamento e con lo stress legato alla competizione, e diminuisce con il recupero.
+\end{itemize}
+
+Le due componenti della fatica sono trattate separatamente perché evolvono con dinamiche proprie e contribuiscono in modo distinto al rischio di infortunio. Un atleta può essere fisicamente fresco ma mentalmente affaticato, o viceversa. La separazione permette di modellare scenari in cui il carico fisico e quello psicologico non sono proporzionali, e di studiare l'effetto di ciascuna componente sul rischio complessivo. Inoltre, le due componenti possono avere tassi di recupero diversi, e la loro separazione permette di catturare questa differenza senza forzare una relazione di proporzionalità tra fatica fisica e psicologica. \par
+
+Le variabili $ \bar{F}_f(0) $ e $ \bar{F}_p(0) $ sono rappresentate come numeri reali non negativi. La loro evoluzione è descritta da equazioni che bilanciano il carico aggiunto in ogni seduta e il recupero nel tempo. In ogni passo $ t \to t+1 $, il gruppo accumula una quantità di fatica proporzionale al carico della seduta, e ne smaltisce una parte proporzionale al livello di fatica corrente.
