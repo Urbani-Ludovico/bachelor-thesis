@@ -52,3 +52,23 @@ L'orizzonte temporale è breve, ad esempio una settimana, un mese o una stagione
 Le popolazioni sono numeri reali, non conteggi interi. Il modello quindi è significativo e non distorto se il numero di atleti è sufficientemente numeroso. Questa ipotesi permette di utilizzare strumenti analitici continui e di evitare le complicazioni legate alla discretizzazione dei conteggi. Per gruppi piccoli, le fluttuazioni potrebbero diventare rilevanti e l'approssimazione continua potrebbe perdere accuratezza, ma per gruppi sufficientemente numerosi le dinamiche aggregate sono ben descritte dal modello continuo. \par
 
 A queste ipotesi si aggiungono quelle discusse nelle sezioni successive, riguardanti le equazioni del modello e le funzioni usate.
+
+\section{Condizioni iniziali}
+
+Le condizioni iniziali del modello sono:
+\begin{itemize}
+    \item $ S(0) \geq 0 $: il gruppo può iniziare con un numero arbitrario di atleti sani.
+    \item $ P(0) \geq 0 $: il gruppo può iniziare con un numero arbitrario di atleti con infortuni pregressi.
+    \item $ I(0) = 0 $: si assume che nessun atleta sia infortunato all'inizio del periodo considerato.
+    \item $ M(0) = 0 $: si assume che nessun atleta sia malconcio all'inizio del periodo considerato.
+    \item $ \bar{F}_f(0) \geq 0 $: la fatica fisica può essere presente all'inizio del periodo considerato, ma si preferisce considerarla nulla.
+    \item $ \bar{F}_p(0) \geq 0 $: la fatica psicologica può essere presente all'inizio del periodo considerato, ma si preferisce considerarla nulla.
+\end{itemize}
+Si deve avere però che $ I(0) + P(0) > 0 $, cioè che i gruppi non siano entrambi vuoti all'inizio del periodo. Senza atleti sani o con infortuni pregressi, il modello non avrebbe una popolazione di partenza su cui evolvere, e le equazioni perderebbero di significato. \par
+
+La scelta $ I(0) = M(0) = 0 $ è coerente con l'idea che il modello descriva un periodo di allenamento che inizia in condizioni di relativa normalità, senza infortuni in corso. Se il periodo considerato iniziasse immediatamente dopo un infortunio, o in una fase di recupero, sarebbe più appropriato porre $ I(0) > 0 $ e $ M(0) > 0 $. In questa prima formulazione si assume che il gruppo parta da una condizione di salute, e che eventuali infortuni siano il risultato dell'evoluzione del modello, non una condizione iniziale. \par
+
+Le condizioni iniziali su $ \bar{F}_f(0) $ e $ \bar{F}_p(0) $ ammettono un livello di fatica non nullo all'inizio, ma si preferisce considerarlo nullo. In questo modo si suppone che il gruppo parta da uno stato di freschezza, eventualmente dopo un periodo di riposo o all'inizio della stagione. Questa scelta semplifica il problema di dover calcolare il livello di fatica medio prima dell'arrivo, e riflette l'ipotesi che il periodo considerato inizi dopo una fase di recupero sufficiente a smaltire la fatica accumulata in precedenza. Condizioni iniziali diverse possono essere considerate per modellare scenari in cui il gruppo entra nel periodo di allenamento con fatica residua, ma in questa prima formulazione si assume che la fatica iniziale sia nulla. \\
+La scelta di porre $ \bar{F}_f(0) = \bar{F}_p(0) = 0 $ non è obbligatoria, ma è conveniente per due motivi. In primo luogo, semplifica l'analisi del modello, eliminando la necessità di stimare la fatica iniziale del gruppo. In secondo luogo, rende più chiari i confronti tra scenari diversi, perché tutti partono dallo stesso stato di freschezza. Se si volesse modellare un gruppo che entra nel periodo con fatica residua, basterebbe porre $ \bar{F}_f(0) > 0 $ e/o $ \bar{F}_p(0) > 0 $, senza modificare la struttura delle equazioni. \par
+
+La scelta di porre $ S(0) \geq 0 $ e $ P(0) \geq 0 $, con $ S(0) + P(0) > 0 $, riflette il fatto che il gruppo può iniziare con una composizione arbitraria di atleti sani e con infortuni pregressi. Il modello non richiede che tutti gli atleti siano sani, né che tutti abbiano infortuni pregressi. La composizione iniziale è un parametro del modello, che può essere variato per studiare scenari diversi.
