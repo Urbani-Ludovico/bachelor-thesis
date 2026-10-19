@@ -45,3 +45,44 @@ La densità è calcolata come:
 perché gli atleti in $I$ non si allenano e non contribuiscono alla concentrazione sul tatami. \par
 
 Gli atleti che si infortunano escono da $S$ ed entrano in $I$ o $M$, a seconda che l'infortunio sia grave (con probabilità $\pi$) o meno grave (con probabilità $1-\pi$). Questa transizione è descritta nelle equazioni di $I$ e $M$. Il fatto che il flusso di infortunio sia proporzionale a $S(t)$ riflette l'ipotesi che ogni atleta sano abbia la stessa probabilità di infortunarsi, indipendentemente dagli altri. La probabilità è modulata dalla fatica media del gruppo, che riflette lo stato complessivo degli atleti che si allenano, e dalla densità, che riflette la concentrazione di atleti sul tatami.
+
+\section{Equazione di P}
+
+La popolazione $P$ descrive l'evoluzione degli atleti con infortuni pregressi, cioè coloro che hanno avuto infortuni prima dell'inizio del periodo considerato e che, pur essendo pienamente allenabili, sono considerati più a rischio rispetto agli atleti sani. La dinamica è descritta dall'equazione:
+\begin{align*}
+    P(t+1) &= P(t) \\
+        &+ (1 - \alpha) \mu\left(\frac{t}{T}\right) \\
+        &- \nu\left(\frac{t}{T}, \beta_P\right) P(t) \\
+        &- \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) P(t)
+\end{align*}
+
+L'equazione ha la stessa struttura dell'equazione di $S$: la popolazione al passo successivo è uguale alla popolazione corrente, più i flussi in ingresso, meno i flussi in uscita. Nel caso di $P$, i flussi sono tre: un ingresso, un'uscita per abbandono e un'uscita per infortunio. La differenza rispetto a $S$ sta nei parametri e nel tipo di atleti che il compartimento raccoglie.
+
+\paragraph{Flusso di ingresso}
+Il termine:
+\[
+    (1 - \alpha) \mu\left(\frac{t}{T}\right)
+\]
+rappresenta il flusso di nuovi atleti che entrano nel gruppo e hanno infortuni pregressi. La funzione $\mu$ descrive il numero complessivo di nuovi ingressi alla frazione di tempo $ \frac{t}{T} $, come nell'equazione di $S$. \\
+Come già descritto in $S$, la frazione $ 1 - \alpha \in [0, 1] $ rappresenta la quantità di atleti nuovi che ha infortuni pregressi. La somma dei due flussi di ingresso è $ \alpha \mu + (1 - \alpha) \mu = \mu $, coerentemente con il fatto che tutti i nuovi ingressi sono distribuiti tra $S$ e $P$.
+
+\paragraph{Flusso di abbandono}
+Il termine:
+\[
+    \nu\left(\frac{t}{T}, \beta_P\right) P(t)
+\]
+rappresenta il flusso di atleti con infortuni pregressi che abbandonano il gruppo. Come già detto, la funzione $\nu$ è il tasso di abbandono pro capite, questa volta modulato dal parametro $\beta_P$ specifico della popolazione $P$. \\
+Anche qua, gli abbandoni sono dovuti a motivi diversi dall'infortunio: trasferimenti, perdita di interesse, impegni personali, cambi di attività, partenze anticipate, e così via. Il profilo temporale di $\nu$ può essere lo stesso di quello usato per $S$, ma il parametro $\beta_P$ permette di differenziare il tasso di abbandono tra i due compartimenti. \par
+
+La scelta di introdurre un parametro $\beta_P$ distinto da $\beta_S$ riflette il fatto che gli atleti con infortuni pregressi possono avere un comportamento di abbandono diverso rispetto agli atleti sani. Ad esempio, un atleta con un infortunio pregresso potrebbe essere più propenso ad abbandonare se il carico di allenamento è elevato. Il parametro $\beta_P$ permette di catturare queste differenze senza modificare la forma della funzione $\nu$.
+
+\paragraph{Flusso di infortunio}
+Il termine:
+\[
+    \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) P(t)
+\]
+rappresenta il flusso di atleti con infortuni pregressi che si infortunano durante la seduta. Anche qua la funzione $\lambda$ descrive la probabilità di infortunio. \\
+La differenza rispetto a $S$ sta nel moltiplicatore di rischio $\gamma_P$. Gli atleti con infortuni pregressi sono considerati più a rischio rispetto agli atleti sani, in quanto un infortunio pregresso può lasciare una vulnerabilità residua, una ridotta stabilità articolare o una minore tolleranza al carico. Questo si riflette nell'ipotesi di lavoro $\gamma_S \leq \gamma_P$, che sarà discussa nelle ipotesi del modello. Quindi il parametro $\gamma_S$ permette di calibrare il rischio aggiuntivo associato agli infortuni pregressi. \par
+
+Come per $S$, gli atleti che si infortunano escono da $P$ ed entrano in $I$ o $M$, a seconda che l'infortunio sia grave o meno grave. Questa transizione è descritta nelle equazioni di $I$ e $M$. Il fatto che il flusso di infortunio sia proporzionale a $P(t)$ riflette l'ipotesi che ogni atleta con infortunio pregresso abbia la stessa probabilità di infortunarsi, indipendentemente dagli altri. La probabilità è modulata dalla fatica media del gruppo e dalla densità, come per $S$.
+
