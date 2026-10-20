@@ -209,7 +209,12 @@ La funzione $r(t)$ può essere costante, periodica o variabile nel tempo. Un pro
 
 \section{Modello completo}
 
-Le equazioni presentate nelle sezioni precedenti descrivono separatamente l'evoluzione delle quattro popolazioni e delle due componenti della fatica. In questa sezione le raccogliamo in un unico sistema, che costituisce il modello completo nella sua forma senza controllo.
+Le equazioni spiegate nelle sezioni precedenti descrivono separatamente l'evoluzione delle quattro popolazioni e delle due componenti della fatica. In questa sezione le raccogliamo in un unico sistema, che costituisce il modello completo nella sua forma senza controllo. \par
+
+Il sistema completo è composto da sei equazioni alle differenze, quattro per le popolazioni e due per le componenti della fatica. Le equazioni delle popolazioni hanno tutte la stessa struttura, cioè la popolazione al passo successivo è uguale alla popolazione corrente, più i flussi in ingresso, meno i flussi in uscita. Le equazioni della fatica hanno una struttura analoga, in cui la fatica al passo successivo è uguale alla fatica corrente, più il carico della seduta, meno la parte di fatica smaltita dal recupero. La somiglianza strutturale tra le equazioni non è casuale, ma riflette il fatto che tutti i processi modellati sono processi di accumulo e smaltimento, in cui una grandezza varia in risposta a flussi in ingresso e in uscita. \par
+
+Nelle sottosezioni che seguono presentiamo il sistema nella sua forma estesa, in cui ogni termine è scritto esplicitamente, e nella sua forma compatta, in cui le funzioni valutate al tempo $t$ sono raccolte in simboli ausiliari. Presentiamo inoltre la struttura dei flussi tra popolazioni, il vincolo di conservazione della popolazione totale e le principali interdipendenze tra le variabili di stato. Questi elementi costituiscono la base per l'analisi del modello e per la discussione dei risultati nelle sezioni successive.
+
 \begin{equation*}
     \left\lbrace\begin{aligned}
         S(t+1) &= S(t)
