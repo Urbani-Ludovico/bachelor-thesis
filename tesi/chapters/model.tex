@@ -380,3 +380,33 @@ I flussi tra le quattro popolazioni, può essere visualizzato con il diagramma i
     \end{tikzpicture}
     \caption{Diagramma dei flussi}\label{fig:flussi}
 \end{figure}
+
+\section{Domini dei parametri e delle funzioni}
+
+In questa sezione vengono riportati i domini di tutti i parametri e le funzioni del modello. Per ciascuno indichiamo il simbolo, il dominio e un breve commento che ne spiega il ruolo e le limitazioni. I parametri che saranno specificati nelle funzioni di esempio non sono inclusi.
+
+\begin{itemize}
+    \item $\alpha \in [0, 1]$ \\
+        Rappresenta la frazione di nuovi ingressi che è sana.La restante frazione $1-\alpha$ entra nella popolazione $P$. Il valore $\alpha = 0$ corrisponde al caso in cui tutti i nuovi ingressi hanno infortuni pregressi, mentre $\alpha = 1$ corrisponde al caso in cui tutti i nuovi ingressi sono sani.
+    \item $\beta_S, \beta_P, \beta_I, \beta_M \in [0, 1]$ \\
+        Sono i moltiplicatori di abbandono per ciascuna popolazione e modulano il tasso di abbandono nella funzione $\nu$. Se $\beta_\cdot = 0$ l'impatto dell'abbandono su quella popolazione è nullo, mentre se $\beta_\cdot = 1$ è massimo.
+    \item $\gamma_S, \gamma_P, \gamma_M \in [0, 1]$ \\
+        Sono i moltiplicatori di rischio nella funzione di infortunio e modulano la probabilità che un atleta si infortuni. Se $\gamma_\cdot = 0$ l'impatto dell'infortunio su quella popolazione è nullo, mentre se $\gamma_\cdot = 1$ è massimo. \\
+        Si assume $\gamma_S \leq \gamma_P \leq \gamma_M$, a riflettere il fatto che gli atleti con infortuni pregressi o in corso sono considerati più a rischio rispetto agli atleti sani.
+    \item $\pi \in [0, 1]$ \\
+        Rappresenta la probabilità che un infortunio sia grave e porti l'atleta in $I$. La probabilità che sia lieve e porti l'atleta in $M$ è $1-\pi$. Il valore $\pi = 0$ corrisponde al caso in cui tutti gli infortuni sono lievi, mentre $\pi = 1$ corrisponde al caso in cui tutti gli infortuni sono gravi.
+    \item $\rho \in [0, 1]$ \\
+        Rappresenta il tasso di transizione da $I$ a $M$, cioè la frazione di atleti infortunati che, per unità di tempo, torna allenabile con qualche restrizione. Il valore $\rho = 0$ corrisponde a nessun recupero, mentre $\rho = 1$ corrisponde a recupero totale in un passo.
+    \item $A_{\max} \in \mathbb{R}_{>0}$ \\
+        Rappresenta la scala di riferimento per la densità sul tatami, cioè il numero massimo di atleti per cui l'allenamento è considerato sicuro. La densità può superare $1$, ma il rischio diventa molto alto. Il valore $A_{\max} = 1$ corrisponde al caso in cui un solo atleta satura il tatami, mentre valori più grandi corrispondono a tatami più capienti.
+    \item $\mu : [0, 1] \longrightarrow \mathbb{R}_{\geq 0}$ \\
+        È la funzione di crescita, non negativa, continua e limitata. Rappresenta il numero complessivo di nuovi ingressi alla frazione di tempo $\frac{t}{T}$ e riflette le dinamiche di iscrizione a una stagione sportiva. Si assume che $\mu$ sia approssimativamente decrescente, a riflettere il fatto che gli ingressi tendono a concentrarsi all'inizio del periodo.
+    \item $\nu : {[0, 1]}^2 \longrightarrow [0, 1]$ \\
+        È la funzione di abbandono, non negativa, continua e limitata. Rappresenta la frazione di atleti che abbandona il gruppo in ogni seduta, modulata dal parametro $\beta_\cdot$. Si assume che $\nu$ sia approssimativamente crescente, a riflettere il fatto che gli abbandoni tendono a concentrarsi alla fine del periodo.
+    \item $\lambda : \mathbb{R}_{\geq 0}^2 \times \mathbb{R}_{>0} \times [0, 1] \longrightarrow [0, \gamma_\cdot]$ \\
+        È la funzione di infortunio, non negativa, continua, limitata e crescente rispetto agli argomenti. Rappresenta la probabilità che un atleta si infortuni in una seduta e si satura a un valore massimo controllato da $\gamma_\cdot \in [0, 1]$. Il limite superiore $\lambda \leq \gamma_\cdot$ garantisce che la probabilità di infortunio non superi il moltiplicatore di rischio.
+    \item $c_f, c_p : \{0, 1, \dots, T\} \longrightarrow \mathbb{R}_{\geq 0}$ \\
+        Sono le funzioni di carico fisico e psicologico della seduta, non negative. Rappresentano la quantità di fatica aggiunta in ogni seduta e possono essere costanti, periodiche o variabili nel tempo. Non hanno limite superiore esplicito, ma nella pratica sono limitate dal carico massimo che un atleta può sostenere.
+    \item $r : \{0, 1, \dots, T\} \longrightarrow [0, 1]$ \\
+        È la funzione di recupero, non negativa e limitata. Rappresenta il tasso di smaltimento della fatica in ogni seduta. Il limite superiore $r \leq 1$ garantisce che la fatica non possa essere smaltita più di quanto sia stata accumulata.
+\end{itemize}
