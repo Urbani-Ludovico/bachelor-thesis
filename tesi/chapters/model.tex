@@ -126,6 +126,50 @@ Il termine:
 \]
 rappresenta il flusso di atleti infortunati che abbandonano il gruppo. La funzione $\nu$ è il tasso di abbandono pro capite, modulato dal parametro $\beta_I$ specifico della popolazione $I$. In questo caso, gli abbandoni sono dovuti principalmente all'incapacità di continuare gli allenamenti a causa dell'infortunio, oltre ai motivi già elencati per gli altri compartimenti. La scelta di introdurre un parametro $\beta_I$ distinto dagli altri riflette il fatto che gli atleti infortunati possono avere un comportamento di abbandono diverso rispetto agli altri: un atleta con un infortunio grave potrebbe essere più propenso ad abbandonare. Generalmente si suppone che $\beta_I$ sia superiore agli altri $\beta_\cdot$.
 
+\section{Equazione di M}
+
+La popolazione $M$ descrive l'evoluzione degli atleti ``malconci'', cioè coloro che hanno infortuni lievi o che sono parzialmente guariti da un infortunio e possono continuare ad allenarsi con qualche restrizione. Questi atleti partecipano all'allenamento, ma la loro condizione fisica non è ottimale e il loro rischio di incorrere in un nuovo infortunio è considerato maggiore rispetto a quello degli atleti sani. La dinamica è descritta dalla seguente equazione:
+\begin{align*}
+    M(t+1) &= M(t) \\
+        &+ (1 - \pi) \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t) \\
+        &+ (1 - \pi) \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) P(t) \\
+        &- \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_M\right) M(t) \\
+        &+ \rho I(t) \\
+        &- \nu\left(\frac{t}{T}, \beta_M\right) M(t)
+\end{align*}
+L'equazione ha la stessa struttura delle equazioni di $S$, $P$ e $I$: la popolazione al passo successivo è uguale alla popolazione corrente, più i flussi in ingresso, meno i flussi in uscita. Nel caso di $M$, i flussi in ingresso sono tre (infortuni lievi da $S$, infortuni lievi da $P$ e recupero parziale da $I$), mentre i flussi in uscita sono due (infortunio grave e abbandono). La differenza principale rispetto a $S$ e $P$ sta nel fatto che $M$ non ha ingressi diretti dalla popolazione esterna: nessun atleta entra in $M$ se non perché si è infortunato lievemente o perché è parzialmente guarito da un infortunio grave.
+
+\paragraph{Flussi di ingresso da infortunio lieve}
+I termini
+\begin{gather*}
+    (1 - \pi) \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t) \\
+    (1 - \pi) \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) P(t)
+\end{gather*}
+rappresentano i flussi di atleti sani e con infortuni pregressi che si infortunano lievemente durante la seduta e passano in $M$. La funzione $\lambda$ descrive la probabilità di infortunio, come nelle equazioni di $S$ e $P$, e il fattore $1 - \pi$, come già spiegato, rappresenta la probabilità che l'infortunio sia lieve invece che grave.
+
+\paragraph{Flusso di recupero da I}
+Il termine
+\[
+    \rho I(t)
+\]
+rappresenta il flusso di atleti infortunati che guariscono parzialmente e passano da $I$ a $M$. Questo termine è già stato descritto nell'equazione di $I$, dove appare con segno negativo. In $M$ appare con segno positivo, perché rappresenta un ingresso. Il parametro $\rho \in [0,1]$ è il tasso di transizione da $I$ a $M$: rappresenta la frazione di atleti infortunati che, per unità di tempo, torna allenabile con qualche restrizione.
+
+\paragraph{Flusso di uscita per infortunio grave}
+Il termine
+\[
+    \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_M\right) M(t)
+\]
+rappresenta il flusso di atleti malconci che si infortunano gravemente durante la seduta e passano in $I$. La funzione $\lambda$ descrive la probabilità di infortunio, modulata dal moltiplicatore di rischio $\gamma_M$ specifico della popolazione $M$. Il fattore $\pi$ rappresenta la probabilità che l'infortunio sia grave. Il fatto che il flusso di uscita sia proporzionale a $\pi$ riflette il fatto che solo gli infortuni gravi portano l'atleta fuori da $M$: gli infortuni lievi, invece, lasciano l'atleta in $M$, perché la sua condizione resta quella di malconcio. \par
+
+La differenza rispetto a $S$ e $P$ sta nel moltiplicatore di rischio $\gamma_M$. Gli atleti malconci sono considerati più a rischio rispetto agli atleti sani e, in genere, anche rispetto agli atleti con infortuni pregressi, perché la loro condizione fisica non è ottimale e possono essere più vulnerabili a nuovi infortuni. Questo si riflette nell'ipotesi di lavoro $\gamma_S \leq \gamma_P \leq \gamma_M$, che sarà discussa nelle ipotesi del modello. Il parametro $\gamma_M$ permette quindi di calibrare il rischio aggiuntivo associato alla condizione di malconcio.
+
+\paragraph{Flusso di abbandono}
+Il termine
+\[
+    \nu\left(\frac{t}{T}, \beta_M\right) M(t)
+\]
+rappresenta il flusso di atleti malconci che abbandonano il gruppo. La funzione $\nu$ è il tasso di abbandono pro capite, modulato dal parametro $\beta_M$ specifico della popolazione $M$.  Il parametro $\beta_M$ permette di differenziare il tasso di abbandono dei malconci rispetto a quello degli altri compartimenti: un atleta malconcio potrebbe essere più propenso ad abbandonare se la condizione di disagio persiste.
+
 \section{Equazioni per l'accumulo della fatica}
 
 Le variabili $\bar{F}_f$ e $\bar{F}_p$ descrivono, rispettivamente, l'evoluzione della fatica fisica e psicologica media del gruppo che si allena, cioè degli atleti in $S$, $P$ e $M$. La dinamica delle due componenti è descritta dalle seguenti equazioni:
