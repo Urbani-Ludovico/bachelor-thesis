@@ -381,7 +381,7 @@ I flussi tra le quattro popolazioni, può essere visualizzato con il diagramma i
     \caption{Diagramma dei flussi}\label{fig:flussi}
 \end{figure}
 
-\section{Domini dei parametri e delle funzioni}
+\subsection{Domini dei parametri e delle funzioni}
 
 In questa sezione vengono riportati i domini di tutti i parametri e le funzioni del modello. Per ciascuno indichiamo il simbolo, il dominio e un breve commento che ne spiega il ruolo e le limitazioni. I parametri che saranno specificati nelle funzioni di esempio non sono inclusi.
 
@@ -410,3 +410,45 @@ In questa sezione vengono riportati i domini di tutti i parametri e le funzioni 
     \item $r : \{0, 1, \dots, T\} \longrightarrow [0, 1]$ \\
         È la funzione di recupero, non negativa e limitata. Rappresenta il tasso di smaltimento della fatica in ogni seduta. Il limite superiore $r \leq 1$ garantisce che la fatica non possa essere smaltita più di quanto sia stata accumulata.
 \end{itemize}
+
+\subsection{Vincoli di integrità}
+
+In questa sottosezione vengono riportati i vincoli di integrità del modello. Per ciascuno indichiamo la formulazione, il ruolo e le condizioni che esso impone. I vincoli di integrità garantiscono che le variabili di stato rimangano non negative, che le uscite da ciascuna popolazione non superino il contenuto della popolazione stessa e che le transizioni tra popolazioni siano conservative. Essi costituiscono le condizioni minime affinché il modello sia ben posto e le sue soluzioni abbiano significato fisico. \par
+
+Per ogni $t \in \{0, 1, \dots, T\}$ si deve avere che le popolazioni e le funzioni di fatica non diventino negative. Poiché le popolazioni evolvono secondo equazioni in cui compaiono tassi di uscita, la condizione di non negatività si traduce in un vincolo sul tasso di uscita complessivo da ciascuna popolazione. In particolare, il tasso di uscita non deve superare $1$, altrimenti la popolazione corrispondente diventerebbe negativa al passo successivo. I vincoli sono:
+\begin{itemize}
+    \item Vincolo per la non negatività di $S$:
+        \[
+            \nu\left(\frac{t}{T}, \beta_S\right) + \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) \leq 1
+        \]
+    \item Vincolo per la non negatività di $P$:
+        \[
+            \nu\left(\frac{t}{T}, \beta_P\right) + \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) \leq 1
+        \]
+    \item Vincolo per la non negatività di $I$:
+        \[
+            \rho + \nu\left(\frac{t}{T}, \beta_I\right) \leq 1
+        \]
+    \item Vincolo per la non negatività di $M$:
+        \[
+            \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_M\right) + \nu\left(\frac{t}{T}, \beta_M\right) \leq 1
+        \]
+    \item Vincolo per la non negatività di $\bar{F}_f$ e $\bar{F}_p$:
+        \[
+            r(t) \leq 1
+        \]
+\end{itemize}
+
+A questi vincoli si aggiunge il vincolo di conservazione della popolazione totale. Detta:
+\[
+    N(t) = S(t) + P(t) + I(t) + M(t)
+\]
+la popolazione totale al tempo $t$, si richiede che l'evoluzione di $N(t)$ sia descritta da:
+\begin{align*}
+    N(t+1) &= N(t) + \mu\left(\frac{t}{T}\right) \\
+        &- \nu\left(\frac{t}{T}, \beta_S\right) S(t) \\
+        &- \nu\left(\frac{t}{T}, \beta_P\right) P(t) \\
+        &- \nu\left(\frac{t}{T}, \beta_I\right) I(t) \\
+        &- \nu\left(\frac{t}{T}, \beta_M\right) M(t).
+\end{align*}
+Il vincolo garantisce che la popolazione totale cambi solo per effetto degli ingressi e degli abbandoni, e che le transizioni interne tra popolazioni siano conservative. Se il vincolo fosse violato, ci sarebbe una perdita o una creazione di atleti non giustificata dal modello. La conservazione è una conseguenza diretta della struttura delle equazioni delle popolazioni, in cui ogni transizione interna compare con segno opposto in due popolazioni diverse.
