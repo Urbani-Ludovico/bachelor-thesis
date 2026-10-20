@@ -86,3 +86,43 @@ La differenza rispetto a $S$ sta nel moltiplicatore di rischio $\gamma_P$. Gli a
 
 Come per $S$, gli atleti che si infortunano escono da $P$ ed entrano in $I$ o $M$, a seconda che l'infortunio sia grave o meno grave. Questa transizione è descritta nelle equazioni di $I$ e $M$. Il fatto che il flusso di infortunio sia proporzionale a $P(t)$ riflette l'ipotesi che ogni atleta con infortunio pregresso abbia la stessa probabilità di infortunarsi, indipendentemente dagli altri. La probabilità è modulata dalla fatica media del gruppo e dalla densità, come per $S$.
 
+\section{Equazione di I}
+
+La popolazione $I$ descrive l'evoluzione degli atleti infortunati, cioè coloro che si sono infortunati durante il periodo considerato e non si stanno allenando. Questi atleti sono temporaneamente esclusi dall'attività e non contribuiscono alla densità sul tatami. La dinamica è descritta dalla seguente equazione:
+\begin{align*}
+    I(t+1) &= I(t) \\
+        &+ \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t) \\
+        &+ \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) P(t) \\
+        &+ \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_M\right) M(t) \\
+        &- \rho I(t) \\
+        &- \nu\left(\frac{t}{T}, \beta_I\right) I(t)
+\end{align*}
+L'equazioni ha la stessa struttura delle equazioni di $S$, $P$, $M$: la popolazione al passo successivo è uguale alla popolazione corrente, più i flussi in ingresso, meno i flussi in uscita. Nel caso di $I$, i flussi in ingresso sono tre (uno da ciascuno degli altri compartimenti), mentre i flussi in uscita sono due: il recupero parziale e l'abbandono.
+
+\paragraph{Flussi di ingresso}
+I termini:
+\begin{gather*}
+    \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t) \\
+    \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) P(t) \\
+    \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_M\right) M(t)
+\end{gather*}
+rappresentano i flussi di atleti che si infortunano gravemente e provengono rispettivamente da $S$, $P$ e $M$. In tutti e tre i casi la funzione $\lambda$ rappresenta la probabilità di infortunio relativa alla popolazione specificata (per $M$ verrà definita in seguito). \par
+
+Il fattore $ \pi \in [0,1] $ rappresenta la probabilità che un infortunio sia grave. Quando un atleta si infortuna, indipendentemente dal compartimento di provenienza, l'infortunio è grave con probabilità $\pi$ e lieve con probabilità $1-\pi$. Solo gli infortuni gravi portano l'atleta in $I$; gli infortuni lievi portano l'atleta in $M$, come descritto nella relativa equazione. La somma dei flussi in ingresso a $I$ e dei flussi in ingresso a $M$ è uguale al flusso totale di infortuni, coerentemente con il fatto che ogni infortunio è classificato come grave o lieve.
+
+\paragraph{Flusso di recupero}
+Il termine:
+\[
+    \rho I(t)
+\]
+rappresenta il flusso di atleti infortunati che guariscono parzialmente e passano alla popolazione $M$. Il parametro $ \rho \in [0,1] $ è il tasso di transizione da $I$ a $M$: rappresenta la frazione di atleti infortunati che, per unità di tempo, torna allenabile con qualche restrizione. \par
+
+La scelta di modellare il recupero come transizione $ I \to M $, invece che come ritorno diretto a $P$, riflette l'ipotesi che l'orizzonte temporale sia breve e che non ci sia abbastanza tempo per un recupero completo. Un atleta che si infortuna gravemente ha bisogno di un periodo di riposo e riabilitazione, seguito da un periodo di reinserimento graduale. Il passaggio a $M$ rappresenta questo reinserimento: l'atleta non è ancora pienamente guarito, ma può ricominciare ad allenarsi con qualche restrizione.
+
+\paragraph{Flusso di abbandono}
+Il termine:
+\[
+    \nu\left(\frac{t}{T}, \beta_I\right) I(t)
+\]
+rappresenta il flusso di atleti infortunati che abbandonano il gruppo. Anche qua la funzione $\lambda$ descrive la probabilità di infortunio, modulata dal parametro $\beta_I$. \\
+In questo caso, gli infortuni, oltre ai casi già elencati, sono dovuti principalmente all'incapacità di poter continuare gli allenamenti a causa dell'infortunio.
