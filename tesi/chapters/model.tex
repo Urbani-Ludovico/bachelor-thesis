@@ -37,7 +37,7 @@ Il fatto che $\nu$ dipenda dal tempo e non dallo stato riflette l'ipotesi che gl
 \paragraph{Flusso di infortunio}
 Il termine
 \[
-    \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t) 
+    \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t)
 \]
 rappresenta il flusso di atleti sani che si infortunano durante la seduta. La funzione $\lambda$ descrive la probabilità di infortunio, che dipende dalla fatica fisica e psicologica media del gruppo, dalla densità sul tatami e dal moltiplicatore di rischio $\gamma_S$, specifico della popolazione $S$. La densità è calcolata come
 \[
@@ -207,5 +207,74 @@ La scelta di modellare il recupero come tasso pro capite, invece che come flusso
 
 La funzione $r(t)$ può essere costante, periodica o variabile nel tempo. Un profilo tipico è decrescente, dato che il recupero è massimo all'inizio del periodo, quando gli atleti sono freschi, e decresce nel tempo, man mano che la fatica si accumula. Questo riflette il fatto che, più il tempo passa e il corpo continua ad accumulare fatica, più tempo gli ci vorrà per smaltirla. Un profilo alternativo è periodico, con oscillazioni legate ai cicli di allenamento e riposo. La scelta del profilo di $r(t)$ dipende dal contesto e dai dati disponibili, e in questa prima formulazione si assume che $r(t)$ sia una funzione nota del tempo, da specificare nel capitolo dedicato alle funzioni.
 
+\section{Modello completo}
 
-
+Le equazioni presentate nelle sezioni precedenti descrivono separatamente l'evoluzione delle quattro popolazioni e delle due componenti della fatica. In questa sezione le raccogliamo in un unico sistema, che costituisce il modello completo nella sua forma senza controllo.
+\begin{equation*}
+    \left\lbrace\begin{aligned}
+        S(t+1) &= S(t)
+            + \alpha \mu\left(\frac{t}{T}\right)
+            - \nu\left(\frac{t}{T}, \beta_S\right) S(t) \\
+            &- \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t) \\[10pt]
+        P(t+1) &= P(t)
+            + (1 - \alpha) \mu\left(\frac{t}{T}\right)
+            - \nu\left(\frac{t}{T}, \beta_P\right) P(t) \\
+            &- \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) P(t) \\[10pt]
+        I(t+1) &= I(t) 
+            - \rho I(t)
+            - \nu\left(\frac{t}{T}, \beta_I\right) I(t) \\
+            &+ \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t) \\
+            &+ \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) P(t) \\
+            &+ \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_M\right) M(t) \\[10pt]
+        M(t+1) &= M(t)
+            + \rho I(t)
+            - \nu\left(\frac{t}{T}, \beta_M\right) M(t) \\
+            &+ (1 - \pi) \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t) \\
+            &+ (1 - \pi) \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) P(t) \\
+            &- \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_M\right) M(t) \\[10pt]
+        \bar{F}_f(t+1) &= \bar{F}_f(t)
+            + c_f(t)
+            - r(t) \bar{F}_f(t) \\[10pt]
+        \bar{F}_p(t+1) &= \bar{F}_p(t)
+            + c_p(t)
+            - r(t) \bar{F}_p(t)
+    \end{aligned}\right.
+\end{equation*}
+Se definiamo le seguenti abbreviazioni:
+\begin{gather*}
+    \tilde\mu(t) = \mu\left(\frac{t}{T}\right) \\
+    \tilde\nu_\cdot(t) = \nu\left(\frac{t}{T}, \beta_\cdot\right) \\
+    \tilde\lambda_\cdot = \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_\cdot\right)
+\end{gather*}
+possiamo riscrivere il sistema nella forma compatta:
+\begin{equation*}
+    \left\lbrace\begin{aligned}
+        S(t+1) &= S(t)
+            + \alpha \tilde\mu(t)
+            - \tilde\nu_S(t) S(t)
+            - \tilde\lambda_S S(t) \\[10pt]
+        P(t+1) &= P(t)
+            + (1 - \alpha) \tilde\mu(t)
+            - \tilde\nu_P(t) P(t)
+            - \tilde\lambda_P P(t) \\[10pt]
+        I(t+1) &= I(t) 
+            - \rho I(t)
+            - \tilde\nu_I(t) I(t) \\
+            &+ \pi \tilde\lambda_S S(t)
+            + \pi \tilde\lambda_P P(t)
+            + \pi \tilde\lambda_M M(t) \\[10pt]
+        M(t+1) &= M(t)
+            + \rho I(t)
+            - \tilde\nu_M(t) M(t) \\
+            &+ (1 - \pi) \tilde\lambda_S S(t)
+            + (1 - \pi) \tilde\lambda_P P(t)
+            - \pi \tilde\lambda_M M(t) \\[10pt]
+        \bar{F}_f(t+1) &= \bar{F}_f(t)
+            + c_f(t)
+            - r(t) \bar{F}_f(t) \\[10pt]
+        \bar{F}_p(t+1) &= \bar{F}_p(t)
+            + c_p(t)
+            - r(t) \bar{F}_p(t)
+    \end{aligned}\right.
+\end{equation*}
+La scrittura compatta del sistema permette di avere una visione d'insieme e di identificare le interdipendenze tra le variabili di stato. La forma estesa è utile per identificare il ruolo di ciascun termine, mentre la forma compatta è più adatta all'analisi e alla simulazione.
