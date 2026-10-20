@@ -126,3 +126,36 @@ Il termine:
 \]
 rappresenta il flusso di atleti infortunati che abbandonano il gruppo. Anche qua la funzione $\lambda$ descrive la probabilità di infortunio, modulata dal parametro $\beta_I$. \\
 In questo caso, gli infortuni, oltre ai casi già elencati, sono dovuti principalmente all'incapacità di poter continuare gli allenamenti a causa dell'infortunio.
+
+\section{Equazioni per l'accumulo della fatica}
+Le variabili $\bar{F}_f$ e $\bar{F}_p$ descrivono l'evoluzione della fatica fisica e psicologica media del gruppo. La dinamica delle due componenti è descritta dalle seguenti equazioni:
+\begin{align*}
+    \bar{F}_f(t+1) &= \bar{F}_f(t)
+        + c_f(t)
+        - r(t) \bar{F}_f(t) \\[5pt]
+    \bar{F}_p(t+1) &= \bar{F}_p(t)
+        + c_p(t)
+        - r(t) \bar{F}_p(t)
+\end{align*}
+Le due equazioni hanno la stessa struttura: la fatica al passo successivo è uguale alla fatica corrente, più il carico della seduta, meno la parte di fatica smaltita dal recupero. La differenza tra le due componenti sta nel carico ($c_f$ per la fatica fisica, $c_p$ per quella psicologica) e nei valori iniziali. La struttura è identica per le due componenti, e questo permette di trattarle in modo uniforme nell'analisi del modello.
+
+\paragraph{Carico della seduta}
+Il termine $c_f(t)$ rappresenta il carico fisico della seduta al tempo $t$, mentre $c_p(t)$ rappresenta il carico psicologico. Le due funzioni sono parametri esogeni, assegnati dall'esterno, e possono essere costanti, periodiche o variabili nel tempo. Il carico rappresenta la quantità di fatica aggiunta in una singola seduta: non è un tasso, ma un flusso assoluto. Ogni seduta aggiunge $c_f(t)$ alla fatica fisica e $c_p(t)$ alla fatica psicologica, indipendentemente dal livello di fatica corrente. \par
+
+La scelta di modellare il carico come flusso assoluto, invece che come tasso pro capite, riflette il fatto che il carico di una seduta è determinato dall'allenamento programmato, non dallo stato di affaticamento dell'atleta. Se il carico fosse proporzionale alla fatica corrente, un atleta molto affaticato riceverebbe un carico maggiore, il che è irrealistico: in genere, l'allenatore riduce il carico quando gli atleti sono affaticati, oppure lo mantiene costante indipendentemente dalla fatica. La scelta di un flusso assoluto permette di catturare questa indipendenza. \par
+
+La separazione tra carico fisico e psicologico riflette il fatto che le due componenti possono essere influenzate da fattori diversi. Una seduta di randori intenso produce un carico fisico elevato ma può essere psicologicamente leggera, se l'atleta è motivato e si diverte. Al contrario, una lezione di tecnica o tattica può essere fisicamente moderata ma psicologicamente pesante, per la richiesta di concentrazione. La separazione permette di modellare scenari in cui le due componenti non sono proporzionali, e di studiare l'effetto di ciascuna sul rischio di infortunio.
+
+\paragraph{Funzione di recupero}
+I termini:
+\begin{gather*}
+    r(t) \bar{F}_f(t) \\
+    r(t) \bar{F}_p(t)
+\end{gather*}
+rappresentano rispettivamente la quantità di fatica fisica e psicologica smaltita dal recupero al tempo $t$. \\
+La funzione $r(t)$ è il tasso di recupero percentuale, compreso tra $0$ e $1$. Un valore $r=0$ indica nessun recupero, un valore $r=1$ indica recupero totale in un passo. Il recupero è proporzionale alla fatica corrente: più alta è la fatica, più alta è la quantità smaltita. Questo riflette il fatto che il recupero è più efficace quando la fatica è elevata, e più lento quando la fatica è bassa. \par
+
+La scelta di modellare il recupero come tasso pro capite, invece che come flusso assoluto, garantisce che la fatica non diventi negativa e che il recupero sia sempre proporzionale allo stato corrente. Se il recupero fosse un flusso assoluto, potrebbe superare la fatica accumulata e portare $\bar{F}_\cdot$ a valori negativi, privi di significato fisico. Il vincolo $r \leq 1$ è quindi necessario per garantire la coerenza del modello. \par
+
+La funzione $r(t)$ può essere costante, periodica o variabile nel tempo. Un profilo tipico è decrescente: il recupero è massimo all'inizio del periodo, quando gli atleti sono freschi, e decresce nel tempo, man mano che la fatica si accumula. Questo riflette il fatto che, più il tempo passa e il corpo continua ad accumulare fatica, più tempo gli ci vorrà per smaltirla. Un profilo alternativo è periodico, con oscillazioni legate ai cicli di allenamento e riposo.
+
