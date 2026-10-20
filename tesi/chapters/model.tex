@@ -1,7 +1,7 @@
 \chapter{Modello senza controllo}
 
 \section{Equazione di S}
-La popolazione $S$ descrive l'evoluzione degli atleti sani, cioè coloro che non hanno infortuni in corso né infortuni pregressi. La dinamica è descritta dalla seguente equazione:
+La popolazione $S$ descrive l'evoluzione degli atleti sani, cioè coloro che non hanno infortuni in corso né infortuni pregressi. Gli atleti in questa popolazione si allenano senza limitazioni e sono considerati il gruppo di riferimento per il rischio di infortunio. La dinamica è descritta dalla seguente equazione:
 \begin{align*}
     S(t+1) &= S(t) \\
         &+ \alpha \mu\left(\frac{t}{T}\right) \\
@@ -9,42 +9,42 @@ La popolazione $S$ descrive l'evoluzione degli atleti sani, cioè coloro che non
         &- \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t)
 \end{align*}
 
-L'equazione ha la struttura comune a tutte le equazioni del modello: la popolazione al passo successivo è uguale alla popolazione corrente, più i flussi in ingresso, meno i flussi in uscita. Nel caso di $S$, i flussi sono tre: un ingresso, un'uscita per abbandono e un'uscita per infortunio. Questa struttura garantisce che la popolazione al passo successivo sia determinata dalla popolazione corrente e dai flussi che la attraversano, senza dipendenze dirette da altre variabili di stato se non attraverso le funzioni $\mu$, $\nu$ e $\lambda$.
+L'equazione ha la struttura comune a tutte le equazioni del modello: la popolazione al passo successivo è uguale alla popolazione corrente, più i flussi in ingresso, meno i flussi in uscita. Nel caso di $S$, i flussi sono tre: un ingresso, un'uscita per abbandono e un'uscita per infortunio. Questa struttura garantisce che la popolazione al passo successivo sia determinata dalla popolazione corrente e dai flussi che la attraversano, senza dipendenze dirette da altre variabili di stato se non attraverso le funzioni $\mu$, $\nu$ e $\lambda$. La scelta di scrivere l'equazione in questa forma, invece che in forma compatta, permette di identificare immediatamente il ruolo di ciascun termine e di verificare la coerenza dei flussi.
 
 \paragraph{Flusso di ingresso}
 Il termine:
 \[
     \alpha \mu\left(\frac{t}{T}\right)
 \]
-rappresenta il flusso di nuovi atleti che entrano nel gruppo e sono sani. La funzione $\mu$ descrive il numero complessivo di nuovi ingressi alla frazione di tempo $ \frac{t}{T} $. Le caratteristiche specifiche della funzione $\mu$ (come delle altre funzioni), verranno esposte in seguito. \\
-La frazione $ \alpha \in [0, 1] $ rappresenta la quantità di atleti nuovi che è sana, mentre i restanti entrano nel compartimento $P$. La restante frazione. La scelta di distribuire gli ingressi tra sani e pregressi riflette il fatto che non tutti i nuovi atleti sono in condizioni ottimali: alcuni hanno già avuto infortuni pregressi e vengono quindi classificati in $P$. La distribuzione è controllata dal parametro $\alpha$, che può essere calibrato in base alla composizione attesa del gruppo. \par
+rappresenta il flusso di nuovi atleti che entrano nel gruppo e sono sani. La funzione $\mu$ descrive il numero complessivo di nuovi ingressi alla frazione di tempo $t/T$; le sue caratteristiche specifiche, come quelle delle altre funzioni del modello, verranno esposte in seguito. In questa sede è sufficiente sapere che $\mu$ è una funzione non negativa del tempo, che riflette la dinamica di iscrizione a una stagione sportiva. \\
+La frazione $\alpha \in [0,1]$ rappresenta la quantità di atleti nuovi che è sana, mentre i restanti entrano nel compartimento $P$. La scelta di distribuire gli ingressi tra sani e pregressi riflette il fatto che non tutti i nuovi atleti sono in condizioni ottimali: alcuni hanno già avuto infortuni pregressi e vengono quindi classificati in $P$. La distribuzione è controllata dal parametro $\alpha$, che può essere calibrato in base alla composizione attesa del gruppo. \par
 
-In questo caso la variazione è assoluta: il numero di atleti che entrano non dipende dal valore della popolazione corrente né dalle altre popolazioni. Questa scelta riflette il fatto che gli ingressi sono determinati da fattori esterni al modello (iscrizioni, trasferimenti, arrivi programmati) e non dalla dinamica interna del gruppo. Un'eventuale dipendenza degli ingressi dalla dimensione del gruppo potrebbe essere introdotta in estensioni future, ma in questa prima formulazione si assume che $\mu$ sia una funzione dipendente solo del tempo.
+In questo caso la variazione è assoluta: il numero di atleti che entrano non dipende dal valore della popolazione corrente né dalle altre popolazioni. Questa scelta riflette il fatto che gli ingressi sono determinati da fattori esterni al modello (iscrizioni, trasferimenti, arrivi programmati) e non dalla dinamica interna del gruppo. Un'eventuale dipendenza degli ingressi dalla dimensione del gruppo potrebbe essere introdotta in estensioni future, ad esempio per modellare il passaparola o la capacità ricettiva della palestra, ma in questa prima formulazione si assume che $\mu$ sia una funzione dipendente solo dal tempo. La scelta di un flusso assoluto, invece che di un tasso pro capite, è coerente con il fatto che gli ingressi sono eventi esterni e non dipendono dallo stato del gruppo.
 
 \paragraph{Flusso di abbandono}
 Il termine:
 \[
     \nu\left(\frac{t}{T}, \beta_S\right) S(t)
 \]
-rappresenta il flusso di atleti sani che abbandonano il gruppo. La funzione $\nu$ è il tasso di abbandono pro capite, modulato dal parametro $\beta_S$ specifico della popolazione $S$. Nell'equazione di $S$, gli abbandoni sono dovuti a motivi diversi dall'infortunio: trasferimenti, perdita di interesse, impegni personali, cambi di attività, partenze anticipate, e così via. Questi motivi sono distinti da quelli che portano all'infortunio, che sono modellati separatamente dal termine $\lambda$. \par
+rappresenta il flusso di atleti sani che abbandonano il gruppo. La funzione $\nu$ è il tasso di abbandono pro capite, modulato dal parametro $\beta_S$ specifico della popolazione $S$. Nell'equazione di $S$, gli abbandoni sono dovuti a motivi diversi dall'infortunio: trasferimenti, perdita di interesse, impegni personali, cambi di attività, partenze anticipate, e così via. Questi motivi sono distinti da quelli che portano all'infortunio, che sono modellati separatamente dal termine $\lambda$. La distinzione è importante perché i due fenomeni hanno cause diverse e dinamiche diverse: l'abbandono è una scelta volontaria o comunque esterna all'allenamento, mentre l'infortunio è un evento che avviene durante l'allenamento ed è influenzato dal carico e dalla fatica. \par
 
-Generalmente la funzione di crescita è approssimativamente decrescente. Un atleta può aggiungersi in ritardo, ad esempio per motivi logistici (trasporti per raggiungere uno stage, altre attività obbligatorie), quindi più il tempo avanza, più è improbabile che un atleta si inserisca. Al contrario, è difficile che un atleta abbandoni già dopo il primo allenamento, mentre più ci si avvicina alla fine del periodo, più è probabile che un atleta se ne vada prima. Ad esempio, perché ha un mezzo di trasporto da prendere per tornare a casa, oppure perché ha raggiunto la saturazione di stanchezza. Quindi il profilo temporale della funzione $\nu$ può essere l'opposto rispetto a quello della funzione $\mu$: gli ingressi si concentrano all'inizio, gli abbandoni alla fine. \par
+Generalmente la funzione di crescita è approssimativamente decrescente. Un atleta può aggiungersi in ritardo, ad esempio per motivi logistici (trasporti per raggiungere uno stage, altre attività obbligatorie), quindi, più il tempo avanza, più è improbabile che un atleta si inserisca. Al contrario, è difficile che un atleta abbandoni già dopo il primo allenamento, mentre più ci si avvicina alla fine del periodo, più è probabile che un atleta se ne vada prima, ad esempio perché ha un mezzo di trasporto da prendere per tornare a casa, oppure perché ha raggiunto la saturazione di stanchezza. \\
+Quindi il profilo temporale della funzione $\nu$ può essere l'opposto rispetto a quello della funzione $\mu$: gli ingressi si concentrano all'inizio, gli abbandoni alla fine. Questa opposizione non è un requisito del modello, ma una scelta di modellazione che riflette l'esperienza tipica di una stagione sportiva. \par
 
-Il fatto che $\nu$ dipenda dal tempo e non dallo stato riflette l'ipotesi che gli abbandoni siano determinati da fattori esterni al modello, come la stagionalità, la durata del periodo o eventi personali, e non dalla dinamica interna del gruppo. In estensioni future, si potrebbe considerare una dipendenza di $\nu$ dalla fatica o dalla soddisfazione degli atleti, ma in questa prima formulazione si assume che $\nu$ sia una funzione dipendente solo del tempo.
+Il fatto che $\nu$ dipenda dal tempo e non dallo stato riflette l'ipotesi che gli abbandoni siano determinati da fattori esterni al modello, come la stagionalità, la durata del periodo o eventi personali, e non dalla dinamica interna del gruppo. In estensioni future, si potrebbe considerare una dipendenza di $\nu$ dalla fatica o dalla soddisfazione degli atleti, ma in questa prima formulazione si assume che $\nu$ sia una funzione dipendente solo dal tempo. La scelta di un tasso pro capite, invece che di un flusso assoluto, è coerente con il fatto che l'abbandono è un evento individuale: ogni atleta ha una certa probabilità di abbandonare, indipendentemente dagli altri. Il flusso di abbandono è quindi proporzionale alla popolazione del compartimento.
 
 \paragraph{Flusso di infortunio}
 Il termine:
 \[
     \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t) 
 \]
-rappresenta il flusso di atleti sani che si infortunano durante la seduta. La funzione $\lambda$ descrive la probabilità di infortunio, che dipende dalla fatica fisica e psicologica media del gruppo, dalla densità sul tatami e dal moltiplicatore di rischio $\gamma_S$, specifico della popolazione $S$. \\
-La densità è calcolata come:
+rappresenta il flusso di atleti sani che si infortunano durante la seduta. La funzione $\lambda$ descrive la probabilità di infortunio, che dipende dalla fatica fisica e psicologica media del gruppo, dalla densità sul tatami e dal moltiplicatore di rischio $\gamma_S$, specifico della popolazione $S$. La densità è calcolata come
 \[
     \frac{S(t) + P(t) + M(t)}{A_{\max}}
 \]
-perché gli atleti in $I$ non si allenano e non contribuiscono alla concentrazione sul tatami. \par
+perché gli atleti in $I$ non si allenano e non contribuiscono alla concentrazione sul tatami. La densità riflette il numero di atleti effettivamente presenti sul tatami, normalizzato rispetto a una scala di riferimento $A_{\max}$ (area del tatami). Più atleti ci sono sul tatami, più è probabile che si verifichino scontri tra coppie, impatti o  contatti accidentali, e quindi più alto è il rischio di infortunio. \par
 
-Gli atleti che si infortunano escono da $S$ ed entrano in $I$ o $M$, a seconda che l'infortunio sia grave (con probabilità $\pi$) o meno grave (con probabilità $1-\pi$). Questa transizione è descritta nelle equazioni di $I$ e $M$. Il fatto che il flusso di infortunio sia proporzionale a $S(t)$ riflette l'ipotesi che ogni atleta sano abbia la stessa probabilità di infortunarsi, indipendentemente dagli altri. La probabilità è modulata dalla fatica media del gruppo, che riflette lo stato complessivo degli atleti che si allenano, e dalla densità, che riflette la concentrazione di atleti sul tatami.
+Gli atleti che si infortunano escono da $S$ ed entrano in $I$ o $M$, a seconda che l'infortunio sia grave (con probabilità $\pi$) o meno grave (con probabilità $1-\pi$). Questa transizione è descritta nelle equazioni di $I$ e $M$. Il fatto che il flusso di infortunio sia proporzionale a $S(t)$ riflette l'ipotesi che ogni atleta sano abbia la stessa probabilità di infortunarsi, indipendentemente dagli altri. La probabilità è proporzionale alla fatica media del gruppo, che riflette lo stato complessivo degli atleti che si allenano, e dalla densità, che riflette la concentrazione di atleti sul tatami. La scelta di usare la fatica media, invece delle fatiche individuali, è giustificata dalle ipotesi di mescolamento e simmetria discusse nel capitolo precedente: poiché gli accoppiamenti cambiano frequentemente, ogni atleta interagisce in media con partner rappresentativi della fatica media del gruppo.
 
 \section{Equazione di P}
 
