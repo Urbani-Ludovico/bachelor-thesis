@@ -89,7 +89,7 @@ Come per $S$, gli atleti che si infortunano escono da $P$ ed entrano in $I$ o $M
 
 \section{Equazione di I}
 
-La popolazione $I$ descrive l'evoluzione degli atleti infortunati, cioè coloro che si sono infortunati durante il periodo considerato e non si stanno allenando. Questi atleti sono temporaneamente esclusi dall'attività e non contribuiscono alla densità sul tatami. La dinamica è descritta dalla seguente equazione:
+La popolazione $I$ descrive l'evoluzione degli atleti infortunati, cioè coloro che si sono infortunati durante il periodo considerato e non si stanno allenando. Questi atleti sono temporaneamente esclusi dall'attività e non contribuiscono alla densità sul tatami. La loro presenza è rilevante perché rappresenta l'esito più grave del rischio di infortunio e perché il loro recupero parziale alimenta la popolazione $M$. La dinamica è descritta dalla seguente equazione:
 \begin{align*}
     I(t+1) &= I(t) \\
         &+ \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_S\right) S(t) \\
@@ -98,7 +98,7 @@ La popolazione $I$ descrive l'evoluzione degli atleti infortunati, cioè coloro 
         &- \rho I(t) \\
         &- \nu\left(\frac{t}{T}, \beta_I\right) I(t)
 \end{align*}
-L'equazioni ha la stessa struttura delle equazioni di $S$, $P$, $M$: la popolazione al passo successivo è uguale alla popolazione corrente, più i flussi in ingresso, meno i flussi in uscita. Nel caso di $I$, i flussi in ingresso sono tre (uno da ciascuno degli altri compartimenti), mentre i flussi in uscita sono due: il recupero parziale e l'abbandono.
+L'equazione ha la stessa struttura delle equazioni di $S$, $P$ e $M$: la popolazione al passo successivo è uguale alla popolazione corrente, più i flussi in ingresso, meno i flussi in uscita. Nel caso di $I$, i flussi in ingresso sono tre (uno da ciascuna delle altre popolazioni), mentre i flussi in uscita sono due: il recupero parziale e l'abbandono. La differenza principale rispetto agli altri compartimenti sta nel fatto che $I$ non ha ingressi diretti dalla popolazione esterna: nessun atleta entra in $I$ se non perché si è infortunato gravemente.
 
 \paragraph{Flussi di ingresso}
 I termini:
@@ -107,26 +107,24 @@ I termini:
     \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) P(t) \\
     \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_M\right) M(t)
 \end{gather*}
-rappresentano i flussi di atleti che si infortunano gravemente e provengono rispettivamente da $S$, $P$ e $M$. In tutti e tre i casi la funzione $\lambda$ rappresenta la probabilità di infortunio relativa alla popolazione specificata (per $M$ verrà definita in seguito). \par
+rappresentano i flussi di atleti che si infortunano gravemente e provengono rispettivamente da $S$, $P$ e $M$. In tutti e tre i casi la funzione $\lambda$ rappresenta la probabilità di infortunio relativa alla popolazione specificata. La presenza di tre termini distinti riflette il fatto che gli atleti possono infortunarsi indipendentemente dal compartimento di appartenenza: un atleta sano, un atleta con infortunio pregresso e un atleta malconcio hanno tutti una probabilità positiva di infortunarsi, ma il moltiplicatore di rischio $\gamma_\cdot$ permette di differenziare tale probabilità.
 
-Il fattore $ \pi \in [0,1] $ rappresenta la probabilità che un infortunio sia grave. Quando un atleta si infortuna, indipendentemente dal compartimento di provenienza, l'infortunio è grave con probabilità $\pi$ e lieve con probabilità $1-\pi$. Solo gli infortuni gravi portano l'atleta in $I$; gli infortuni lievi portano l'atleta in $M$, come descritto nella relativa equazione. La somma dei flussi in ingresso a $I$ e dei flussi in ingresso a $M$ è uguale al flusso totale di infortuni, coerentemente con il fatto che ogni infortunio è classificato come grave o lieve.
+Il fattore $\pi \in [0,1]$ rappresenta la probabilità che un infortunio sia grave. Quando un atleta si infortuna, indipendentemente dal compartimento di provenienza, l'infortunio è grave con probabilità $\pi$ e lieve con probabilità $1-\pi$. Solo gli infortuni gravi portano l'atleta in $I$, gli infortuni lievi portano l'atleta in $M$, come descritto nella relativa equazione. La somma dei flussi in ingresso a $I$ e dei flussi in ingresso a $M$ è uguale al flusso totale di infortuni, coerentemente con il fatto che non c'è dispersione in queste transizioni.
 
 \paragraph{Flusso di recupero}
 Il termine:
 \[
     \rho I(t)
 \]
-rappresenta il flusso di atleti infortunati che guariscono parzialmente e passano alla popolazione $M$. Il parametro $ \rho \in [0,1] $ è il tasso di transizione da $I$ a $M$: rappresenta la frazione di atleti infortunati che, per unità di tempo, torna allenabile con qualche restrizione. \par
-
-La scelta di modellare il recupero come transizione $ I \to M $, invece che come ritorno diretto a $P$, riflette l'ipotesi che l'orizzonte temporale sia breve e che non ci sia abbastanza tempo per un recupero completo. Un atleta che si infortuna gravemente ha bisogno di un periodo di riposo e riabilitazione, seguito da un periodo di reinserimento graduale. Il passaggio a $M$ rappresenta questo reinserimento: l'atleta non è ancora pienamente guarito, ma può ricominciare ad allenarsi con qualche restrizione.
+rappresenta il flusso di atleti infortunati che guariscono parzialmente e passano alla popolazione $M$. Il parametro $\rho \in [0,1]$ è il tasso di transizione da $I$ a $M$: rappresenta la frazione di atleti infortunati che, per unità di tempo, torna allenabile con qualche restrizione. \\
+La scelta di modellare il recupero come transizione $I \to M$, invece che come ritorno diretto a $P$, è dovuta all'ipotesi che l'orizzonte temporale sia breve e che non ci sia abbastanza tempo per un recupero completo. Un atleta che si infortuna gravemente ha bisogno di un periodo di riposo e riabilitazione, seguito da un periodo di reinserimento graduale. Il passaggio a $M$ rappresenta questo reinserimento: l'atleta non è ancora pienamente guarito, ma può ricominciare ad allenarsi con qualche restrizione.
 
 \paragraph{Flusso di abbandono}
 Il termine:
 \[
     \nu\left(\frac{t}{T}, \beta_I\right) I(t)
 \]
-rappresenta il flusso di atleti infortunati che abbandonano il gruppo. Anche qua la funzione $\lambda$ descrive la probabilità di infortunio, modulata dal parametro $\beta_I$. \\
-In questo caso, gli infortuni, oltre ai casi già elencati, sono dovuti principalmente all'incapacità di poter continuare gli allenamenti a causa dell'infortunio.
+rappresenta il flusso di atleti infortunati che abbandonano il gruppo. La funzione $\nu$ è il tasso di abbandono pro capite, modulato dal parametro $\beta_I$ specifico della popolazione $I$. In questo caso, gli abbandoni sono dovuti principalmente all'incapacità di continuare gli allenamenti a causa dell'infortunio, oltre ai motivi già elencati per gli altri compartimenti. La scelta di introdurre un parametro $\beta_I$ distinto dagli altri riflette il fatto che gli atleti infortunati possono avere un comportamento di abbandono diverso rispetto agli altri: un atleta con un infortunio grave potrebbe essere più propenso ad abbandonare. Generalmente si suppone che $\beta_I$ sia superiore agli altri $\beta_\cdot$.
 
 \section{Equazioni per l'accumulo della fatica}
 Le variabili $\bar{F}_f$ e $\bar{F}_p$ descrivono l'evoluzione della fatica fisica e psicologica media del gruppo. La dinamica delle due componenti è descritta dalle seguenti equazioni:
