@@ -277,4 +277,106 @@ possiamo riscrivere il sistema nella forma compatta:
             - r(t) \bar{F}_p(t)
     \end{aligned}\right.
 \end{equation*}
-La scrittura compatta del sistema permette di avere una visione d'insieme e di identificare le interdipendenze tra le variabili di stato. La forma estesa è utile per identificare il ruolo di ciascun termine, mentre la forma compatta è più adatta all'analisi e alla simulazione.
+La scrittura compatta del sistema permette di avere una visione d'insieme e di identificare le interdipendenze tra le variabili di stato. La forma estesa è utile per identificare il ruolo di ciascun termine, mentre la forma compatta è più adatta all'analisi e alla simulazione. \\
+I flussi tra le quattro popolazioni, può essere visualizzato con il diagramma in \autoref{fig:flussi}.
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \node[
+            circle, 
+            fill = ColorS,
+            text = white,
+            font = \bfseries\LARGE,
+            minimum size = 40pt,
+            inner sep = 0pt
+        ] (S) at (0, 0) {S};
+        \node[
+            circle, 
+            fill = ColorP,
+            text = white,
+            font = \bfseries\LARGE,
+            minimum size = 40pt,
+            inner sep = 0pt
+        ] (P) at (8, 0) {P};
+        \node[
+            circle, 
+            fill = ColorI,
+            text = white,
+            font = \bfseries\LARGE,
+            minimum size = 40pt,
+            inner sep = 0pt
+        ] (I) at (0, -8) {I};
+        \node[
+            circle, 
+            fill = ColorM,
+            text = white,
+            font = \bfseries\LARGE,
+            minimum size = 40pt,
+            inner sep = 0pt
+        ] (M) at (8, -8) {M};
+
+        \draw[
+            -Stealth,
+            draw = ColorS,
+            line width = 2pt
+        ] (S) -- node[left, font = \Large, text = ColorS] {$ \pi \lambda_S $} (I);
+        \draw[
+            -Stealth,
+            draw = ColorS,
+            line width = 2pt
+        ] (S) -- node[left, pos = 0.4, font = \Large, text = ColorS] {$ (1-\pi) \lambda_S $} (M);
+        \draw[
+            -Stealth,
+            draw = ColorP,
+            line width = 2pt
+        ] (P) -- node[right, pos = 0.4, font = \Large, text = ColorP] {$ \pi \lambda_P $} (I);
+        \draw[
+            -Stealth,
+            draw = ColorP,
+            line width = 2pt
+        ] (P) -- node[right, font = \Large, text = ColorP] {$ (1-\pi) \lambda_P $} (M);
+
+        \draw[
+            -Stealth,
+            draw = ColorI,
+            line width = 2pt
+        ] (I) to[bend left=15] node[above, font = \Large, text = ColorI] {$ \rho $} (M);
+        \draw[
+            -Stealth,
+            draw = ColorM,
+            line width = 2pt
+        ] (M) to[bend left=15] node[below, font = \Large, text = ColorM] {$ \pi \lambda_M $} (I);
+
+        \draw[
+            Stealth-,
+            draw = ColorS,
+            line width = 2pt
+        ] (S) -- node[right, font = \Large, text = ColorS] {$ \alpha \mu $} ++(90:2cm);
+        \draw[
+            -Stealth,
+            draw = ColorS,
+            line width = 2pt
+        ] (S) -- node[above, font = \Large, text = ColorS] {$ \nu_S $} ++(180:2cm);
+        \draw[
+            Stealth-,
+            draw = ColorP,
+            line width = 2pt
+        ] (P) -- node[left, font = \Large, text = ColorP] {$ (1-\alpha) \mu $} ++(90:2cm);
+        \draw[
+            -Stealth,
+            draw = ColorP,
+            line width = 2pt
+        ] (P) -- node[above, font = \Large, text = ColorP] {$ \nu_P $} ++(0:2cm);
+        \draw[
+            -Stealth,
+            draw = ColorI,
+            line width = 2pt
+        ] (I) -- node[left, font = \Large, text = ColorI] {$ \nu_I $} ++(270:2cm);
+        \draw[
+            -Stealth,
+            draw = ColorM,
+            line width = 2pt
+        ] (M) -- node[right, font = \Large, text = ColorM] {$ \nu_M $} ++(270:2cm);
+    \end{tikzpicture}
+    \caption{Diagramma dei flussi}\label{fig:flussi}
+\end{figure}
