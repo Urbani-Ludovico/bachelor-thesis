@@ -254,10 +254,10 @@ La funzione di recupero soddisfa le seguenti proprietà, che derivano direttamen
 
 La funzione è non negativa, cioè $r(t) \geq 0$ per ogni $t$. Questa proprietà è garantita dal fatto che la sigmoide è sempre positiva e $\omega_r \geq 0$. \par
 
-La funzione è limitata superiormente da $\omega_r$ in $t = 0$ e da zero per $t \to +\infty$. Più precisamente, il valore massimo è $r(0) = \omega_r$. Quindi la funzione rappresenta una probabilità. \par
+La funzione è limitata superiormente da $\omega_r$ in $t = 0$ e da zero per $t \to +\infty$. Più precisamente, il valore massimo è $r(0) = \omega_r$, mentre il valore asintotico per $t \to +\infty$ è zero. Quindi il range della funzione è $[0, \omega_r]$, cioè la funzione rappresenta una probabilità, perché il suo valore è compreso tra $0$ e $1$. \par
 
-La funzione è continua e derivabile su tutto il dominio, per definizione. La derivata prima è:
+La funzione è continua e derivabile su tutto il dominio, per definizione. La derivata prima è
 \[
-    \frac{d}{dt} r(t) = 2 \omega_r \sigma_r \frac{\exp\left(\sigma_r t\right)}{{\left(1 + \exp\left(\sigma_r t\right)\right)}^2}
+    \frac{d}{dt} r(t) = 2 \omega_r \sigma_r \frac{\exp\left(\sigma_r t\right)}{\left(1 + \exp\left(\sigma_r t\right)\right)^2}
 \]
-che è negativa per ogni $t$ se $\sigma_r > 0$. Quindi la funzione è monotona decrescente. \par
+che è negativa per ogni $t$ se $\sigma_r > 0$. Quindi la funzione è monotona decrescente.
