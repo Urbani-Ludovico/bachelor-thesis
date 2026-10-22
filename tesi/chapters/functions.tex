@@ -47,7 +47,7 @@ Un valore piccolo di $\sigma_\mu$, come mostrato in \autoref{fig:function-mu-sig
     \caption{Funzione di crescita $\mu$ al variare del parametro $\sigma_\mu$}\label{fig:function-mu-sigma}
 \end{figure}
 
-\subsection{Proprietà}
+\subsection{Proprietà}\label{sec:function-mu-property}
 La funzione di crescita soddisfa le seguenti proprietà, che discendono direttamente dalla sua forma analitica e dai domini dei parametri. \par
 
 La funzione è non negativa, cioè $\mu(x) \geq 0$ per ogni $x \in [0, 1]$. Questa proprietà è garantita dal fatto che l'esponenziale è sempre positivo e $\omega_\mu \geq 0$.
@@ -73,3 +73,40 @@ Il rapporto tra $\mu(0)$ e $\mu(1)$ è:
 che dipende solo da $\sigma_\mu$. Per $\sigma_\mu$ piccolo, il rapporto è prossimo a zero, il che significa che gli ingressi si esauriscono rapidamente. Per $\sigma_\mu$ grande, il rapporto è prossimo a uno, il che significa che gli ingressi restano circa costanti. \par
 
 La funzione è limitata superiormente da $\omega_\mu$ e inferiormente da zero, quindi la sua immagine è $[0, \omega_\mu]$. Questa proprietà garantisce che il numero di nuovi ingressi non superi mai l'ampiezza massima $\omega_\mu$, coerentemente con il significato del parametro.
+
+\section{Funzione di abbandono}
+
+La funzione di abbandono $\nu$ descrive la frazione di atleti che abbandona il gruppo in ogni seduta. Essa costituisce, insieme alla funzione di crescita $\mu$, uno dei due flussi esterni del modello, e regola la diminuzione della popolazione. \par
+
+La forma analitica che adottiamo per la funzione di abbandono è la seguente:
+\[
+    \nu(x, \beta) = \beta \exp\left(-\frac{{(x - 1)}^2}{2 \sigma_\nu^2}\right),
+\]
+dove:
+\begin{itemize}
+    \item $ x = \frac{t}{T} \in [0, 1] $ è la frazione di tempo trascorsa
+    \item $\beta \in [0, 1]$ è l'ampiezza della funzione
+    \item $\sigma_\nu \in \mathbb{R}_{> 0}$ è la larghezza del picco della funzione
+\end{itemize}
+La funzione è una gaussiana centrata in $x = 1$, troncata al dominio $[0, 1]$. Il suo massimo si trova in $x = 1$ ed è pari a $\beta$, mentre il suo valore in $\omega_\mu \exp\left(-\frac{1}{2 \sigma_\mu^2}\right)$. \par
+
+La funzione è la trasformazione della funzione $\mu$ rispetto all'asse $x = \frac{1}{2}$. Mentre gli ingressi tendono a concentrarsi all'inizio del periodo, gli abbandoni tendono a concentrarsi alla fine, quando l'entusiasmo iniziale si riduce, sopraggiungono altri impegni o la stanchezza accumulata diventa significativa. La simmetria tra le due funzioni non è casuale, ma riflette il fatto che i due fenomeni hanno dinamiche temporali opposte. La scelta della gaussiana permette di rappresentare questa opposizione con una forma semplice e ben nota, con parametri interpretabili e proprietà analitiche note. \par
+
+La funzione $\nu$ dipende anche dal moltiplicatore $\beta$, passato come argomento della funzione, in quanto permette di differenziare il tasso di abbandono tra le diverse popolazioni. Nel modello, il moltiplicatore $\beta$ assume valori diversi a seconda della popolazione a cui la funzione si applica, cioè $\beta_S$ per i sani, $\beta_P$ per i pregressi, $\beta_I$ per gli infortunati e $\beta_M$ per i malconci. Questa scelta riflette il fatto che gli atleti in popolazioni diverse possono avere comportamenti di abbandono diversi, a causa della loro condizione fisica, della loro motivazione o del loro rapporto con l'attività. \par
+
+Le proprietà della funzione $\nu$ sono le stesse della funzione $\mu$ descritte in \autoref{sec:function-mu-property}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{functions/nu.pdf}
+    \caption{Funzione generica di abbandono $\nu$}
+\end{figure}
+
+\subsection{Parametri}
+
+La funzione di abbandono dipende da due parametri, cioè $\beta$ e $\sigma_\nu$, che hanno domini e significati distinti. \par
+
+Il parametro $\beta \in [0, 1]$ rappresenta l'ampiezza massima della funzione di abbandono, cioè la frazione massima di atleti che possono abbandonare in una singola seduta. Il valore $\beta = 0$ corrisponde al caso in cui non ci sono abbandoni dalla popolazione considerata, mentre $\beta = 1$ corrisponde al caso in cui il tasso di abbandono raggiunge il valore massimo consentito, cioè $1$. Nella pratica, $\beta$ è limitato dal fatto che il tasso di abbandono non può superare l'unità, altrimenti la popolazione diventerebbe negativa. Il parametro $\beta$ è adimensionale, perché rappresenta una frazione. \par
+
+Il parametro $\sigma_\nu \in \mathbb{R}_{> 0}$, come per $\mu$ rappresenta la larghezza del picco della funzione di abbandono, cioè la velocità con cui gli abbandoni crescono nel tempo.
+
