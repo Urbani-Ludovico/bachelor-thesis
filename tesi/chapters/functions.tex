@@ -110,3 +110,52 @@ Il parametro $\beta \in [0, 1]$ rappresenta l'ampiezza massima della funzione di
 
 Il parametro $\sigma_\nu \in \mathbb{R}_{> 0}$, come per $\mu$ rappresenta la larghezza del picco della funzione di abbandono, cioè la velocità con cui gli abbandoni crescono nel tempo.
 
+\section{Funzione di infortunio}
+
+La funzione di infortunio $\lambda$ descrive la probabilità che un atleta si infortuni durante una seduta. È la funzione più importante del modello, perché collega la fatica e la densità sul tatami alla dinamica degli infortuni e, di conseguenza, alla composizione del gruppo. \par
+
+La forma analitica che adottiamo per la funzione di infortunio è la seguente:
+\[
+    \lambda(f_f, f_p, d, \gamma) = \gamma \frac{1}{1 + \exp\left(-\omega_f f_f - \omega_p f_p - \omega_d d + b\right)}
+\]
+\begin{itemize}
+    \item $f_f \in \mathbb{R}_{\geq 0}$ è la fatica fisica
+    \item $f_p \in \mathbb{R}_{\geq 0}$ è la fatica psicologica
+    \item $d \in \mathbb{R}_{> 0}$ è la densità di atleti
+    \item $\gamma \in [0, 1]$ è l'ampiezza della funzione
+    \item $\omega_f, \omega_p, \omega_d \in \mathbb{R}_{> 0}$ sono pesi non negativi
+    \item $b \in \mathbb{R}_{\geq 0}$ è un fattore di soglia
+\end{itemize}
+Il suo valore è compreso tra $0$ e $\gamma$, ed è crescente rispetto a $f_f$, $f_p$ e $d$. \par
+
+La scelta della funzione sigmoide è motivata da tre ragioni. In primo luogo, la sigmoide è una funzione limitata, con valori compresi tra $0$ e $1$, il che garantisce che la probabilità di infortunio non superi mai il moltiplicatore $\gamma$. In secondo luogo, la sigmoide è una funzione crescente e saturante, il che riflette il fatto che il rischio di infortunio cresce con la fatica e la densità, ma non può crescere all'infinito. In terzo luogo, la sigmoide è una funzione regolare e derivabile, che facilita l'analisi del modello e la derivazione di proprietà qualitative. Il fattore di soglia $b$ sposta la sigmoide verso destra.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{functions/lambda_ff.pdf}
+    \caption{Funzione di infortunio $\lambda$ al variare del parametro $f_f$}
+\end{figure}
+
+\subsection{Parametri}
+
+La funzione di infortunio dipende da cinque parametri, cioè $\gamma$, $\omega_f$, $\omega_p$, $\omega_d$ e $b$, che hanno domini e significati distinti. \par
+
+Il parametro $\gamma \in [0,1]$, analogo di $\beta$ per $\nu$, rappresenta il moltiplicatore di rischio specifico della popolazione a cui la funzione si applica. Il valore $\gamma = 0$ corrisponde al caso in cui la popolazione non ha rischio di infortunio, mentre $\gamma = 1$ corrisponde al caso in cui il rischio massimo è pari a $1$. Nel modello, il moltiplicatore $\gamma$ assume valori diversi a seconda della popolazione, cioè $\gamma_S$ per i sani, $\gamma_P$ per i pregressi e $\gamma_M$ per i malconci. Si assume $\gamma_S \leq \gamma_P \leq \gamma_M$, a riflettere il fatto che gli atleti con infortuni pregressi o in corso sono considerati più a rischio rispetto agli atleti sani. \par
+
+Il parametri $\omega_f, \omega_p e \omega_d \in \mathbb{R}_{> 0}$ rappresentano il peso rispettivamente della fatica fisica, della fatica psicologica e della densità di atleti sul tatami. Il valore $\omega_\cdot \to 0^+$ corrisponde al caso in cui la variabile non influenza il rischio, mentre valori più grandi corrispondono a una dipendenza più forte. \par
+
+Il parametro $b \in \mathbb{R}_{\geq 0}$ rappresenta il fattore della traslazione del valore di soglia. Il ruolo di $b$ è quello di evitare che un atleta fresco in un tatami vuoto abbia un rischio di infortunio non trascurabile. Senza $b$, il rischio in assenza di fatica e densità sarebbe $\frac{\gamma}{2}$, che potrebbe essere troppo alto.
+
+\subsection{Proprietà}
+
+La funzione di infortunio soddisfa le seguenti proprietà, che derivano direttamente dalla sua forma analitica e dai domini dei parametri. \par
+
+La funzione è non negativa, cioè $\lambda(f_f, f_p, d, \gamma) \geq 0$ per ogni valore degli argomenti. Questa proprietà è garantita dal fatto che la sigmoide è sempre positiva e $\gamma \geq 0$. \par
+
+La funzione è limitata superiormente da $\gamma$, cioè $\lambda(f_f, f_p, d, \gamma) \leq \gamma$. Questa proprietà è garantita dal fatto che la sigmoide è limitata superiormente da $1$ e $\gamma \in [0, 1]$. Il limite superiore $\lambda \leq \gamma$ garantisce che la probabilità di infortunio non superi mai $1$. \par
+
+La funzione è continua e derivabile su tutto il dominio, per definizione. Le derivate parziali rispetto a $f_f$, $f_p$ e $d$ sono positive, perché la sigmoide è crescente rispetto al suo argomento. Quindi la funzione è monotona crescente rispetto a $f_f$, $f_p$ e $d$. \par
+
+Il valore in assenza di fatica e densità è $\lambda(0, 0, 0, \gamma) = \frac{\gamma}{1 + e^b}$. Per $b = 0$, questo valore è $\frac{\gamma}{2}$, mentre per $b$ grande, questo valore tende a zero. La scelta di $b$ controlla quindi il rischio di base in assenza di fatica e densità. \par
+
+Il limite per $f_f, f_p, d \to +\infty$ è $\lambda \to \gamma$, cioè la funzione satura al valore massimo consentito. Questo riflette il fatto che, per fatica e densità molto elevate, il rischio di infortunio raggiunge il suo massimo e non può crescere ulteriormente.
