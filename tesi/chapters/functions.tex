@@ -6,3 +6,70 @@ In questo capitolo completiamo la specificazione del modello, definendo per cias
 La scelta della forma analitica di una funzione non è mai neutra. Da un lato, la forma deve rispettare le proprietà richieste dal modello, cioè i domini, le limitazioni e le condizioni di coerenza discusse nel capitolo precedente. Dall'altro, la forma deve essere abbastanza flessibile da catturare i fenomeni che si vogliono modellare, ma anche abbastanza semplice da permettere l'analisi e la simulazione. Tra questi due estremi esiste un compromesso, e la scelta dipende dagli obiettivi del modello e dai dati disponibili. In questo capitolo adottiamo un criterio esplicito, cioè scegliamo forme analitiche che siano continue, limitate, monotone dove richiesto e con parametri interpretabili, in modo che il modello rimanga trattabile e le sue conclusioni siano comprensibili. \par
 
 La funzione di crescita, ad esempio, deve riflettere il fatto che gli ingressi tendono a concentrarsi all'inizio del periodo e a ridursi nel tempo, mentre la funzione di abbandono deve riflettere il fatto che gli abbandoni tendono a concentrarsi alla fine. La funzione di infortunio deve essere crescente rispetto alla fatica e alla densità, e saturare a un valore massimo. La funzione di recupero deve essere decrescente nel tempo, a riflettere il fatto che il recupero è più efficace all'inizio e più lento quando la fatica si accumula. Le funzioni di carico, infine, devono essere abbastanza flessibili da rappresentare scenari diversi, senza vincolare il modello a una forma specifica.
+
+\section{Funzione di crescita}
+
+La funzione di crescita $\mu$ descrive il numero complessivo di nuovi atleti che entrano nel gruppo in ogni seduta. Essa riflette la dinamica di iscrizione a una stagione sportiva e costituisce uno dei due flussi esterni del modello, insieme agli abbandoni descritti dalla funzione $\nu$. \par
+
+La forma analitica che adottiamo per la funzione di crescita è la seguente:
+\[
+    \mu(x) = \omega_\mu \exp\left(-\frac{x^2}{2 \sigma_\mu^2}\right)
+\]
+dove:
+\begin{itemize}
+    \item $ x = \frac{t}{T} \in [0, 1] $ è la frazione di tempo trascorsa
+    \item $\omega_\mu \in \mathbb{R}_{\geq 0}$ è l'ampiezza della funzione
+    \item $\sigma_\mu \in \mathbb{R}_{> 0}$ è la larghezza del picco della funzione
+\end{itemize}
+La funzione è una gaussiana centrata in $ x = 0 $, troncata al dominio $[0, 1]$. Il suo massimo si trova in $x = 0$ ed è pari a $\omega_\mu$, mentre il suo valore in $x = 1$ è $\omega_\mu \exp\left(-\frac{1}{2 \sigma_\mu^2}\right)$. La funzione è non negativa, continua, derivabile e decrescente su tutto il dominio. \par
+
+La scelta della gaussiana è motivata da tre ragioni. In primo luogo, la gaussiana è una funzione semplice e ben nota, con parametri interpretabili e proprietà analitiche note. In secondo luogo, la gaussiana centrata in $x = 0$ riflette il fatto che gli ingressi tendono a concentrarsi all'inizio del periodo, quando l'entusiasmo e la disponibilità sono maggiori, e a ridursi progressivamente nel tempo. In terzo luogo, la gaussiana ha una forma regolare e derivabile, che facilita l'analisi del modello e la derivazione di proprietà qualitative.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{functions/mu.pdf}
+    \caption{Funzione generica di crescita $\mu$}
+\end{figure}
+
+\subsection{Parametri}
+La funzione di crescita dipende da due parametri, cioè $\omega_\mu$ e $\sigma_\mu$, che hanno domini e significati distinti. \par
+
+Il parametro $ \omega_\mu \in \mathbb{R}_{\geq 0} $ rappresenta l'ampiezza massima della funzione di crescita, cioè il numero massimo di nuovi atleti che entrano nel gruppo in una singola seduta. Il valore $\omega_\mu = 0$ corrisponde al caso in cui non ci sono nuovi ingressi, mentre valori più grandi corrispondono a ingressi più numerosi. \\
+Nella pratica, $\omega_\mu$ è limitato dal numero massimo di atleti che la palestra può accogliere e dal bacino di utenza disponibile. Il parametro $\omega_\mu$ ha come unità di misura il numero di atleti. \\
+Un valore grande di $\omega_\mu$ corrisponde a una palestra capace di accogliere molti nuovi atleti, mentre un valore piccolo corrisponde a una palestra con capacità limitata. Il parametro $\omega_\mu$ può essere stimato dai dati storici di iscrizione, oppure scelto in base a scenari ipotetici. \par
+
+Il parametro $\sigma_\mu \in \mathbb{R}_{> 0}$ rappresenta la larghezza del picco della funzione di crescita, cioè la velocità con cui gli ingressi decadono nel tempo. Valori piccoli di $\sigma_\mu$ corrispondono a un picco stretto, cioè a ingressi concentrati nelle prime sedute e rapidamente decrescenti. Valori grandi di $\sigma_\mu$ corrispondono a un picco largo, cioè a ingressi distribuiti su un periodo più lungo. \\
+Un valore piccolo di $\sigma_\mu$, come mostrato in \autoref{fig:function-mu-sigma}, corrisponde a una stagione in cui gli ingressi si concentrano nelle prime settimane e poi si esauriscono, mentre un valore grande corrisponde a una stagione in cui gli ingressi sono distribuiti su un periodo più lungo.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{functions/mu_sigma.pdf}
+    \caption{Funzione di crescita $\mu$ al variare del parametro $\sigma_\mu$}\label{fig:function-mu-sigma}
+\end{figure}
+
+\subsection{Proprietà}
+La funzione di crescita soddisfa le seguenti proprietà, che discendono direttamente dalla sua forma analitica e dai domini dei parametri. \par
+
+La funzione è non negativa, cioè $\mu(x) \geq 0$ per ogni $x \in [0, 1]$. Questa proprietà è garantita dal fatto che l'esponenziale è sempre positivo e $\omega_\mu \geq 0$.
+
+La funzione è continua e derivabile su tutto il dominio, per definizione. La derivata prima è
+\[
+    \frac{d}{dx} \mu(x) = -\omega_\mu \frac{x}{\sigma_\mu^2} \exp\left(-\frac{x^2}{2 \sigma_\mu^2}\right)
+\]
+che è negativa per $x > 0$. Quindi la funzione è monotona decrescente su $[0, 1]$, con un massimo in $x = 0$.
+
+Il valore massimo è:
+\[
+    \max_{x \in [0, 1]} \mu(x) = \mu(0) = \omega_\mu
+\]
+mentre il valore minimo sul dominio è:
+\[
+    \min_{x \in [0, 1]} \mu(x) = \mu(1) = \omega_\mu \exp\left(-\frac{1}{2 \sigma_\mu^2}\right)
+\]
+Il rapporto tra $\mu(0)$ e $\mu(1)$ è:
+\[
+    \frac{\mu(0)}{\mu(1)} = \exp\left(-\frac{1}{2 \sigma_\mu^2}\right)
+\]
+che dipende solo da $\sigma_\mu$. Per $\sigma_\mu$ piccolo, il rapporto è prossimo a zero, il che significa che gli ingressi si esauriscono rapidamente. Per $\sigma_\mu$ grande, il rapporto è prossimo a uno, il che significa che gli ingressi restano circa costanti. \par
+
+La funzione è limitata superiormente da $\omega_\mu$ e inferiormente da zero, quindi la sua immagine è $[0, \omega_\mu]$. Questa proprietà garantisce che il numero di nuovi ingressi non superi mai l'ampiezza massima $\omega_\mu$, coerentemente con il significato del parametro.
