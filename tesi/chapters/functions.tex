@@ -163,3 +163,57 @@ La funzione è lineare rispetto a $\gamma$, cioè $\lambda(f_f, f_p, d, \gamma) 
 Il valore in assenza di fatica e densità è $\lambda(0, 0, 0, \gamma) = \frac{\gamma}{1 + e^b}$. Per $b = 0$, questo valore è $\frac{\gamma}{2}$, mentre per $b$ grande, questo valore tende a zero. La scelta di $b$ controlla quindi il rischio di base in assenza di fatica e densità. \par
 
 Il limite per $f_f, f_p, d \to +\infty$ è $\lambda \to \gamma$, cioè la funzione satura al valore massimo consentito. Questo riflette il fatto che, per fatica e densità molto elevate, il rischio di infortunio raggiunge il suo massimo e non può crescere ulteriormente.
+
+\section{Funzioni di carico}
+
+Le funzioni di carico $c_f$ e $c_p$ descrivono la quantità di fatica fisica e psicologica aggiunta in ogni seduta di allenamento. Esse costituiscono l'ingresso principale del modello per quanto riguarda la dinamica della fatica e sono trattate come parametri esogeni. In questa sezione non adottiamo una forma analitica specifica per le funzioni di carico, ma presentiamo tre esempi che illustrano come il carico possa essere costante, periodico o variabile. La scelta tra questi esempi dipende dal fenomeno modellato e dai dati disponibili, e il modello è progettato per accogliere qualsiasi funzione che rispetti i domini e i vincoli discussi nel capitolo precedente.
+
+\paragraph{Carico costante}
+Il primo esempio è il carico costante, in cui le funzioni di carico assumono lo stesso valore in ogni seduta. Formalmente, si ha:
+\begin{gather*}
+    c_f(t) = c_{f, 0} \in \mathbb{R}_{\geq 0} \\
+    c_p(t) = c_{p, 0} \in \mathbb{R}_{\geq 0}
+\end{gather*}
+dove $c_{f,0}$ e $c_{p,0}$ sono costanti non negative. Questo esempio, come rappresentato in \autoref{fig:function-c-costante}, corrisponde a un programma di allenamento uniforme, in cui ogni seduta ha lo stesso carico fisico e psicologico. Il carico costante è il caso più semplice e permette di studiare il comportamento del modello in condizioni stazionarie, senza l'effetto della stagionalità. Nella pratica, il carico costante è raramente realistico per un'intera stagione, ma può essere una buona approssimazione per periodi brevi o per studiare l'effetto della fatica in condizioni controllate.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{functions/c_costante.pdf}
+    \caption{Funzione di carico costante}\label{fig:function-c-costante}
+\end{figure}
+
+\paragraph{Carico periodico}
+Il secondo esempio è il carico periodico, in cui le funzioni di carico oscillano con una periodicità legata ad esempio alla settimana di allenamento. Ad esempio, come rappresentato in \autoref{fig:function-c-periodico}, consideriamo il caso in cui in ogni periodo abbiamo un allenamento ad alto carico (es. randori), un allenamento a carico medio (es. tecnica) e un allenamento senza carico (es. riposo o seduta di allungamento):
+\begin{gather*}
+    c_f(t) = \frac{1}{2}\left((-t) \mod 3\right) \\
+    c_p(t) = \frac{1}{2}\left((-t) \mod 3\right)
+\end{gather*}
+Se $ n \in \mathbb{N} $, allora la funzione può essere riscritta come:
+\[
+    c_f(t) = c_p(t) = \begin{cases}
+        1 & \text{se } t = 3n \\
+        0.5 & \text{se } t = 3n + 1 \\
+        0 & \text{se } t = 3n + 2
+    \end{cases}
+\]
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{functions/c_periodico.pdf}
+    \caption{Funzione di carico periodico}\label{fig:function-c-variabile}
+\end{figure}
+
+\paragraph{Carico variabile}
+Il terzo esempio è il carico variabile, in cui le funzioni di carico sono assegnate in modo arbitrario, seduta per seduta. Formalmente, si può scrivere:
+\begin{gather*}
+    c_f \colon \{0, 1, \dots, T\} \to \mathbb{R}_{\geq 0} \\
+    c_p \colon \{0, 1, \dots, T\} \to \mathbb{R}_{\geq 0}
+\end{gather*}
+Questo esempio corrisponde a un programma di allenamento dettagliato, in cui ogni seduta ha un carico specifico, eventualmente diverso dalle altre. Il carico variabile è il caso più generale e permette di rappresentare scenari arbitrari, come periodi di allenamento intenso seguiti da periodi di recupero, sedute di tecnica alternate con sedute di randori, o variazioni improvvise del carico dovute a eventi esterni. \\
+La forma variabile, come rappresentato in \autoref{fig:function-c-variabile}, non richiede una forma analitica specifica, ma solo che le funzioni siano non negative e limitate. Il carico variabile è una funzione definita su un dominio discreto, non necessariamente continua, e rispetta i vincoli di integrità del modello a patto che i valori siano non negativi e che il tasso di recupero sia sufficientemente grande da smaltire la fatica accumulata.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{functions/c_variabile.pdf}
+    \caption{Funzione di carico periodico}\label{fig:function-c-periodico}
+\end{figure}
