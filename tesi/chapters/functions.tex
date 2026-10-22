@@ -183,24 +183,24 @@ dove $c_{f,0}$ e $c_{p,0}$ sono costanti non negative. Questo esempio, come rapp
 \end{figure}
 
 \paragraph{Carico periodico}
-Il secondo esempio è il carico periodico, in cui le funzioni di carico oscillano con una periodicità legata ad esempio alla settimana di allenamento. Ad esempio, come rappresentato in \autoref{fig:function-c-periodico}, consideriamo il caso in cui in ogni periodo abbiamo un allenamento ad alto carico (es. randori), un allenamento a carico medio (es. tecnica) e un allenamento senza carico (es. riposo o seduta di allungamento):
-\begin{gather*}
-    c_f(t) = \frac{1}{2}\left((-t) \mod 3\right) \\
-    c_p(t) = \frac{1}{2}\left((-t) \mod 3\right)
-\end{gather*}
-Se $ n \in \mathbb{N} $, allora la funzione può essere riscritta come:
+Il secondo esempio è il carico periodico, in cui le funzioni di carico oscillano con una periodicità legata, ad esempio, alla settimana di allenamento. Come rappresentato in \autoref{fig:function-c-periodico}, consideriamo il caso in cui in ogni periodo di tre sedute si alternano un allenamento ad alto carico (ad esempio randori), un allenamento a carico medio (ad esempio tecnica) e un allenamento senza carico (ad esempio riposo o seduta di allungamento). Formalmente, per $n \in \mathbb{N}$, si ha
 \[
     c_f(t) = c_p(t) = \begin{cases}
-        1 & \text{se } t = 3n \\
-        0.5 & \text{se } t = 3n + 1 \\
-        0 & \text{se } t = 3n + 2
+        1 & \text{se } t = 3n, \\
+        0.5 & \text{se } t = 3n + 1, \\
+        0 & \text{se } t = 3n + 2.
     \end{cases}
 \]
+Questa forma può essere scritta in modo compatto come
+\[
+    c_f(t) = c_p(t) = \frac{1}{2}\left((-t) \bmod 3\right),
+\]
+dove l'operatore $\bmod$ restituisce il resto della divisione intera. La funzione è periodica con periodo $3$, e rappresenta un ciclo di allenamento in cui il carico varia tra alto, medio e nullo. La scelta di questa forma è motivata dalla necessità di rappresentare la periodicità del carico su scale temporali brevi, senza introdurre una forma analitica continua. Il carico periodico è una funzione definita su un dominio discreto, non necessariamente continua, e rispetta i vincoli di integrità del modello a patto che i valori siano non negativi e che il tasso di recupero sia sufficientemente grande da smaltire la fatica accumulata.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width = \textwidth]{functions/c_periodico.pdf}
-    \caption{Funzione di carico periodico}\label{fig:function-c-variabile}
+    \caption{Funzione di carico periodico}\label{fig:function-c-periodico}
 \end{figure}
 
 \paragraph{Carico variabile}
@@ -215,5 +215,5 @@ La forma variabile, come rappresentato in \autoref{fig:function-c-variabile}, no
 \begin{figure}[h]
     \centering
     \includegraphics[width = \textwidth]{functions/c_variabile.pdf}
-    \caption{Funzione di carico periodico}\label{fig:function-c-periodico}
+    \caption{Funzione di carico variabile}\label{fig:function-c-variabile}
 \end{figure}
