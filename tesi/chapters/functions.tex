@@ -217,3 +217,47 @@ La forma variabile, come rappresentato in \autoref{fig:function-c-variabile}, no
     \includegraphics[width = \textwidth]{functions/c_variabile.pdf}
     \caption{Funzione di carico variabile}\label{fig:function-c-variabile}
 \end{figure}
+
+\section{Funzione di recupero}
+
+La funzione di recupero $r$ descrive il tasso di smaltimento della fatica in ogni seduta. Essa regola la dinamica della fatica e costituisce, insieme alle funzioni di carico, uno dei due termini che determinano l'evoluzione di $\bar{F}_f$ e $\bar{F}_p$. \par
+
+La forma analitica che adottiamo per la funzione di recupero è la seguente:
+\[
+    r(t) = 2 \omega_r \frac{1}{1 + \exp\left(\sigma_r t\right)}
+\]
+dove:
+\begin{itemize}
+    \item $t \in \{0, 1, \dots, T\}$ è il tempo
+    \item $\omega_r \in [0, 1]$ è l'ampiezza massima
+    \item $\sigma_r \in \mathbb{R}_{\geq 0}$ è la velocità di decadimento
+\end{itemize}
+La funzione è una sigmoide decrescente, che parte da $\omega_r$ in $t = 0$ e tende a zero per $t \to +\infty$. La scelta della sigmoide decrescente è motivata dalla necessità di rappresentare il fatto che il recupero è massimo all'inizio del periodo, quando gli atleti sono freschi, e decresce nel tempo, man mano che la fatica si accumula. \par
+
+La forma sigmoide permette di rappresentare scenari diversi variando i parametri. Se $\sigma_r = 0$, la funzione è costante e pari a $\omega_r$. Se $\sigma_r$ è grande, la funzione decade rapidamente verso zero. La sigmoide decrescente è una scelta naturale per rappresentare un recupero che si riduce nel tempo, e ha il vantaggio di essere limitata e derivabile.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{functions/r.pdf}
+    \caption{Funzione generica di recupero $r$}
+\end{figure}
+
+\subsection{Parametri}
+
+Il parametro $\omega_r \in [0, 1]$ rappresenta l'ampiezza massima della funzione di recupero, cioè il tasso di recupero massimo che può essere raggiunto. Il valore $\omega_r = 0$ corrisponde al caso in cui non c'è recupero, mentre $\omega_r = 1$ corrisponde al caso in cui il recupero massimo è pari a $1$. Il limite superiore $\omega_r \leq 1$ garantisce che la fatica non diventi negativa, perché il termine di recupero $r(t) \bar{F}_\cdot(t)$ non supera $\bar{F}_\cdot(t)$. \par
+
+Il parametro $\sigma_r \in \mathbb{R}_{\geq 0}$ rappresenta la velocità di decadimento del recupero. Il valore $\sigma_r = 0$ corrisponde a un recupero costante, mentre valori più grandi corrispondono a un recupero che decresce più rapidamente. Il parametro $\sigma_r$ controlla la scala temporale del decadimento, cioè quanto rapidamente il recupero passa da un valore alto a un valore basso.
+
+\subsection{Proprietà}
+
+La funzione di recupero soddisfa le seguenti proprietà, che derivano direttamente dalla sua forma analitica e dai domini dei parametri. \par
+
+La funzione è non negativa, cioè $r(t) \geq 0$ per ogni $t$. Questa proprietà è garantita dal fatto che la sigmoide è sempre positiva e $\omega_r \geq 0$. \par
+
+La funzione è limitata superiormente da $\omega_r$ in $t = 0$ e da zero per $t \to +\infty$. Più precisamente, il valore massimo è $r(0) = \omega_r$. Quindi la funzione rappresenta una probabilità. \par
+
+La funzione è continua e derivabile su tutto il dominio, per definizione. La derivata prima è:
+\[
+    \frac{d}{dt} r(t) = 2 \omega_r \sigma_r \frac{\exp\left(\sigma_r t\right)}{{\left(1 + \exp\left(\sigma_r t\right)\right)}^2}
+\]
+che è negativa per ogni $t$ se $\sigma_r > 0$. Quindi la funzione è monotona decrescente. \par
