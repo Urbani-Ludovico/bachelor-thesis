@@ -1,5 +1,7 @@
-from core import *
+import matplotlib.pyplot as plt
 import numpy as np
+import pathlib
+import os
 
 def f(x, omega, sigma):
     return omega * np.exp(- (x ** 2) / (2 * sigma ** 2))
@@ -12,55 +14,67 @@ x = np.linspace(0, 1, 1000)
 omega, sigma = 10, 0.2
 y = f(x, omega, sigma)
 
-plt, fig, ax = new_plot()
-
-plot(
-    ax,
+plt.plot(
     x, y,
     label = r'$\mu(x) = \omega_\mu \, \exp\left(-\frac{x^2}{2 \sigma_\mu^2}\right)$'
 )
 
-ax.set_xlim(0, 1)
-ax.set_ylim(-1, max(y) + 1)
-ax.set_xlabel(r"$\frac{t}{T}$")
-ax.set_ylabel(r"$\mu(x)$")
+plt.xlim(0, 1)
+plt.ylim(-1, max(y) + 1)
+plt.xlabel(r"$\frac{t}{T}$")
+plt.ylabel(r"$\mu(x)$")
 
-set_title(
-    ax,
+plt.title(
     r"Funzione di crescita $\mu$" + "\n" + r"$\omega_\mu = " + str(omega) + r"$, $\sigma_\mu = " + str(sigma) + r"$"
 )
 
-ax.grid(True, linestyle = "--", alpha = 0.6)
-ax.legend(loc = "upper right")
+plt.grid(True, linestyle = "--", alpha = 0.6)
+plt.legend(loc = "upper right")
 
-show_plot(plt, "functions/mu.pdf")
+plt.tight_layout()
+
+plt.savefig(
+    os.path.join(
+        pathlib.Path(__file__).parent.resolve(),
+        "../tesi/images/functions/mu.pdf"
+    ),
+    dpi = 300
+)
+
+plt.show()
 
 #
 # Sigma
 #
 
-plt, fig, ax = new_plot()
-
 for sigma in [0.05, 0.1, 0.2, 0.3, 0.5]:
     y = f(x, omega, sigma)
-    plot(
-        ax,
+    plt.plot(
         x, y,
         label = r'$\sigma_\mu = ' + str(sigma) + r'$',
         color = None
     )
 
-ax.set_xlim(0, 1)
-ax.set_ylim(-1, max(y) + 1)
-ax.set_xlabel(r"$\frac{t}{T}$")
-ax.set_ylabel(r"$\mu(x)$")
+plt.xlim(0, 1)
+plt.ylim(-1, max(y) + 1)
+plt.xlabel(r"$\frac{t}{T}$")
+plt.ylabel(r"$\mu(x)$")
 
-set_title(
-    ax,
+plt.title(
     r"Funzione di crescita $\mu$" + "\n" + r"$\omega_\mu = " + str(omega) + r"$"
 )
 
-ax.grid(True, linestyle = "--", alpha = 0.6)
-ax.legend(loc = "upper right")
+plt.grid(True, linestyle = "--", alpha = 0.6)
+plt.legend(loc = "upper right")
 
-show_plot(plt, "functions/mu_sigma.pdf")
+plt.tight_layout()
+
+plt.savefig(
+    os.path.join(
+        pathlib.Path(__file__).parent.resolve(),
+        "../tesi/images/functions/mu_sigma.pdf"
+    ),
+    dpi = 300
+)
+
+plt.show()
