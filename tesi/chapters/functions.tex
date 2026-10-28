@@ -25,7 +25,7 @@ La funzione è una gaussiana centrata in $x = 0$, troncata al dominio $[0, 1]$. 
 
 La scelta della gaussiana è motivata da tre ragioni. In primo luogo, è una funzione semplice e ben nota, con parametri interpretabili e proprietà analitiche note. In secondo luogo, centrata in $x = 0$ riflette il fatto che gli ingressi tendono a concentrarsi all'inizio del periodo, quando l'entusiasmo e la disponibilità sono maggiori, e a ridursi progressivamente nel tempo. In terzo luogo, ha una forma regolare e derivabile, che facilita l'analisi del modello e la derivazione di proprietà qualitative.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/mu.pdf}
     \caption{Funzione generica di crescita $\mu$}
@@ -41,7 +41,7 @@ Nella pratica, $\omega_\mu$ è limitato dal numero massimo di atleti che la pale
 Il parametro $\sigma_\mu \in \mathbb{R}_{> 0}$ rappresenta la larghezza del picco della funzione di crescita, cioè la velocità con cui gli ingressi decadono nel tempo. Valori piccoli di $\sigma_\mu$ corrispondono a un picco stretto, cioè a ingressi concentrati nelle prime sedute e rapidamente decrescenti. Valori grandi di $\sigma_\mu$ corrispondono a un picco largo, cioè a ingressi distribuiti su un periodo più lungo. \\
 Un valore piccolo di $\sigma_\mu$, come mostrato in \autoref{fig:function-mu-sigma}, corrisponde a una stagione in cui gli ingressi si concentrano nelle prime settimane e poi si esauriscono, mentre un valore grande corrisponde a una stagione in cui gli ingressi sono distribuiti su un periodo più lungo.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/mu_sigma.pdf}
     \caption{Funzione di crescita $\mu$ al variare del parametro $\sigma_\mu$}\label{fig:function-mu-sigma}
@@ -97,7 +97,7 @@ La funzione $\nu$ dipende anche dal moltiplicatore $\beta$, passato come argomen
 
 Le proprietà della funzione $\nu$ sono le stesse della funzione $\mu$ descritte in \autoref{sec:function-mu-property}, con la sostituzione di $\omega_\mu$ con $\beta$ e di $\sigma_\mu$ con $\sigma_\nu$, e con la differenza che la funzione è crescente anziché decrescente.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/nu.pdf}
     \caption{Funzione generica di abbandono $\nu$}
@@ -132,7 +132,7 @@ Il suo valore è compreso tra $0$ e $\gamma$, ed è crescente rispetto a $f_f$, 
 
 La scelta della sigmoide è motivata da tre ragioni. In primo luogo, è una funzione limitata, con valori compresi tra $0$ e $1$, il che garantisce che la probabilità di infortunio non superi mai il moltiplicatore $\gamma$. In secondo luogo, è crescente e saturante, il che riflette il fatto che il rischio di infortunio cresce con la fatica e la densità, ma non può crescere all'infinito. In terzo luogo, è regolare e derivabile, il che facilita l'analisi del modello. Il fattore di soglia $b$ sposta la sigmoide verso destra, riducendo il rischio in assenza di fatica e densità.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/lambda_ff.pdf}
     \caption{Funzione di infortunio $\lambda$ al variare del parametro $f_f$}
@@ -176,7 +176,7 @@ Il primo esempio è il carico costante, in cui le funzioni di carico assumono lo
 \end{gather*}
 dove $c_{f,0}$ e $c_{p,0}$ sono costanti non negative. Questo esempio, come rappresentato in \autoref{fig:function-c-costante}, corrisponde a un programma di allenamento uniforme, in cui ogni seduta ha lo stesso carico fisico e psicologico. È il caso più semplice e permette di studiare il comportamento del modello in condizioni stazionarie, senza l'effetto della stagionalità. Nella pratica, il carico costante è raramente realistico per un'intera stagione, ma può essere una buona approssimazione per periodi brevi o per studiare l'effetto della fatica in condizioni controllate.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/c_costante.pdf}
     \caption{Funzione di carico costante}\label{fig:function-c-costante}
@@ -197,7 +197,7 @@ Questa forma può essere scritta in modo compatto come
 \]
 dove l'operatore $\bmod$ restituisce il resto della divisione intera. La funzione è periodica con periodo $3$ e rappresenta un ciclo di allenamento in cui il carico varia tra alto, medio e nullo. La scelta di questa forma è motivata dalla necessità di rappresentare la periodicità del carico su scale temporali brevi, senza introdurre una forma analitica continua. Il carico periodico è una funzione definita su un dominio discreto, non necessariamente continua, e rispetta i vincoli di integrità del modello a patto che i valori siano non negativi e che il tasso di recupero sia sufficientemente grande da smaltire la fatica accumulata.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/c_periodico.pdf}
     \caption{Funzione di carico periodico}\label{fig:function-c-periodico}
@@ -212,7 +212,7 @@ Il terzo esempio è il carico variabile, in cui le funzioni di carico sono asseg
 Questo esempio corrisponde a un programma di allenamento dettagliato, in cui ogni seduta ha un carico specifico, eventualmente diverso dalle altre. Il carico variabile è il caso più generale e permette di rappresentare scenari arbitrari, come periodi di allenamento intenso seguiti da periodi di recupero, sedute di tecnica alternate con sedute di randori, o variazioni improvvise del carico dovute a eventi esterni. \\
 La forma variabile, come rappresentato in \autoref{fig:function-c-variabile}, non richiede una forma analitica specifica, ma solo che le funzioni siano non negative e limitate. Il carico variabile è una funzione definita su un dominio discreto, non necessariamente continua, e rispetta i vincoli di integrità del modello a patto che i valori siano non negativi e che il tasso di recupero sia sufficientemente grande da smaltire la fatica accumulata.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/c_variabile.pdf}
     \caption{Funzione di carico variabile}\label{fig:function-c-variabile}
@@ -236,7 +236,7 @@ La funzione è una sigmoide decrescente, che parte da $\omega_r$ in $t = 0$ e te
 
 La forma sigmoide permette di rappresentare scenari diversi variando i parametri. Se $\sigma_r = 0$, la funzione è costante e pari a $\omega_r$. Se $\sigma_r$ è grande, la funzione decade rapidamente verso zero. La sigmoide decrescente è una scelta naturale per rappresentare un recupero che si riduce nel tempo, e ha il vantaggio di essere limitata e derivabile.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/r.pdf}
     \caption{Funzione generica di recupero $r$}
