@@ -1,15 +1,15 @@
 \chapter{Le funzioni del modello}
 
-Nel capitolo precedente abbiamo scritto le equazioni che descrivono la dinamica del sistema e abbiamo introdotto le cinque funzioni che compaiono nelle equazioni: la funzione di crescita $\mu$, la funzione di abbandono $\nu$, la funzione di infortunio $\lambda$, le funzioni di carico $c_f$ e $c_p$ e la funzione di recupero $r$. In quel contesto ci siamo limitati a una descrizione qualitativa del loro ruolo e a specificarne i domini, senza fissare una forma analitica. \\
-In questo capitolo completiamo la specificazione del modello, definendo per ciascuna funzione un esempio di forma analitica concreta, i parametri che la controllano, le proprietà che essa soddisfa e il significato dei suoi parametri. \par
+Nel capitolo precedente abbiamo scritto le equazioni del modello e abbiamo introdotto le cinque funzioni che vi compaiono: la funzione di crescita $\mu$, la funzione di abbandono $\nu$, la funzione di infortunio $\lambda$, le funzioni di carico $c_f$ e $c_p$ e la funzione di recupero $r$. In quel contesto ci siamo limitati a descriverne il ruolo e a specificarne i domini, senza scegliere una forma analitica. \\
+In questo capitolo completiamo il modello, definendo per ogni funzione un esempio concreto di forma analitica, i parametri che la controllano, le proprietà che soddisfa e il significato dei suoi parametri. \par
 
-La scelta della forma analitica di una funzione non è mai neutra. Da un lato, la forma deve rispettare le proprietà richieste dal modello, cioè i domini, le limitazioni e le condizioni di coerenza discusse nel capitolo precedente. Dall'altro, la forma deve essere abbastanza flessibile da catturare i fenomeni che si vogliono modellare, ma anche abbastanza semplice da permettere l'analisi e la simulazione. Tra questi due estremi esiste un compromesso, e la scelta dipende dagli obiettivi del modello e dai dati disponibili. In questo capitolo adottiamo un criterio esplicito: scegliamo forme analitiche che siano continue, limitate, monotone dove richiesto e con parametri interpretabili, in modo che il modello rimanga trattabile e le sue conclusioni siano comprensibili. \par
+La scelta della forma analitica non è mai neutra. Da un lato, la forma deve rispettare i domini, le limitazioni e le condizioni di coerenza discusse nel capitolo precedente. Dall'altro, deve essere abbastanza flessibile da rappresentare i fenomeni che vogliamo modellare, ma anche abbastanza semplice da permettere l'analisi e la simulazione. Tra questi due estremi esiste un compromesso, e la scelta dipende dagli obiettivi del modello e dai dati disponibili. In questo capitolo adottiamo un criterio esplicito: scegliamo forme analitiche continue, limitate, monotone dove serve e con parametri interpretabili, in modo che il modello resti trattabile e le sue conclusioni siano comprensibili. \par
 
-La funzione di crescita, ad esempio, deve riflettere il fatto che gli ingressi tendono a concentrarsi all'inizio del periodo e a ridursi nel tempo, mentre la funzione di abbandono deve riflettere il fatto che gli abbandoni tendono a concentrarsi alla fine. La funzione di infortunio deve essere crescente rispetto alla fatica e alla densità, e saturare a un valore massimo. La funzione di recupero deve essere decrescente nel tempo, a riflettere il fatto che il recupero è più efficace all'inizio e più lento quando la fatica si accumula. Le funzioni di carico, infine, devono essere abbastanza flessibili da rappresentare scenari diversi, senza vincolare il modello a una forma specifica.
+La funzione di crescita, per esempio, deve riflettere il fatto che gli ingressi tendono a concentrarsi all'inizio del periodo e a ridursi nel tempo. La funzione di abbandono deve riflettere il fatto che gli abbandoni tendono a concentrarsi alla fine. La funzione di infortunio deve crescere con la fatica e con la densità, e saturare a un valore massimo. La funzione di recupero deve decrescere nel tempo, perché il recupero è più efficace all'inizio e più lento quando la fatica si accumula. Le funzioni di carico, infine, devono essere abbastanza flessibili da rappresentare scenari diversi, senza vincolare il modello a una forma specifica.
 
 \section{Funzione di crescita}
 
-La funzione di crescita $\mu$ descrive il numero complessivo di nuovi atleti che entrano nel gruppo in ogni seduta. Essa riflette la dinamica di iscrizione a una stagione sportiva e costituisce uno dei due flussi esterni del modello, insieme agli abbandoni descritti dalla funzione $\nu$. \par
+La funzione di crescita $\mu$ descrive il numero complessivo di nuovi atleti che entrano nel gruppo in ogni seduta. Riflette la dinamica di iscrizione a una stagione sportiva e costituisce, insieme alla funzione di abbandono $\nu$, uno dei due flussi esterni del modello. \par
 
 La forma analitica che adottiamo per la funzione di crescita è la seguente:
 \[
@@ -21,9 +21,9 @@ dove:
     \item $\omega_\mu \in \mathbb{R}_{\geq 0}$ è l'ampiezza della funzione
     \item $\sigma_\mu \in \mathbb{R}_{> 0}$ è la larghezza del picco della funzione
 \end{itemize}
-La funzione è una gaussiana centrata in $x = 0$, troncata al dominio $[0, 1]$. Il suo massimo si trova in $x = 0$ ed è pari a $\omega_\mu$, mentre il suo valore in $x = 1$ è $\omega_\mu \exp\left(-\frac{1}{2 \sigma_\mu^2}\right)$. La funzione è non negativa, continua, derivabile e decrescente su tutto il dominio. \par
+La funzione è una gaussiana centrata in $x = 0$, troncata al dominio $[0, 1]$. Il massimo si trova in $x = 0$ ed è pari a $\omega_\mu$, mentre il valore in $x = 1$ è $\omega_\mu \exp\left(-\frac{1}{2 \sigma_\mu^2}\right)$. La funzione è non negativa, continua, derivabile e decrescente su tutto il dominio. \par
 
-La scelta della gaussiana è motivata da tre ragioni. In primo luogo, la gaussiana è una funzione semplice e ben nota, con parametri interpretabili e proprietà analitiche note. In secondo luogo, la gaussiana centrata in $x = 0$ riflette il fatto che gli ingressi tendono a concentrarsi all'inizio del periodo, quando l'entusiasmo e la disponibilità sono maggiori, e a ridursi progressivamente nel tempo. In terzo luogo, la gaussiana ha una forma regolare e derivabile, che facilita l'analisi del modello e la derivazione di proprietà qualitative.
+La scelta della gaussiana è motivata da tre ragioni. In primo luogo, è una funzione semplice e ben nota, con parametri interpretabili e proprietà analitiche note. In secondo luogo, centrata in $x = 0$ riflette il fatto che gli ingressi tendono a concentrarsi all'inizio del periodo, quando l'entusiasmo e la disponibilità sono maggiori, e a ridursi progressivamente nel tempo. In terzo luogo, ha una forma regolare e derivabile, che facilita l'analisi del modello e la derivazione di proprietà qualitative.
 
 \begin{figure}[h]
     \centering
@@ -33,7 +33,7 @@ La scelta della gaussiana è motivata da tre ragioni. In primo luogo, la gaussia
 
 \subsection{Parametri}
 
-La funzione di crescita dipende da due parametri, cioè $\omega_\mu$ e $\sigma_\mu$, che hanno domini e significati distinti. \par
+La funzione di crescita dipende da due parametri, $\omega_\mu$ e $\sigma_\mu$, che hanno domini e significati distinti. \par
 
 Il parametro $\omega_\mu \in \mathbb{R}_{\geq 0}$ rappresenta l'ampiezza massima della funzione di crescita, cioè il numero massimo di nuovi atleti che entrano nel gruppo in una singola seduta. Il valore $\omega_\mu = 0$ corrisponde al caso in cui non ci sono nuovi ingressi, mentre valori più grandi corrispondono a ingressi più numerosi. \\
 Nella pratica, $\omega_\mu$ è limitato dal numero massimo di atleti che la palestra può accogliere e dal bacino di utenza disponibile. Il parametro $\omega_\mu$ ha come unità di misura il numero di atleti. Un valore grande di $\omega_\mu$ corrisponde a una palestra capace di accogliere molti nuovi atleti, mentre un valore piccolo corrisponde a una palestra con capacità limitata. Il parametro $\omega_\mu$ può essere stimato dai dati storici di iscrizione, oppure scelto in base a scenari ipotetici.
@@ -77,11 +77,11 @@ La funzione è limitata superiormente da $\omega_\mu$ e inferiormente da zero, q
 
 \section{Funzione di abbandono}
 
-La funzione di abbandono $\nu$ descrive la frazione di atleti che abbandona il gruppo in ogni seduta. Essa costituisce, insieme alla funzione di crescita $\mu$, uno dei due flussi esterni del modello, e regola la diminuzione della popolazione. \par
+La funzione di abbandono $\nu$ descrive la frazione di atleti che abbandona il gruppo in ogni seduta. Costituisce, insieme alla funzione di crescita $\mu$, uno dei due flussi esterni del modello, e regola la diminuzione della popolazione. \par
 
 La forma analitica che adottiamo per la funzione di abbandono è la seguente:
 \[
-    \nu(x, \beta) = \beta \exp\left(-\frac{{(x - 1)}^2}{2 \sigma_\nu^2}\right)
+    \nu(x, \beta) = \beta \exp\left(-\frac{(x - 1)^2}{2 \sigma_\nu^2}\right)
 \]
 dove:
 \begin{itemize}
@@ -89,13 +89,13 @@ dove:
     \item $\beta \in [0, 1]$ è l'ampiezza della funzione
     \item $\sigma_\nu \in \mathbb{R}_{> 0}$ è la larghezza del picco della funzione
 \end{itemize}
-La funzione è una gaussiana centrata in $x = 1$, troncata al dominio $[0, 1]$. Il suo massimo si trova in $x = 1$ ed è pari a $\beta$, mentre il suo valore in $x = 0$ è $\beta \exp\left(-\frac{1}{2 \sigma_\nu^2}\right)$. \par
+La funzione è una gaussiana centrata in $x = 1$, troncata al dominio $[0, 1]$. Il massimo si trova in $x = 1$ ed è pari a $\beta$, mentre il valore in $x = 0$ è $\beta \exp\left(-\frac{1}{2 \sigma_\nu^2}\right)$. \par
 
 La funzione è la trasformazione della funzione $\mu$ rispetto all'asse $x = \frac{1}{2}$. Mentre gli ingressi tendono a concentrarsi all'inizio del periodo, gli abbandoni tendono a concentrarsi alla fine, quando l'entusiasmo iniziale si riduce, sopraggiungono altri impegni o la stanchezza accumulata diventa significativa. La simmetria tra le due funzioni non è casuale, ma riflette il fatto che i due fenomeni hanno dinamiche temporali opposte. La scelta della gaussiana permette di rappresentare questa opposizione con una forma semplice e ben nota, con parametri interpretabili e proprietà analitiche note. \par
 
-La funzione $\nu$ dipende anche dal moltiplicatore $\beta$, passato come argomento della funzione, in quanto permette di differenziare il tasso di abbandono tra le diverse popolazioni. Nel modello, il moltiplicatore $\beta$ assume valori diversi a seconda della popolazione a cui la funzione si applica, cioè $\beta_S$ per i sani, $\beta_P$ per i pregressi, $\beta_I$ per gli infortunati e $\beta_M$ per i malconci. Questa scelta riflette il fatto che gli atleti in popolazioni diverse possono avere comportamenti di abbandono diversi, a causa della loro condizione fisica, della loro motivazione o del loro rapporto con l'attività. \par
+La funzione $\nu$ dipende anche dal moltiplicatore $\beta$, passato come argomento, che permette di differenziare il tasso di abbandono tra le diverse popolazioni. Nel modello, $\beta$ assume valori diversi a seconda della popolazione a cui la funzione si applica: $\beta_S$ per i sani, $\beta_P$ per i pregressi, $\beta_I$ per gli infortunati e $\beta_M$ per i malconci. Questa scelta riflette il fatto che gli atleti in popolazioni diverse possono avere comportamenti di abbandono diversi, a causa della loro condizione fisica, della loro motivazione o del loro rapporto con l'attività. \par
 
-Le proprietà della funzione $\nu$ sono le stesse della funzione $\mu$ descritte in \autoref{sec:function-mu-property}, con l'ovvia sostituzione di $\omega_\mu$ con $\beta$ e di $\sigma_\mu$ con $\sigma_\nu$, e con la differenza che la funzione è crescente anziché decrescente.
+Le proprietà della funzione $\nu$ sono le stesse della funzione $\mu$ descritte in \autoref{sec:function-mu-property}, con la sostituzione di $\omega_\mu$ con $\beta$ e di $\sigma_\mu$ con $\sigma_\nu$, e con la differenza che la funzione è crescente anziché decrescente.
 
 \begin{figure}[h]
     \centering
@@ -105,7 +105,7 @@ Le proprietà della funzione $\nu$ sono le stesse della funzione $\mu$ descritte
 
 \subsection{Parametri}
 
-La funzione di abbandono dipende da due parametri, cioè $\beta$ e $\sigma_\nu$, che hanno domini e significati distinti. \par
+La funzione di abbandono dipende da due parametri, $\beta$ e $\sigma_\nu$, che hanno domini e significati distinti. \par
 
 Il parametro $\beta \in [0, 1]$ rappresenta l'ampiezza massima della funzione di abbandono, cioè la frazione massima di atleti che possono abbandonare in una singola seduta. Il valore $\beta = 0$ corrisponde al caso in cui non ci sono abbandoni dalla popolazione considerata, mentre $\beta = 1$ corrisponde al caso in cui il tasso di abbandono raggiunge il valore massimo consentito, cioè $1$. Nella pratica, $\beta$ è limitato dal fatto che il tasso di abbandono non può superare l'unità, altrimenti la popolazione diventerebbe negativa. Il parametro $\beta$ è adimensionale, perché rappresenta una frazione. \par
 
@@ -117,7 +117,7 @@ La funzione di infortunio $\lambda$ descrive la probabilità che un atleta si in
 
 La forma analitica che adottiamo per la funzione di infortunio è la seguente:
 \[
-    \lambda(f_f, f_p, d, \gamma) = \gamma \frac{1}{1 + \exp\left(-\omega_f f_f - \omega_p f_p - \omega_d d + b\right)}
+    \lambda(f_f, f_p, d, \gamma) = \gamma \frac{1}{1 + \exp\left(-\omega_f f_f - \omega_p f_p - \omega_d d + b\right)},
 \]
 dove:
 \begin{itemize}
@@ -130,7 +130,7 @@ dove:
 \end{itemize}
 Il suo valore è compreso tra $0$ e $\gamma$, ed è crescente rispetto a $f_f$, $f_p$ e $d$. \par
 
-La scelta della funzione sigmoide è motivata da tre ragioni. In primo luogo, la sigmoide è una funzione limitata, con valori compresi tra $0$ e $1$, il che garantisce che la probabilità di infortunio non superi mai il moltiplicatore $\gamma$. In secondo luogo, la sigmoide è una funzione crescente e saturante, il che riflette il fatto che il rischio di infortunio cresce con la fatica e la densità, ma non può crescere all'infinito. In terzo luogo, la sigmoide è una funzione regolare e derivabile, che facilita l'analisi del modello e la derivazione di proprietà qualitative. Il fattore di soglia $b$ sposta la sigmoide verso destra, riducendo il rischio in assenza di fatica e densità.
+La scelta della sigmoide è motivata da tre ragioni. In primo luogo, è una funzione limitata, con valori compresi tra $0$ e $1$, il che garantisce che la probabilità di infortunio non superi mai il moltiplicatore $\gamma$. In secondo luogo, è crescente e saturante, il che riflette il fatto che il rischio di infortunio cresce con la fatica e la densità, ma non può crescere all'infinito. In terzo luogo, è regolare e derivabile, il che facilita l'analisi del modello. Il fattore di soglia $b$ sposta la sigmoide verso destra, riducendo il rischio in assenza di fatica e densità.
 
 \begin{figure}[h]
     \centering
@@ -140,13 +140,13 @@ La scelta della funzione sigmoide è motivata da tre ragioni. In primo luogo, la
 
 \subsection{Parametri}
 
-La funzione di infortunio dipende da cinque parametri, cioè $\gamma$, $\omega_f$, $\omega_p$, $\omega_d$ e $b$, che hanno domini e significati distinti. \par
+La funzione di infortunio dipende da cinque parametri, $\gamma$, $\omega_f$, $\omega_p$, $\omega_d$ e $b$, che hanno domini e significati distinti. \par
 
-Il parametro $\gamma \in [0,1]$, analogo di $\beta$ per $\nu$, rappresenta il moltiplicatore di rischio specifico della popolazione a cui la funzione si applica. Il valore $\gamma = 0$ corrisponde al caso in cui la popolazione non ha rischio di infortunio, mentre $\gamma = 1$ corrisponde al caso in cui il rischio massimo è pari a $1$. Nel modello, il moltiplicatore $\gamma$ assume valori diversi a seconda della popolazione, cioè $\gamma_S$ per i sani, $\gamma_P$ per i pregressi e $\gamma_M$ per i malconci. Si assume $\gamma_S \leq \gamma_P \leq \gamma_M$, a riflettere il fatto che gli atleti con infortuni pregressi o in corso sono considerati più a rischio rispetto agli atleti sani. \par
+Il parametro $\gamma \in [0,1]$, analogo di $\beta$ per $\nu$, rappresenta il moltiplicatore di rischio specifico della popolazione a cui la funzione si applica. Il valore $\gamma = 0$ corrisponde al caso in cui la popolazione non ha rischio di infortunio, mentre $\gamma = 1$ corrisponde al caso in cui il rischio massimo è pari a $1$. Nel modello, $\gamma$ assume valori diversi a seconda della popolazione: $\gamma_S$ per i sani, $\gamma_P$ per i pregressi e $\gamma_M$ per i malconci. Si assume $\gamma_S \leq \gamma_P \leq \gamma_M$, a riflettere il fatto che gli atleti con infortuni pregressi o in corso sono considerati più a rischio rispetto agli atleti sani. \par
 
 I parametri $\omega_f, \omega_p, \omega_d \in \mathbb{R}_{> 0}$ rappresentano il peso rispettivamente della fatica fisica, della fatica psicologica e della densità di atleti sul tatami. Il valore $\omega_\cdot \to 0^+$ corrisponde al caso in cui la variabile non influenza il rischio, mentre valori più grandi corrispondono a una dipendenza più forte. \par
 
-Il parametro $b \in \mathbb{R}_{\geq 0}$ rappresenta il fattore della traslazione del valore di soglia. Il ruolo di $b$ è quello di evitare che un atleta fresco in un tatami vuoto abbia un rischio di infortunio non trascurabile. Senza $b$, il rischio in assenza di fatica e densità sarebbe $\frac{\gamma}{2}$, che potrebbe essere troppo alto.
+Il parametro $b \in \mathbb{R}_{\geq 0}$ rappresenta il fattore di traslazione del valore di soglia. Il ruolo di $b$ è quello di evitare che un atleta fresco in un tatami vuoto abbia un rischio di infortunio non trascurabile. Senza $b$, il rischio in assenza di fatica e densità sarebbe $\frac{\gamma}{2}$, che potrebbe essere troppo alto.
 
 \subsection{Proprietà}
 
@@ -166,7 +166,7 @@ Il limite per $f_f, f_p, d \to +\infty$ è $\lambda \to \gamma$, cioè la funzio
 
 \section{Funzioni di carico}
 
-Le funzioni di carico $c_f$ e $c_p$ descrivono la quantità di fatica fisica e psicologica aggiunta in ogni seduta di allenamento. Esse costituiscono l'ingresso principale del modello per quanto riguarda la dinamica della fatica e sono trattate come parametri esogeni. In questa sezione non adottiamo una forma analitica specifica per le funzioni di carico, ma presentiamo tre esempi che illustrano come il carico possa essere costante, periodico o variabile. La scelta tra questi esempi dipende dal fenomeno modellato e dai dati disponibili, e il modello è progettato per accogliere qualsiasi funzione che rispetti i domini e i vincoli discussi nel capitolo precedente.
+Le funzioni di carico $c_f$ e $c_p$ descrivono la quantità di fatica fisica e psicologica aggiunta in ogni seduta di allenamento. Costituiscono l'ingresso principale del modello per la dinamica della fatica e sono trattate come parametri esogeni. In questa sezione non adottiamo una forma analitica specifica, ma presentiamo tre esempi che illustrano come il carico possa essere costante, periodico o variabile. La scelta tra questi esempi dipende dal fenomeno modellato e dai dati disponibili, e il modello è progettato per accogliere qualsiasi funzione che rispetti i domini e i vincoli discussi nel capitolo precedente.
 
 \paragraph{Carico costante}
 Il primo esempio è il carico costante, in cui le funzioni di carico assumono lo stesso valore in ogni seduta. Formalmente, si ha:
@@ -174,7 +174,7 @@ Il primo esempio è il carico costante, in cui le funzioni di carico assumono lo
     c_f(t) = c_{f, 0} \in \mathbb{R}_{\geq 0} \\
     c_p(t) = c_{p, 0} \in \mathbb{R}_{\geq 0}
 \end{gather*}
-dove $c_{f,0}$ e $c_{p,0}$ sono costanti non negative. Questo esempio, come rappresentato in \autoref{fig:function-c-costante}, corrisponde a un programma di allenamento uniforme, in cui ogni seduta ha lo stesso carico fisico e psicologico. Il carico costante è il caso più semplice e permette di studiare il comportamento del modello in condizioni stazionarie, senza l'effetto della stagionalità. Nella pratica, il carico costante è raramente realistico per un'intera stagione, ma può essere una buona approssimazione per periodi brevi o per studiare l'effetto della fatica in condizioni controllate.
+dove $c_{f,0}$ e $c_{p,0}$ sono costanti non negative. Questo esempio, come rappresentato in \autoref{fig:function-c-costante}, corrisponde a un programma di allenamento uniforme, in cui ogni seduta ha lo stesso carico fisico e psicologico. È il caso più semplice e permette di studiare il comportamento del modello in condizioni stazionarie, senza l'effetto della stagionalità. Nella pratica, il carico costante è raramente realistico per un'intera stagione, ma può essere una buona approssimazione per periodi brevi o per studiare l'effetto della fatica in condizioni controllate.
 
 \begin{figure}[h]
     \centering
@@ -195,7 +195,7 @@ Questa forma può essere scritta in modo compatto come
 \[
     c_f(t) = c_p(t) = \frac{1}{2}\left((-t) \bmod 3\right),
 \]
-dove l'operatore $\bmod$ restituisce il resto della divisione intera. La funzione è periodica con periodo $3$, e rappresenta un ciclo di allenamento in cui il carico varia tra alto, medio e nullo. La scelta di questa forma è motivata dalla necessità di rappresentare la periodicità del carico su scale temporali brevi, senza introdurre una forma analitica continua. Il carico periodico è una funzione definita su un dominio discreto, non necessariamente continua, e rispetta i vincoli di integrità del modello a patto che i valori siano non negativi e che il tasso di recupero sia sufficientemente grande da smaltire la fatica accumulata.
+dove l'operatore $\bmod$ restituisce il resto della divisione intera. La funzione è periodica con periodo $3$ e rappresenta un ciclo di allenamento in cui il carico varia tra alto, medio e nullo. La scelta di questa forma è motivata dalla necessità di rappresentare la periodicità del carico su scale temporali brevi, senza introdurre una forma analitica continua. Il carico periodico è una funzione definita su un dominio discreto, non necessariamente continua, e rispetta i vincoli di integrità del modello a patto che i valori siano non negativi e che il tasso di recupero sia sufficientemente grande da smaltire la fatica accumulata.
 
 \begin{figure}[h]
     \centering
@@ -220,7 +220,7 @@ La forma variabile, come rappresentato in \autoref{fig:function-c-variabile}, no
 
 \section{Funzione di recupero}
 
-La funzione di recupero $r$ descrive il tasso di smaltimento della fatica in ogni seduta. Essa regola la dinamica della fatica e costituisce, insieme alle funzioni di carico, uno dei due termini che determinano l'evoluzione di $\bar{F}_f$ e $\bar{F}_p$. \par
+La funzione di recupero $r$ descrive il tasso di smaltimento della fatica in ogni seduta. Regola la dinamica della fatica e costituisce, insieme alle funzioni di carico, uno dei due termini che determinano l'evoluzione di $\bar{F}_f$ e $\bar{F}_p$. \par
 
 La forma analitica che adottiamo per la funzione di recupero è la seguente:
 \[
