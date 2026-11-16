@@ -3,11 +3,13 @@ import numpy as np
 import pathlib
 import os
 
+np.random.seed(0)
+
 def costante(x):
     return np.repeat(0.7, len(x))
 
 def periodico(x):
-    return ((- x) % 3) / 2
+    return ((2 - x) % 3) / 2
 
 def variabile(x):
     return np.random.uniform(0, 1, len(x))
@@ -15,6 +17,7 @@ def variabile(x):
 x = np.arange(0, 11, 1)
 
 for func in (costante, periodico, variabile):
+    plt.figure()
     plt.plot(
         x, func(x),
         label = "Carico " + func.__name__,

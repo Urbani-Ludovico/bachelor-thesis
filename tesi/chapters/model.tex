@@ -43,9 +43,9 @@ rappresenta il flusso di atleti sani che si infortunano durante la seduta. La fu
 \[
     \frac{S(t) + P(t) + M(t)}{A_{\max}}
 \]
-perché gli atleti in $I$ non si allenano e non contribuiscono alla concentrazione sul tatami. La densità riflette il numero di atleti effettivamente presenti sul tatami, normalizzato rispetto a una scala di riferimento $A_{\max}$ che rappresenta l'area del tatami. Più atleti ci sono sul tatami, più è probabile che si verifichino scontri tra coppie, impatti o contatti accidentali, e quindi più alto è il rischio di infortunio. \par
+perché gli atleti in $I$ non si allenano e non contribuiscono alla concentrazione sul tatami. La densità riflette il numero di atleti effettivamente presenti sul tatami, normalizzato rispetto a una scala di riferimento $A_{\max}$ che rappresenta la capienza del tatami, cioè il numero massimo di atleti che possono allenarsi in sicurezza. Più atleti ci sono sul tatami, più è probabile che si verifichino scontri tra coppie, impatti o contatti accidentali, e quindi più alto è il rischio di infortunio. \par
 
-Gli atleti che si infortunano escono da $S$ ed entrano in $I$ o $M$, a seconda che l'infortunio sia grave, con probabilità $\pi$, o meno grave, con probabilità $1-\pi$. Questa transizione è descritta nelle equazioni di $I$ e $M$. Il fatto che il flusso di infortunio sia proporzionale a $S(t)$ riflette l'ipotesi che ogni atleta sano abbia la stessa probabilità di infortunarsi, indipendentemente dagli altri. La probabilità dipende dalla fatica media attraverso la funzione sigmoide, che riflette lo stato complessivo degli atleti che si allenano, e alla densità, che riflette la concentrazione di atleti sul tatami. La scelta di usare la fatica media, invece delle fatiche individuali, è giustificata dalle ipotesi di mescolamento e simmetria discusse nel capitolo precedente: gli accoppiamenti cambiano frequentemente e ogni atleta interagisce in media con partner rappresentativi della fatica media del gruppo.
+Gli atleti che si infortunano escono da $S$ ed entrano in $I$ o $M$, a seconda che l'infortunio sia grave, con probabilità $\pi$, o meno grave, con probabilità $1-\pi$. Questa transizione è descritta nelle equazioni di $I$ e $M$. Il fatto che il flusso di infortunio sia proporzionale a $S(t)$ riflette l'ipotesi che ogni atleta sano abbia la stessa probabilità di infortunarsi, indipendentemente dagli altri. La probabilità dipende dalla fatica media, che riflette lo stato complessivo degli atleti che si allenano, e dalla densità, che riflette la concentrazione di atleti sul tatami. La scelta di usare la fatica media, invece delle fatiche individuali, è giustificata dalle ipotesi di mescolamento e simmetria discusse nel capitolo precedente: gli accoppiamenti cambiano frequentemente e ogni atleta interagisce in media con partner rappresentativi della fatica media del gruppo.
 
 \section{Equazione di P}
 
@@ -85,7 +85,7 @@ Il termine
 \[
     \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_P\right) P(t)
 \]
-rappresenta il flusso di atleti con infortuni pregressi che si infortunano durante la seduta. La funzione $\lambda$ descrive la probabilità di infortunio, come per $S$. La differenza rispetto a $S$ sta nel moltiplicatore di rischio $\gamma_P$. Gli atleti con infortuni pregressi sono considerati più a rischio rispetto agli atleti sani, in quanto un infortunio pregresso può lasciare una vulnerabilità residua, una ridotta stabilità articolare o una minore tolleranza al carico. Questo si riflette nell'ipotesi di lavoro $\gamma_S \leq \gamma_P$, che sarà discussa nelle ipotesi del modello. Il parametro $\gamma_P$ permette quindi di calibrare il rischio aggiuntivo associato agli infortuni pregressi. Se, ad esempio, si ritiene che un atleta con infortunio pregresso abbia un rischio doppio rispetto a un atleta sano, si può porre $\gamma_P = 2\gamma_S$. \par
+rappresenta il flusso di atleti con infortuni pregressi che si infortunano durante la seduta. La funzione $\lambda$ descrive la probabilità di infortunio, come per $S$. La differenza rispetto a $S$ sta nel moltiplicatore di rischio $\gamma_P$. Gli atleti con infortuni pregressi sono considerati più a rischio rispetto agli atleti sani, in quanto un infortunio pregresso può lasciare una vulnerabilità residua, una ridotta stabilità articolare o una minore tolleranza al carico. Questo si riflette nell'ipotesi di lavoro $\gamma_S \leq \gamma_P$, riportata in \autoref{sec:domini}. Il parametro $\gamma_P$ permette quindi di calibrare il rischio aggiuntivo associato agli infortuni pregressi. Se, ad esempio, si ritiene che un atleta con infortunio pregresso abbia un rischio doppio rispetto a un atleta sano, si può porre $\gamma_P = 2\gamma_S$. \par
 
 Come per $S$, gli atleti che si infortunano escono da $P$ ed entrano in $I$ o $M$, a seconda che l'infortunio sia grave o meno grave. Questa transizione è descritta nelle equazioni di $I$ e $M$. Il fatto che il flusso di infortunio sia proporzionale a $P(t)$ riflette l'ipotesi che ogni atleta con infortunio pregresso abbia la stessa probabilità di infortunarsi, indipendentemente dagli altri. La probabilità è modulata dalla fatica media del gruppo e dalla densità, come per $S$.
 
@@ -165,7 +165,7 @@ Il termine
 \]
 rappresenta il flusso di atleti malconci che si infortunano gravemente durante la seduta e passano in $I$. La funzione $\lambda$ descrive la probabilità di infortunio, modulata dal moltiplicatore di rischio $\gamma_M$ specifico della popolazione $M$. Il fattore $\pi$ rappresenta la probabilità che l'infortunio sia grave. Il fatto che il flusso di uscita sia proporzionale a $\pi$ riflette il fatto che solo gli infortuni gravi portano l'atleta fuori da $M$, mentre gli infortuni lievi lasciano l'atleta in $M$, perché la sua condizione resta quella di malconcio. \par
 
-La differenza rispetto a $S$ e $P$ sta nel moltiplicatore di rischio $\gamma_M$. Gli atleti malconci sono considerati più a rischio rispetto agli atleti sani e, in genere, anche rispetto agli atleti con infortuni pregressi, perché la loro condizione fisica non è ottimale e possono essere più vulnerabili a nuovi infortuni. Questo si riflette nell'ipotesi di lavoro $\gamma_S \leq \gamma_P \leq \gamma_M$, che sarà discussa nelle ipotesi del modello. Il parametro $\gamma_M$ permette quindi di calibrare il rischio aggiuntivo associato alla condizione di malconcio.
+La differenza rispetto a $S$ e $P$ sta nel moltiplicatore di rischio $\gamma_M$. Gli atleti malconci sono considerati più a rischio rispetto agli atleti sani e, in genere, anche rispetto agli atleti con infortuni pregressi, perché la loro condizione fisica non è ottimale e possono essere più vulnerabili a nuovi infortuni. Questo si riflette nell'ipotesi di lavoro $\gamma_S \leq \gamma_P \leq \gamma_M$, riportata in \autoref{sec:domini}. Il parametro $\gamma_M$ permette quindi di calibrare il rischio aggiuntivo associato alla condizione di malconcio.
 
 \paragraph{Flusso di abbandono}
 Il termine
@@ -213,7 +213,7 @@ Le equazioni spiegate nelle sezioni precedenti descrivono separatamente l'evoluz
 
 Il sistema completo è composto da sei equazioni alle differenze, quattro per le popolazioni e due per le componenti della fatica. Le equazioni delle popolazioni hanno tutte la stessa struttura: la popolazione al passo successivo è uguale alla popolazione corrente, più i flussi in ingresso, meno i flussi in uscita. Le equazioni della fatica hanno una struttura analoga, in cui la fatica al passo successivo è uguale alla fatica corrente, più il carico della seduta, meno la parte di fatica smaltita dal recupero. La somiglianza strutturale tra le equazioni non è casuale, ma riflette il fatto che tutti i processi modellati sono processi di accumulo e smaltimento, in cui una grandezza varia in risposta a flussi in ingresso e in uscita. \par
 
-Nelle sezioni che seguono viene presentato il sistema nella sua forma estesa, con ogni termine è scritto esplicitamente, e nella sua forma compatta, in cui le funzioni valutate al tempo $t$ sono raccolte in simboli ausiliari. Presentiamo inoltre la struttura dei flussi tra popolazioni, il vincolo di conservazione della popolazione totale e le principali interdipendenze tra le variabili di stato. Questi elementi costituiscono la base per l'analisi del modello e per la discussione dei risultati nelle sezioni successive.
+Di seguito viene presentato il sistema nella sua forma estesa, con ogni termine scritto esplicitamente, e nella sua forma compatta, in cui le funzioni valutate al tempo $t$ sono raccolte in simboli ausiliari. Presentiamo inoltre la struttura dei flussi tra popolazioni, il vincolo di conservazione della popolazione totale e le principali interdipendenze tra le variabili di stato. Questi elementi costituiscono la base per l'analisi del modello e per la discussione dei risultati nelle sezioni successive.
 
 \begin{equation*}
     \left\lbrace\begin{aligned}
@@ -249,7 +249,7 @@ Se definiamo le seguenti abbreviazioni:
 \begin{gather*}
     \tilde\mu(t) = \mu\left(\frac{t}{T}\right) \\
     \tilde\nu_\cdot(t) = \nu\left(\frac{t}{T}, \beta_\cdot\right) \\
-    \tilde\lambda_\cdot = \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_\cdot\right)
+    \tilde\lambda_\cdot(t) = \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_\cdot\right)
 \end{gather*}
 possiamo riscrivere il sistema nella forma compatta:
 \begin{equation*}
@@ -257,23 +257,23 @@ possiamo riscrivere il sistema nella forma compatta:
         S(t+1) &= S(t)
             + \alpha \tilde\mu(t)
             - \tilde\nu_S(t) S(t)
-            - \tilde\lambda_S S(t) \\[10pt]
+            - \tilde\lambda_S(t) S(t) \\[10pt]
         P(t+1) &= P(t)
             + (1 - \alpha) \tilde\mu(t)
             - \tilde\nu_P(t) P(t)
-            - \tilde\lambda_P P(t) \\[10pt]
+            - \tilde\lambda_P(t) P(t) \\[10pt]
         I(t+1) &= I(t) 
             - \rho I(t)
             - \tilde\nu_I(t) I(t) \\
-            &+ \pi \tilde\lambda_S S(t)
-            + \pi \tilde\lambda_P P(t)
-            + \pi \tilde\lambda_M M(t) \\[10pt]
+            &+ \pi \tilde\lambda_S(t) S(t)
+            + \pi \tilde\lambda_P(t) P(t)
+            + \pi \tilde\lambda_M(t) M(t) \\[10pt]
         M(t+1) &= M(t)
             + \rho I(t)
             - \tilde\nu_M(t) M(t) \\
-            &+ (1 - \pi) \tilde\lambda_S S(t)
-            + (1 - \pi) \tilde\lambda_P P(t)
-            - \pi \tilde\lambda_M M(t) \\[10pt]
+            &+ (1 - \pi) \tilde\lambda_S(t) S(t)
+            + (1 - \pi) \tilde\lambda_P(t) P(t)
+            - \pi \tilde\lambda_M(t) M(t) \\[10pt]
         \bar{F}_f(t+1) &= \bar{F}_f(t)
             + c_f(t)
             - r(t) \bar{F}_f(t) \\[10pt]
@@ -283,7 +283,7 @@ possiamo riscrivere il sistema nella forma compatta:
     \end{aligned}\right.
 \end{equation*}
 La scrittura compatta del sistema permette di avere una visione d'insieme e di identificare le interdipendenze tra le variabili di stato. La forma estesa è utile per identificare il ruolo di ciascun termine, mentre la forma compatta è più adatta all'analisi e alla simulazione. \\
-I flussi tra le quattro popolazioni, può essere visualizzato con il diagramma in \autoref{fig:flussi}.
+I flussi tra le quattro popolazioni sono rappresentati nel diagramma in \autoref{fig:flussi}.
 \begin{figure}[ht]
     \centering
     \begin{tikzpicture}
@@ -386,13 +386,13 @@ I flussi tra le quattro popolazioni, può essere visualizzato con il diagramma i
     \caption{Diagramma dei flussi}\label{fig:flussi}
 \end{figure}
 
-\subsection{Domini dei parametri e delle funzioni}
+\subsection{Domini dei parametri e delle funzioni}\label{sec:domini}
 
 In questa sezione vengono riportati i domini di tutti i parametri e le funzioni del modello. Per ciascuno indichiamo il simbolo, il dominio e un breve commento che ne spiega il ruolo e le limitazioni. I parametri che saranno specificati nelle funzioni di esempio non sono inclusi.
 
 \begin{itemize}
     \item $\alpha \in [0, 1]$ \\
-        Rappresenta la frazione di nuovi ingressi che è sana.La restante frazione $1-\alpha$ entra nella popolazione $P$. Il valore $\alpha = 0$ corrisponde al caso in cui tutti i nuovi ingressi hanno infortuni pregressi, mentre $\alpha = 1$ corrisponde al caso in cui tutti i nuovi ingressi sono sani.
+        Rappresenta la frazione di nuovi ingressi che è sana. La restante frazione $1-\alpha$ entra nella popolazione $P$. Il valore $\alpha = 0$ corrisponde al caso in cui tutti i nuovi ingressi hanno infortuni pregressi, mentre $\alpha = 1$ corrisponde al caso in cui tutti i nuovi ingressi sono sani.
     \item $\beta_S, \beta_P, \beta_I, \beta_M \in [0, 1]$ \\
         Sono i moltiplicatori di abbandono per ciascuna popolazione e modulano il tasso di abbandono nella funzione $\nu$. Se $\beta_\cdot = 0$ l'impatto dell'abbandono su quella popolazione è nullo, mentre se $\beta_\cdot = 1$ è massimo.
     \item $\gamma_S, \gamma_P, \gamma_M \in [0, 1]$ \\
@@ -401,15 +401,15 @@ In questa sezione vengono riportati i domini di tutti i parametri e le funzioni 
     \item $\pi \in [0, 1]$ \\
         Rappresenta la probabilità che un infortunio sia grave e porti l'atleta in $I$. La probabilità che sia lieve e porti l'atleta in $M$ è $1-\pi$. Il valore $\pi = 0$ corrisponde al caso in cui tutti gli infortuni sono lievi, mentre $\pi = 1$ corrisponde al caso in cui tutti gli infortuni sono gravi.
     \item $\rho \in [0, 1]$ \\
-        Rappresenta il tasso di transizione da $I$ a $M$, cioè la frazione di atleti infortunati che, per unità di tempo, torna allenabile con qualche restrizione. Il valore $\rho = 0$ corrisponde a nessun recupero, mentre $\rho = 1$ corrisponde a recupero totale in un passo.
+        Rappresenta il tasso di transizione da $I$ a $M$, cioè la frazione di atleti infortunati che, per unità di tempo, torna allenabile con qualche restrizione. Il valore $\rho = 0$ corrisponde a nessun recupero, mentre $\rho = 1$ corrisponde al caso in cui tutti gli infortunati tornano allenabili, passando in $M$, in un solo passo.
     \item $A_{\max} \in \mathbb{R}_{>0}$ \\
         Rappresenta la scala di riferimento per la densità sul tatami, cioè il numero massimo di atleti per cui l'allenamento è considerato sicuro. La densità può superare $1$, ma il rischio diventa molto alto. Il valore $A_{\max} = 1$ corrisponde al caso in cui un solo atleta satura il tatami, mentre valori più grandi corrispondono a tatami più capienti.
     \item $\mu : [0, 1] \longrightarrow \mathbb{R}_{\geq 0}$ \\
         È la funzione di crescita, non negativa, continua e limitata. Rappresenta il numero complessivo di nuovi ingressi alla frazione di tempo $\frac{t}{T}$ e riflette le dinamiche di iscrizione a una stagione sportiva. Si assume che $\mu$ sia approssimativamente decrescente, a riflettere il fatto che gli ingressi tendono a concentrarsi all'inizio del periodo.
     \item $\nu : {[0, 1]}^2 \longrightarrow [0, 1]$ \\
         È la funzione di abbandono, non negativa, continua e limitata. Rappresenta la frazione di atleti che abbandona il gruppo in ogni seduta, modulata dal parametro $\beta_\cdot$. Si assume che $\nu$ sia approssimativamente crescente, a riflettere il fatto che gli abbandoni tendono a concentrarsi alla fine del periodo.
-    \item $\lambda : \mathbb{R}_{\geq 0}^2 \times \mathbb{R}_{>0} \times [0, 1] \longrightarrow [0, \gamma_\cdot]$ \\
-        È la funzione di infortunio, non negativa, continua, limitata e crescente rispetto agli argomenti. Rappresenta la probabilità che un atleta si infortuni in una seduta e si satura a un valore massimo controllato da $\gamma_\cdot \in [0, 1]$. Il limite superiore $\lambda \leq \gamma_\cdot$ garantisce che la probabilità di infortunio non superi il moltiplicatore di rischio.
+    \item $\lambda : \mathbb{R}_{\geq 0}^3 \times [0, 1] \longrightarrow [0, 1]$ \\
+        È la funzione di infortunio, non negativa, continua, limitata e crescente rispetto agli argomenti. Rappresenta la probabilità che un atleta si infortuni in una seduta e si satura a un valore massimo controllato da $\gamma_\cdot \in [0, 1]$, cioè $\lambda(\cdot, \cdot, \cdot, \gamma_\cdot) \leq \gamma_\cdot$. Il limite superiore $\lambda \leq \gamma_\cdot$ garantisce che la probabilità di infortunio non superi il moltiplicatore di rischio.
     \item $c_f, c_p : \{0, 1, \dots, T\} \longrightarrow \mathbb{R}_{\geq 0}$ \\
         Sono le funzioni di carico fisico e psicologico della seduta, non negative. Rappresentano la quantità di fatica aggiunta in ogni seduta e possono essere costanti, periodiche o variabili nel tempo. Non hanno limite superiore esplicito, ma nella pratica sono limitate dal carico massimo che un atleta può sostenere.
     \item $r : \{0, 1, \dots, T\} \longrightarrow [0, 1]$ \\
@@ -438,11 +438,18 @@ Per ogni $t \in \{0, 1, \dots, T\}$ si deve avere che le popolazioni e le funzio
         \[
             \pi \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_M\right) + \nu\left(\frac{t}{T}, \beta_M\right) \leq 1
         \]
-    \item Vincolo per la non negatività di $\bar{F}_f$ e $\bar{F}_p$:
+    \item Vincolo per la non negatività di $\bar{F}_f$ e $\bar{F}_p$ (insieme a $c_f(t), c_p(t) \geq 0$):
         \[
             r(t) \leq 1
         \]
 \end{itemize}
+Poiché $\nu\left(\cdot, \beta_\cdot\right) \leq \beta_\cdot$ e $\lambda\left(\cdot, \cdot, \cdot, \gamma_\cdot\right) \leq \gamma_\cdot$, una condizione sufficiente, indipendente dallo stato del sistema, affinché i vincoli precedenti siano soddisfatti per ogni $t$ è
+\[
+    \beta_S + \gamma_S \leq 1, \qquad
+    \beta_P + \gamma_P \leq 1, \qquad
+    \rho + \beta_I \leq 1, \qquad
+    \pi \gamma_M + \beta_M \leq 1.
+\]
 
 A questi vincoli si aggiunge il vincolo di conservazione della popolazione totale. Detta:
 \[

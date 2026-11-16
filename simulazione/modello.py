@@ -1,5 +1,6 @@
 import numpy as np
 from math import exp
+import matplotlib.pyplot as plt
 
 class Modello:
     def __init__(
@@ -19,9 +20,9 @@ class Modello:
             beta_P: float = 0.15,
             beta_I: float = 0.3,
             beta_M: float = 0.2,
-            gamma_S: float = 0.1,
-            gamma_P: float = 0.1,
-            gamma_M: float = 0.1,
+            gamma_S: float = 0.005,
+            gamma_P: float = 0.02,
+            gamma_M: float = 0.05,
             A_max: float = 800,
 
             #mu
@@ -32,9 +33,10 @@ class Modello:
             sigma_nu: float = 0.2,
 
             # lambda
-            omega_f: float = 1,
-            omega_p: float = 1,
-            omega_d: float = 1,
+            omega_f: float = 0.5,
+            omega_p: float = 0.3,
+            omega_d: float = 0.2,
+            b_lambda: float = 2,
 
             # r
             omega_r: float = 1,
@@ -42,18 +44,20 @@ class Modello:
         ):
         self.T = T
 
-        self.S = np.zeros(T, dtype = float)
+        self.S = np.zeros(T + 1, dtype = float)
         self.S[0] = S_0
-        self.P = np.zeros(T, dtype = float)
+        self.P = np.zeros(T + 1, dtype = float)
         self.P[0] = P_0
-        self.I = np.zeros(T, dtype = float)
+        self.I = np.zeros(T + 1, dtype = float)
         self.I[0] = I_0
-        self.M = np.zeros(T, dtype = float)
+        self.M = np.zeros(T + 1, dtype = float)
         self.M[0] = M_0
-        self.F_f = np.zeros(T, dtype = float)
+        self.F_f = np.zeros(T + 1, dtype = float)
         self.F_f[0] = F_f_0
-        self.F_p = np.zeros(T, dtype = float)
+        self.F_p = np.zeros(T + 1, dtype = float)
         self.F_p[0] = F_p_0
+
+        self.N0 = S_0 + P_0 + I_0 + M_0
 
         self.alpha = alpha
         self.pi = pi
@@ -73,13 +77,12 @@ class Modello:
 
         # nu
         self.sigma_nu = sigma_nu
-        self.beta_S = beta_S
 
         # lambda
         self.omega_f = omega_f
         self.omega_p = omega_p
         self.omega_d = omega_d
-        self.b_lambda = 5
+        self.b_lambda = b_lambda
 
         # r
         self.sigma_r = sigma_r
@@ -132,7 +135,7 @@ class Modello:
             + (1 - self.pi) * self.lam(self.F_f[t - 1], self.F_p[t - 1], (self.S[t - 1] + self.P[t - 1] + self.M[t - 1]) / self.A_max, self.gamma_P) * self.P[t - 1] \
             - self.pi * self.lam(self.F_f[t - 1], self.F_p[t - 1], (self.S[t - 1] + self.P[t - 1] + self.M[t - 1]) / self.A_max, self.gamma_M) * self.M[t - 1] \
             + self.rho * self.I[t - 1] \
-            - self.nu((t - 1) / self.T, self.beta_M) * self.I[t - 1]
+            - self.nu((t - 1) / self.T, self.beta_M) * self.M[t - 1]
 
     def F_f_step(self, t):
         self.F_f[t] = self.F_f[t - 1] \
@@ -145,11 +148,14 @@ class Modello:
             - self.r(t - 1) * self.F_p[t - 1]
 
     def compute(self):
-        for t in range(1, self.T):
+        for t in range(1, self.T + 1):
             self.S_step(t)
             self.P_step(t)
             self.I_step(t)
             self.M_step(t)
             self.F_f_step(t)
             self.F_p_step(t)
-        
+
+            if self.S[t] < 0 or self.P[t] < 0 or self.I[t] < 0 or self.M[t] < 0 or self.F_f[t] < 0 or self.F_p[t] < 0:
+                raise ValueError("Negative values in the model state variables.")
+

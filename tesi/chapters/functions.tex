@@ -1,6 +1,6 @@
 \chapter{Le funzioni del modello}
 
-Nel capitolo precedente abbiamo scritto le equazioni del modello e abbiamo introdotto le cinque funzioni che vi compaiono: la funzione di crescita $\mu$, la funzione di abbandono $\nu$, la funzione di infortunio $\lambda$, le funzioni di carico $c_f$ e $c_p$ e la funzione di recupero $r$. In quel contesto ci siamo limitati a descriverne il ruolo e a specificarne i domini, senza scegliere una forma analitica. \\
+Nel capitolo precedente abbiamo scritto le equazioni del modello e abbiamo introdotto le funzioni che vi compaiono: la funzione di crescita $\mu$, la funzione di abbandono $\nu$, la funzione di infortunio $\lambda$, le funzioni di carico $c_f$ e $c_p$ e la funzione di recupero $r$. In quel contesto ci siamo limitati a descriverne il ruolo e a specificarne i domini, senza scegliere una forma analitica. \\
 In questo capitolo completiamo il modello, definendo per ogni funzione un esempio concreto di forma analitica, i parametri che la controllano, le proprietà che soddisfa e il significato dei suoi parametri. \par
 
 La scelta della forma analitica non è mai neutra. Da un lato, la forma deve rispettare i domini, le limitazioni e le condizioni di coerenza discusse nel capitolo precedente. Dall'altro, deve essere abbastanza flessibile da rappresentare i fenomeni che vogliamo modellare, ma anche abbastanza semplice da permettere l'analisi e la simulazione. Tra questi due estremi esiste un compromesso, e la scelta dipende dagli obiettivi del modello e dai dati disponibili. In questo capitolo adottiamo un criterio esplicito: scegliamo forme analitiche continue, limitate, monotone dove serve e con parametri interpretabili, in modo che il modello resti trattabile e le sue conclusioni siano comprensibili. \par
@@ -73,7 +73,7 @@ Il rapporto tra $\mu(1)$ e $\mu(0)$ è:
 \]
 che dipende solo da $\sigma_\mu$. Per $\sigma_\mu$ piccolo, il rapporto è prossimo a zero, il che significa che gli ingressi si esauriscono rapidamente. Per $\sigma_\mu$ grande, il rapporto è prossimo a uno, il che significa che gli ingressi restano circa costanti. \par
 
-La funzione è limitata superiormente da $\omega_\mu$ e inferiormente da zero, quindi la sua immagine è $[0, \omega_\mu]$. Questa proprietà garantisce che il numero di nuovi ingressi non superi mai l'ampiezza massima $\omega_\mu$, coerentemente con il significato del parametro.
+La funzione è limitata superiormente da $\omega_\mu$ e inferiormente da zero; più precisamente, essendo continua e decrescente, la sua immagine è $\left[\omega_\mu \exp\left(-\frac{1}{2 \sigma_\mu^2}\right), \omega_\mu\right] \subseteq [0, \omega_\mu]$. Questa proprietà garantisce che il numero di nuovi ingressi non superi mai l'ampiezza massima $\omega_\mu$, coerentemente con il significato del parametro.
 
 \section{Funzione di abbandono}
 
@@ -91,7 +91,7 @@ dove:
 \end{itemize}
 La funzione è una gaussiana centrata in $x = 1$, troncata al dominio $[0, 1]$. Il massimo si trova in $x = 1$ ed è pari a $\beta$, mentre il valore in $x = 0$ è $\beta \exp\left(-\frac{1}{2 \sigma_\nu^2}\right)$. \par
 
-La funzione è la trasformazione della funzione $\mu$ rispetto all'asse $x = \frac{1}{2}$. Mentre gli ingressi tendono a concentrarsi all'inizio del periodo, gli abbandoni tendono a concentrarsi alla fine, quando l'entusiasmo iniziale si riduce, sopraggiungono altri impegni o la stanchezza accumulata diventa significativa. La simmetria tra le due funzioni non è casuale, ma riflette il fatto che i due fenomeni hanno dinamiche temporali opposte. La scelta della gaussiana permette di rappresentare questa opposizione con una forma semplice e ben nota, con parametri interpretabili e proprietà analitiche note. \par
+A meno dell'ampiezza e della larghezza, la funzione è la riflessione della funzione $\mu$ rispetto alla retta $x = \frac{1}{2}$: infatti, se $\beta = \omega_\mu$ e $\sigma_\nu = \sigma_\mu$, si ha $\nu(x, \beta) = \mu(1 - x)$. Mentre gli ingressi tendono a concentrarsi all'inizio del periodo, gli abbandoni tendono a concentrarsi alla fine, quando l'entusiasmo iniziale si riduce, sopraggiungono altri impegni o la stanchezza accumulata diventa significativa. La simmetria tra le due funzioni non è casuale, ma riflette il fatto che i due fenomeni hanno dinamiche temporali opposte. La scelta della gaussiana permette di rappresentare questa opposizione con una forma semplice e ben nota, con parametri interpretabili e proprietà analitiche note. \par
 
 La funzione $\nu$ dipende anche dal moltiplicatore $\beta$, passato come argomento, che permette di differenziare il tasso di abbandono tra le diverse popolazioni. Nel modello, $\beta$ assume valori diversi a seconda della popolazione a cui la funzione si applica: $\beta_S$ per i sani, $\beta_P$ per i pregressi, $\beta_I$ per gli infortunati e $\beta_M$ per i malconci. Questa scelta riflette il fatto che gli atleti in popolazioni diverse possono avere comportamenti di abbandono diversi, a causa della loro condizione fisica, della loro motivazione o del loro rapporto con l'attività. \par
 
@@ -123,9 +123,9 @@ dove:
 \begin{itemize}
     \item $f_f \in \mathbb{R}_{\geq 0}$ è la fatica fisica
     \item $f_p \in \mathbb{R}_{\geq 0}$ è la fatica psicologica
-    \item $d \in \mathbb{R}_{> 0}$ è la densità di atleti
+    \item $d \in \mathbb{R}_{\geq 0}$ è la densità di atleti
     \item $\gamma \in [0, 1]$ è l'ampiezza della funzione
-    \item $\omega_f, \omega_p, \omega_d \in \mathbb{R}_{> 0}$ sono pesi non negativi
+    \item $\omega_f, \omega_p, \omega_d \in \mathbb{R}_{> 0}$ sono pesi positivi
     \item $b \in \mathbb{R}_{\geq 0}$ è un fattore di soglia
 \end{itemize}
 Il suo valore è compreso tra $0$ e $\gamma$, ed è crescente rispetto a $f_f$, $f_p$ e $d$. \par
@@ -158,7 +158,7 @@ La funzione è limitata superiormente da $\gamma$, cioè $\lambda(f_f, f_p, d, \
 
 La funzione è continua e derivabile su tutto il dominio, per definizione. Le derivate parziali rispetto a $f_f$, $f_p$ e $d$ sono positive, perché la sigmoide è crescente rispetto al suo argomento. Quindi la funzione è monotona crescente rispetto a $f_f$, $f_p$ e $d$. \par
 
-La funzione è lineare rispetto a $\gamma$, cioè $\lambda(f_f, f_p, d, \gamma) = \gamma \cdot \sigma(f_f, f_p, d)$, dove $\sigma$ è la sigmoide. Questa proprietà permette di separare il contributo del moltiplicatore di rischio da quello della fatica e della densità. \par
+La funzione è lineare rispetto a $\gamma$, cioè $\lambda(f_f, f_p, d, \gamma) = \gamma \cdot s\left(\omega_f f_f + \omega_p f_p + \omega_d d - b\right)$, dove $s(z) = \frac{1}{1 + e^{-z}}$ è la sigmoide logistica. Questa proprietà permette di separare il contributo del moltiplicatore di rischio da quello della fatica e della densità. \par
 
 Il valore in assenza di fatica e densità è $\lambda(0, 0, 0, \gamma) = \frac{\gamma}{1 + e^b}$. Per $b = 0$, questo valore è $\frac{\gamma}{2}$, mentre per $b$ grande, questo valore tende a zero. La scelta di $b$ controlla quindi il rischio di base in assenza di fatica e densità. \par
 
@@ -183,7 +183,7 @@ dove $c_{f,0}$ e $c_{p,0}$ sono costanti non negative. Questo esempio, come rapp
 \end{figure}
 
 \paragraph{Carico periodico}
-Il secondo esempio è il carico periodico, in cui le funzioni di carico oscillano con una periodicità legata, ad esempio, alla settimana di allenamento. Come rappresentato in \autoref{fig:function-c-periodico}, consideriamo il caso in cui in ogni periodo di tre sedute si alternano un allenamento ad alto carico (ad esempio randori), un allenamento a carico medio (ad esempio tecnica) e un allenamento senza carico (ad esempio riposo o seduta di allungamento). Formalmente, per $n \in \mathbb{N}$, si ha
+Il secondo esempio è il carico periodico, in cui le funzioni di carico oscillano con una periodicità legata, ad esempio, al microciclo di allenamento. Come rappresentato in \autoref{fig:function-c-periodico}, consideriamo il caso in cui in ogni periodo di tre sedute si alternano un allenamento ad alto carico (ad esempio randori), un allenamento a carico medio (ad esempio tecnica) e un allenamento senza carico (ad esempio riposo o seduta di allungamento). Formalmente, per $n \in \mathbb{N}$, si ha
 \[
     c_f(t) = c_p(t) = \begin{cases}
         1 & \text{se } t = 3n, \\
@@ -193,9 +193,9 @@ Il secondo esempio è il carico periodico, in cui le funzioni di carico oscillan
 \]
 Questa forma può essere scritta in modo compatto come
 \[
-    c_f(t) = c_p(t) = \frac{1}{2}\left((-t) \bmod 3\right),
+    c_f(t) = c_p(t) = \frac{1}{2}\left((2 - t) \bmod 3\right),
 \]
-dove l'operatore $\bmod$ restituisce il resto della divisione intera. La funzione è periodica con periodo $3$ e rappresenta un ciclo di allenamento in cui il carico varia tra alto, medio e nullo. La scelta di questa forma è motivata dalla necessità di rappresentare la periodicità del carico su scale temporali brevi, senza introdurre una forma analitica continua. Il carico periodico è una funzione definita su un dominio discreto, non necessariamente continua, e rispetta i vincoli di integrità del modello a patto che i valori siano non negativi e che il tasso di recupero sia sufficientemente grande da smaltire la fatica accumulata.
+dove l'operatore $\bmod$ restituisce il resto della divisione intera. La funzione è periodica con periodo $3$ e rappresenta un ciclo di allenamento in cui il carico varia tra alto, medio e nullo. La scelta di questa forma è motivata dalla necessità di rappresentare la periodicità del carico su scale temporali brevi, senza introdurre una forma analitica continua. Il carico periodico è una funzione definita su un dominio discreto e rispetta i vincoli di integrità del modello, perché i suoi valori sono non negativi. Affinché la fatica resti inoltre limitata nel tempo, il tasso di recupero deve essere sufficientemente grande da smaltire la fatica accumulata.
 
 \begin{figure}[ht]
     \centering
@@ -210,7 +210,7 @@ Il terzo esempio è il carico variabile, in cui le funzioni di carico sono asseg
     c_p \colon \{0, 1, \dots, T\} \to \mathbb{R}_{\geq 0}
 \end{gather*}
 Questo esempio corrisponde a un programma di allenamento dettagliato, in cui ogni seduta ha un carico specifico, eventualmente diverso dalle altre. Il carico variabile è il caso più generale e permette di rappresentare scenari arbitrari, come periodi di allenamento intenso seguiti da periodi di recupero, sedute di tecnica alternate con sedute di randori, o variazioni improvvise del carico dovute a eventi esterni. \\
-La forma variabile, come rappresentato in \autoref{fig:function-c-variabile}, non richiede una forma analitica specifica, ma solo che le funzioni siano non negative e limitate. Il carico variabile è una funzione definita su un dominio discreto, non necessariamente continua, e rispetta i vincoli di integrità del modello a patto che i valori siano non negativi e che il tasso di recupero sia sufficientemente grande da smaltire la fatica accumulata.
+La forma variabile, come rappresentato in \autoref{fig:function-c-variabile}, non richiede una forma analitica specifica, ma solo che le funzioni siano non negative e limitate. Il carico variabile rispetta i vincoli di integrità del modello a patto che i suoi valori siano non negativi; come nel caso periodico, affinché la fatica resti limitata il tasso di recupero deve essere sufficientemente grande da smaltire la fatica accumulata.
 
 \begin{figure}[ht]
     \centering
@@ -254,7 +254,7 @@ La funzione di recupero soddisfa le seguenti proprietà, che derivano direttamen
 
 La funzione è non negativa, cioè $r(t) \geq 0$ per ogni $t$. Questa proprietà è garantita dal fatto che la sigmoide è sempre positiva e $\omega_r \geq 0$. \par
 
-La funzione è limitata superiormente da $\omega_r$ in $t = 0$ e da zero per $t \to +\infty$. Più precisamente, il valore massimo è $r(0) = \omega_r$, mentre il valore asintotico per $t \to +\infty$ è zero. Quindi il range della funzione è $[0, \omega_r]$, cioè la funzione rappresenta una probabilità, perché il suo valore è compreso tra $0$ e $1$. \par
+La funzione è limitata: il valore massimo è $r(0) = \omega_r$, mentre per $\sigma_r > 0$ il valore asintotico per $t \to +\infty$ è zero, che è l'estremo inferiore ma non viene mai raggiunto. Quindi l'immagine della funzione è contenuta in $(0, \omega_r] \subseteq [0, 1]$, compatibilmente con il vincolo $r(t) \leq 1$ richiesto per un tasso di recupero. \par
 
 La funzione è continua e derivabile su tutto il dominio, per definizione. La derivata prima è
 \[
