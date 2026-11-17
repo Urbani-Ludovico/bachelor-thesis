@@ -216,7 +216,7 @@ Il sistema completo è composto da sei equazioni alle differenze, quattro per le
 Di seguito viene presentato il sistema nella sua forma estesa, con ogni termine scritto esplicitamente, e nella sua forma compatta, in cui le funzioni valutate al tempo $t$ sono raccolte in simboli ausiliari. Presentiamo inoltre la struttura dei flussi tra popolazioni, il vincolo di conservazione della popolazione totale e le principali interdipendenze tra le variabili di stato. Questi elementi costituiscono la base per l'analisi del modello e per la discussione dei risultati nelle sezioni successive.
 
 \begin{equation*}
-    \left\lbrace\begin{aligned}
+    \begin{aligned}
         S(t+1) &= S(t)
             + \alpha \mu\left(\frac{t}{T}\right)
             - \nu\left(\frac{t}{T}, \beta_S\right) S(t) \\
@@ -243,7 +243,7 @@ Di seguito viene presentato il sistema nella sua forma estesa, con ogni termine 
         \bar{F}_p(t+1) &= \bar{F}_p(t)
             + c_p(t)
             - r(t) \bar{F}_p(t)
-    \end{aligned}\right.
+    \end{aligned}
 \end{equation*}
 Se definiamo le seguenti abbreviazioni:
 \begin{gather*}
@@ -253,7 +253,7 @@ Se definiamo le seguenti abbreviazioni:
 \end{gather*}
 possiamo riscrivere il sistema nella forma compatta:
 \begin{equation*}
-    \left\lbrace\begin{aligned}
+    \begin{aligned}
         S(t+1) &= S(t)
             + \alpha \tilde\mu(t)
             - \tilde\nu_S(t) S(t)
@@ -280,7 +280,7 @@ possiamo riscrivere il sistema nella forma compatta:
         \bar{F}_p(t+1) &= \bar{F}_p(t)
             + c_p(t)
             - r(t) \bar{F}_p(t)
-    \end{aligned}\right.
+    \end{aligned}
 \end{equation*}
 La scrittura compatta del sistema permette di avere una visione d'insieme e di identificare le interdipendenze tra le variabili di stato. La forma estesa è utile per identificare il ruolo di ciascun termine, mentre la forma compatta è più adatta all'analisi e alla simulazione. \\
 I flussi tra le quattro popolazioni sono rappresentati nel diagramma in \autoref{fig:flussi}.
