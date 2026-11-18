@@ -1,161 +1,126 @@
-import numpy as np
 from math import exp
-import matplotlib.pyplot as plt
+import numpy as np
+
+
+def carico_periodico(t):
+    """Carico 1, 0.5, 0 ripetuto ogni tre sedute."""
+    return ((2 - t) % 3) / 2
+
+
+def nessuna_prevenzione(t):
+    """Controllo nullo"""
+    return 0
+
 
 class Modello:
     def __init__(
-            self,
-            T: int = 50,
-            S_0: float = 400,
-            P_0: float = 100,
-            I_0: float = 0,
-            M_0: float = 0,
-            F_f_0: float = 0,
-            F_p_0: float = 0,
+        self,
+        T = 50,
 
-            alpha: float = 0.8,
-            pi: float = 1/3,
-            rho: float = 0.1,
-            beta_S: float = 0.1,
-            beta_P: float = 0.15,
-            beta_I: float = 0.3,
-            beta_M: float = 0.2,
-            gamma_S: float = 0.005,
-            gamma_P: float = 0.02,
-            gamma_M: float = 0.05,
-            A_max: float = 800,
+        # condizioni iniziali
+        S_0 = 400,
+        P_0 = 100,
+        I_0 = 0,
+        M_0 = 0,
+        F_f_0 = 0,
+        F_p_0 = 0,
 
-            #mu
-            omega_mu: float = 10,
-            sigma_mu: float = 0.2,
+        # parametri del modello (valori a priori)
+        alpha = 0.8,
+        pi = 0.4,
+        rho = 0.05,
+        beta_S = 0.005,
+        beta_P = 0.01,
+        beta_M = 0.05,
+        beta_I = 0.1,
+        gamma_S = 0.02,
+        gamma_P = 0.04,
+        gamma_M = 0.08,
+        A_max = 800,
 
-            # nu
-            sigma_nu: float = 0.2,
+        # parametri delle funzioni
+        omega_mu = 5,
+        sigma_mu = 0.15,
+        sigma_nu = 0.15,
+        omega_f = 0.5,
+        omega_p = 0.3,
+        omega_d = 0.2,
+        b_lambda = 1,
+        omega_r = 1,
+        sigma_r = 0.05,
 
-            # lambda
-            omega_f: float = 0.5,
-            omega_p: float = 0.3,
-            omega_d: float = 0.2,
-            b_lambda: float = 2,
-
-            # r
-            omega_r: float = 1,
-            sigma_r: float = 0.2
-        ):
+        # carichi
+        c_f = carico_periodico,
+        c_p = carico_periodico,
+        # controllo: efficacia della prevenzione, tra 0 (nessuna) e 1 (perfetta)
+        u = nessuna_prevenzione,
+    ):
         self.T = T
-
-        self.S = np.zeros(T + 1, dtype = float)
-        self.S[0] = S_0
-        self.P = np.zeros(T + 1, dtype = float)
-        self.P[0] = P_0
-        self.I = np.zeros(T + 1, dtype = float)
-        self.I[0] = I_0
-        self.M = np.zeros(T + 1, dtype = float)
-        self.M[0] = M_0
-        self.F_f = np.zeros(T + 1, dtype = float)
-        self.F_f[0] = F_f_0
-        self.F_p = np.zeros(T + 1, dtype = float)
-        self.F_p[0] = F_p_0
-
-        self.N0 = S_0 + P_0 + I_0 + M_0
-
-        self.alpha = alpha
-        self.pi = pi
-        self.rho = rho
-        self.beta_S = beta_S
-        self.beta_P = beta_P
-        self.beta_I = beta_I
-        self.beta_M = beta_M
-        self.gamma_S = gamma_S
-        self.gamma_P = gamma_P
-        self.gamma_M = gamma_M
+        self.alpha, self.pi, self.rho = alpha, pi, rho
+        self.beta_S, self.beta_P, self.beta_M, self.beta_I = beta_S, beta_P, beta_M, beta_I
+        self.gamma_S, self.gamma_P, self.gamma_M = gamma_S, gamma_P, gamma_M
         self.A_max = A_max
-
-        # mu
-        self.omega_mu = omega_mu
-        self.sigma_mu = sigma_mu
-
-        # nu
+        self.omega_mu, self.sigma_mu = omega_mu, sigma_mu
         self.sigma_nu = sigma_nu
+        self.omega_f, self.omega_p, self.omega_d, self.b_lambda = omega_f, omega_p, omega_d, b_lambda
+        self.omega_r, self.sigma_r = omega_r, sigma_r
+        self.c_f, self.c_p = c_f, c_p
+        self.u = u
 
-        # lambda
-        self.omega_f = omega_f
-        self.omega_p = omega_p
-        self.omega_d = omega_d
-        self.b_lambda = b_lambda
+        # variabili di stato per t = 0, ..., T
+        self.S = np.zeros(T + 1)
+        self.P = np.zeros(T + 1)
+        self.I = np.zeros(T + 1)
+        self.M = np.zeros(T + 1)
+        self.F_f = np.zeros(T + 1)
+        self.F_p = np.zeros(T + 1)
+        self.S[0], self.P[0], self.I[0], self.M[0] = S_0, P_0, I_0, M_0
+        self.F_f[0], self.F_p[0] = F_f_0, F_p_0
 
-        # r
-        self.sigma_r = sigma_r
-        self.omega_r = omega_r
+        # nuovi infortuni in ogni seduta
+        self.infortuni = np.zeros(T)
 
+    # Funzioni del modello
+    def mu(self, x):
+        return self.omega_mu * exp(- x ** 2 / (2 * self.sigma_mu ** 2))
 
-    def mu(self, x) -> float:
-        return self.omega_mu * exp(- (x ** 2) / (2 * (self.sigma_mu ** 2)))
+    def nu(self, x, beta):
+        return beta * exp(- (x - 1) ** 2 / (2 * self.sigma_nu ** 2))
 
-    def nu(self, t, beta = 0.5) -> float:
-        return beta * exp(- ((t - 1) ** 2) / (2 * (self.sigma_nu ** 2)))
-
-    def lam(self, f_f, f_p, d, gamma) -> float:
+    def lam(self, f_f, f_p, d, gamma):
         return gamma / (1 + exp(- self.omega_f * f_f - self.omega_p * f_p - self.omega_d * d + self.b_lambda))
 
-    def c(self, t) -> float:
-        if t % 3 == 0:
-            return 1
-        elif t % 3 == 1:
-            return 0.5
-        else:
-            return 0
-
-    def r(self, t) -> float:
+    def r(self, t):
         return 2 * self.omega_r / (1 + exp(self.sigma_r * t))
 
-    def S_step(self, t):
-        self.S[t] = self.S[t - 1] \
-            + self.alpha * self.mu((t - 1) / self.T) \
-            - self.nu((t - 1) / self.T, self.beta_S) * self.S[t - 1] \
-            - self.lam(self.F_f[t - 1], self.F_p[t - 1], (self.S[t - 1] + self.P[t - 1] + self.M[t - 1]) / self.A_max, self.gamma_S) * self.S[t - 1]
+    def rischio(self, t):
+        """Rischio relativo lambda / gamma"""
+        return self.lam(self.F_f[t], self.F_p[t], (self.S[t] + self.P[t] + self.M[t]) / self.A_max, 1)
 
-    def P_step(self, t):
-        self.P[t] = self.P[t - 1] \
-            + (1 - self.alpha) * self.mu((t - 1) / self.T) \
-            - self.nu((t - 1) / self.T, self.beta_P) * self.P[t - 1] \
-            - self.lam(self.F_f[t - 1], self.F_p[t - 1], (self.S[t - 1] + self.P[t - 1] + self.M[t - 1]) / self.A_max, self.gamma_P) * self.P[t - 1]
-
-    def I_step(self, t):
-        self.I[t] = self.I[t - 1] \
-            + self.pi * self.lam(self.F_f[t - 1], self.F_p[t - 1], (self.S[t - 1] + self.P[t - 1] + self.M[t - 1]) / self.A_max, self.gamma_S) * self.S[t - 1] \
-            + self.pi * self.lam(self.F_f[t - 1], self.F_p[t - 1], (self.S[t - 1] + self.P[t - 1] + self.M[t - 1]) / self.A_max, self.gamma_P) * self.P[t - 1] \
-            + self.pi * self.lam(self.F_f[t - 1], self.F_p[t - 1], (self.S[t - 1] + self.P[t - 1] + self.M[t - 1]) / self.A_max, self.gamma_M) * self.M[t - 1] \
-            - self.rho * self.I[t - 1] \
-            - self.nu((t - 1) / self.T, self.beta_I) * self.I[t - 1]
-        
-    def M_step(self, t):
-        self.M[t] = self.M[t - 1] \
-            + (1 - self.pi) * self.lam(self.F_f[t - 1], self.F_p[t - 1], (self.S[t - 1] + self.P[t - 1] + self.M[t - 1]) / self.A_max, self.gamma_S) * self.S[t - 1] \
-            + (1 - self.pi) * self.lam(self.F_f[t - 1], self.F_p[t - 1], (self.S[t - 1] + self.P[t - 1] + self.M[t - 1]) / self.A_max, self.gamma_P) * self.P[t - 1] \
-            - self.pi * self.lam(self.F_f[t - 1], self.F_p[t - 1], (self.S[t - 1] + self.P[t - 1] + self.M[t - 1]) / self.A_max, self.gamma_M) * self.M[t - 1] \
-            + self.rho * self.I[t - 1] \
-            - self.nu((t - 1) / self.T, self.beta_M) * self.M[t - 1]
-
-    def F_f_step(self, t):
-        self.F_f[t] = self.F_f[t - 1] \
-            + self.c(t - 1) \
-            - self.r(t - 1) * self.F_f[t - 1]
-        
-    def F_p_step(self, t):
-        self.F_p[t] = self.F_p[t - 1] \
-            + self.c(t - 1) \
-            - self.r(t - 1) * self.F_p[t - 1]
-
+    # Simulazione
     def compute(self):
-        for t in range(1, self.T + 1):
-            self.S_step(t)
-            self.P_step(t)
-            self.I_step(t)
-            self.M_step(t)
-            self.F_f_step(t)
-            self.F_p_step(t)
+        for t in range(self.T):
+            S, P, I, M = self.S[t], self.P[t], self.I[t], self.M[t]
 
-            if self.S[t] < 0 or self.P[t] < 0 or self.I[t] < 0 or self.M[t] < 0 or self.F_f[t] < 0 or self.F_p[t] < 0:
-                raise ValueError("Negative values in the model state variables.")
+            rischio = (1 - self.u(t)) * self.rischio(t)
 
+            inf_S = self.gamma_S * rischio * S
+            inf_P = self.gamma_P * rischio * P
+            inf_M = self.gamma_M * rischio * M
+            self.infortuni[t] = inf_S + inf_P + inf_M
+
+            self.S[t + 1] = S + self.alpha * self.mu(t / self.T) - self.nu(t / self.T, self.beta_S) * S - inf_S
+            self.P[t + 1] = P + (1 - self.alpha) * self.mu(t / self.T) - self.nu(t / self.T, self.beta_P) * P - inf_P
+            self.I[t + 1] = I + self.pi * (inf_S + inf_P + inf_M) - self.rho * I - self.nu(t / self.T, self.beta_I) * I
+            self.M[t + 1] = M + (1 - self.pi) * (inf_S + inf_P) - self.pi * inf_M + self.rho * I - self.nu(t / self.T, self.beta_M) * M
+            self.F_f[t + 1] = self.F_f[t] + self.c_f(t) - self.r(t) * self.F_f[t]
+            self.F_p[t + 1] = self.F_p[t] + self.c_p(t) - self.r(t) * self.F_p[t]
+
+            if min(self.S[t + 1], self.P[t + 1], self.I[t + 1], self.M[t + 1]) < 0:
+                raise ValueError(f"Popolazione negativa al tempo {t + 1}.")
+        return self
+
+    @property
+    def N(self):
+        """Popolazione totale."""
+        return self.S + self.P + self.I + self.M
