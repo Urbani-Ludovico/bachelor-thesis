@@ -113,3 +113,94 @@ dove $u_{\text{base}}$ è la prevenzione applicata nel giorno di randori. Con il
 Questa strategia corrisponde a un comportamento naturale per un allenatore: riscaldamento più lungo, esercizi di rinforzo e un controllo più attento delle coppie nei giorni di randori, una prevenzione più leggera nei giorni di tecnica e nessuna attività particolare nei giorni di riposo. \par
 
 Nelle simulazioni usiamo $u_{\text{base}} = 0.6$: nel giorno di randori la prevenzione riduce del $60\%$ il rischio di infortunio, nel giorno di tecnica del $30\%$. In media, su tutto il periodo, la prevenzione vale circa $0.3$ per seduta.
+La \autoref{fig:ctrl-strategia} mostra il carico e la prevenzione nelle prime dodici sedute: la prevenzione segue esattamente l'andamento del carico, con un valore più basso.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = \textwidth]{controllo/strategia.pdf}
+    \caption{Carico di allenamento e prevenzione nelle prime dodici sedute}\label{fig:ctrl-strategia}
+\end{figure}
+
+\section{Risultati}
+
+Simuliamo ora il modello con la strategia di prevenzione appena descritta e confrontiamo i risultati con lo scenario senza prevenzione del capitolo precedente. Tutto il resto è invariato: gli stessi parametri calibrati, lo stesso carico di allenamento e lo stesso gruppo di partenza. \par
+
+La \autoref{tab:ctrl-confronto} riassume i risultati principali. La prevenzione migliora tutte le grandezze considerate: gli infortuni totali scendono da circa $428$ a circa $296$, cioè del $31\%$, e gli abbandoni da circa $124$ a circa $102$, cioè del $18\%$. Di conseguenza, alla fine del periodo restano nel gruppo $448$ atleti invece di $425$, e tra questi ci sono $284$ sani invece di $243$.
+
+\begin{table}[ht]
+    \centering
+    \begin{tblr}{
+        colspec = {|l|c|c|c|},
+        hlines,
+        vlines,
+    }
+        & Senza prevenzione & Con prevenzione & Variazione \\
+        Infortuni totali & $428$ & $296$ & $-31\%$ \\
+        Infortuni gravi & $170$ & $118$ & $-31\%$ \\
+        Abbandoni totali & $124$ & $102$ & $-18\%$ \\
+        Picco di infortunati gravi & $52$ & $37$ & $-29\%$ \\
+        Picco di malconci & $131$ & $106$ & $-19\%$ \\
+        Atleti alla fine & $425$ & $448$ & $+5\%$ \\
+        Sani alla fine & $243$ & $284$ & $+17\%$ \\
+    \end{tblr}
+    \caption{Confronto tra lo scenario senza prevenzione e quello con prevenzione}\label{tab:ctrl-confronto}
+\end{table}
+
+Gli infortuni gravi diminuiscono nella stessa proporzione degli infortuni totali, perché la prevenzione riduce la probabilità di infortunarsi ma non cambia la gravità dell'infortunio quando avviene: la frazione di infortuni gravi resta sempre la stessa, data dal parametro $\pi$.
+
+\subsection{Infortuni}
+
+La \autoref{fig:ctrl-infortuni} mostra gli infortuni accumulati dall'inizio del periodo. Senza prevenzione la curva cresce sempre più velocemente, perché la fatica aumenta e con essa il rischio. Con la prevenzione la curva ha lo stesso andamento, ma cresce più lentamente: la differenza tra i due scenari si allarga seduta dopo seduta. Nella prima metà del periodo la prevenzione evita circa $48$ infortuni, passando da $158$ a $110$; nella seconda metà ne evita circa $84$, passando da $270$ a $186$. La prevenzione è quindi più utile proprio quando la fatica è più alta.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = \textwidth]{controllo/infortuni_cumulati.pdf}
+    \caption{Infortuni accumulati dall'inizio del periodo, con e senza prevenzione}\label{fig:ctrl-infortuni}
+\end{figure}
+
+La riduzione non è uguale per tutte le popolazioni. Gli infortuni dei sani passano da $184$ a $141$, quelli dei pregressi da $70$ a $57$ e quelli dei malconci da $174$ a $98$. Gli infortuni dei malconci si riducono quasi della metà, molto più di quelli dei sani. Il motivo è un effetto indiretto della prevenzione: evitando gli infortuni lievi dei sani e dei pregressi, la prevenzione impedisce che molti atleti diventino malconci. Ci sono quindi meno malconci sul tatami e, poiché i malconci sono la popolazione più a rischio, gli infortuni diminuiscono più del previsto. \par
+
+Anche gli infortunati gravi e i malconci hanno lo stesso andamento nei due scenari, con il massimo intorno alla quarantesima seduta, ma con la prevenzione restano sempre più bassi. Il picco di infortunati gravi scende da $52$ a $37$ atleti, cioè dal $10\%$ al $7\%$ del gruppo, e il picco dei malconci da $131$ a $106$. Nel momento peggiore, la frazione di infortunati e malconci passa dal $36\%$ al $27\%$ del gruppo.
+
+
+\subsection{Abbandoni e popolazione}
+
+La \autoref{fig:ctrl-abbandoni} mostra gli abbandoni accumulati. In entrambi gli scenari gli abbandoni sono quasi nulli per i primi due terzi del periodo e si concentrano nelle ultime settimane, come previsto dalla funzione di abbandono. Con la prevenzione, però, la curva resta più bassa e alla fine del periodo gli abbandoni sono circa $22$ in meno.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = \textwidth]{controllo/abbandoni_cumulati.pdf}
+    \caption{Abbandoni accumulati dall'inizio del periodo, con e senza prevenzione}\label{fig:ctrl-abbandoni}
+\end{figure}
+
+La riduzione degli abbandoni è un effetto indiretto: il controllo non agisce sulla funzione di abbandono, ma riduce il numero di atleti infortunati e malconci, che sono quelli più propensi ad abbandonare. Gli abbandoni degli infortunati passano da $44$ a $30$ e quelli dei malconci da $64$ a $52$. Gli abbandoni dei sani e dei pregressi, invece, aumentano leggermente, da $12$ a $14$ e da $4$ a $5$: non perché i sani abbandonino più facilmente, ma perché con la prevenzione ci sono più sani nel gruppo. Il saldo complessivo resta comunque nettamente positivo. \par
+
+Alla fine del periodo il gruppo è più numeroso e in condizioni migliori: restano $284$ sani, $48$ pregressi, $26$ infortunati e $90$ malconci, e la frazione di infortunati e malconci scende dal $34\%$ al $26\%$.
+
+\subsection{Intensità della prevenzione}
+
+Infine, abbiamo ripetuto la simulazione con diversi valori della prevenzione nel giorno di randori $u_{\text{base}}$, mantenendo la stessa strategia: prevenzione piena nel giorno di randori, dimezzata nel giorno di tecnica e nulla nel giorno di riposo. I risultati sono riportati nella \autoref{tab:ctrl-intensita}.
+
+\begin{table}[ht]
+    \centering
+    \begin{tblr}{
+        colspec = {|c|c|c|c|c|},
+        hlines,
+        vlines,
+    }
+        $u_{\text{base}}$ & Prevenzione media & Infortuni & Abbandoni & Atleti alla fine \\
+        $0$ & $0$ & $428$ & $124$ & $85\%$ \\
+        $0.2$ & $0.10$ & $384$ & $117$ & $86\%$ \\
+        $0.4$ & $0.20$ & $340$ & $110$ & $88\%$ \\
+        $0.6$ & $0.31$ & $296$ & $102$ & $90\%$ \\
+        $0.8$ & $0.41$ & $253$ & $93$ & $91\%$ \\
+        $1$ & $0.51$ & $211$ & $85$ & $93\%$ \\
+    \end{tblr}
+    \caption{Effetto dell'intensità della prevenzione}\label{tab:ctrl-intensita}
+\end{table}
+
+L'effetto della prevenzione cresce in modo regolare con la sua intensità: ogni aumento di $0.2$ di $u_{\text{base}}$ evita circa $44$ infortuni e circa $8$ abbandoni. Anche con la prevenzione massima nel giorno di randori, cioè $u_{\text{base}} = 1$, gli infortuni si riducono circa della metà, ma non si annullano: la prevenzione è dimezzata nei giorni di tecnica e assente nei giorni di riposo, e in quelle sedute il rischio resta. L'allenatore può quindi scegliere l'intensità della prevenzione in base alle risorse disponibili, sapendo che anche una prevenzione leggera produce un beneficio apprezzabile.
+
+\subsection{Considerazioni}
+
+La strategia di prevenzione proporzionale al carico migliora tutti gli aspetti dello scenario: riduce gli infortuni di circa un terzo, gli abbandoni di quasi un quinto e lascia alla fine del periodo un gruppo più numeroso e più sano. I risultati confermano inoltre i tre aspetti emersi nel capitolo precedente: la prevenzione è più efficace nella seconda metà del periodo, quando la fatica è più alta, ha un effetto particolarmente forte sui malconci, di cui riduce sia il numero sia gli infortuni, e, riducendo gli infortuni, riduce anche gli abbandoni, pur senza agire direttamente sulla decisione di abbandonare.

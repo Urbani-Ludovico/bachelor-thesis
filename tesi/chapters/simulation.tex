@@ -66,19 +66,19 @@ I valori scelti per i parametri delle funzioni sono riportati nella \autoref{tab
     \caption{Parametri delle funzioni del modello}\label{tab:sim-funzioni}
 \end{table}
 
-\subsection{Funzione di crescita}
+\paragraph{Funzione di crescita}
 
 Nella prima seduta entrano $5$ nuovi atleti, poi gli ingressi diminuiscono rapidamente. In tutto entrano circa $49$ nuovi atleti, cioè circa il $10\%$ del gruppo iniziale, e quasi tutti, circa $47$, arrivano nelle prime $15$ sedute. Dopo la metà del periodo gli ingressi sono praticamente nulli. \par
 
 Questo profilo descrive un gruppo che si completa nelle prime due settimane: alcuni atleti arrivano in ritardo, ad esempio per motivi di lavoro, di studio o di trasporto, ma dopo questa fase il gruppo resta chiuso. La crescita della popolazione all'inizio del periodo dipende quasi soltanto da questi due parametri, perché nelle prime settimane gli abbandoni sono trascurabili.
 
-\subsection{Funzione di abbandono}
+\paragraph{Funzione di abbandono}
 
 Gli abbandoni seguono l'andamento opposto. Il rapporto tra la funzione di abbandono e il suo valore massimo è praticamente nullo a metà del periodo, vale circa $0.08$ dopo due terzi del periodo, circa $0.41$ all'$80\%$ e circa $0.80$ al $90\%$, per raggiungere il massimo nell'ultima seduta. Gli abbandoni si concentrano quindi nelle ultime due settimane. \par
 
 Questo riflette ciò che accade spesso nella pratica: verso la fine di un periodo di allenamento lungo aumentano gli impegni esterni, la stanchezza accumulata si fa sentire e alcuni atleti decidono di interrompere prima. Quanto la funzione pesi su ciascuna popolazione dipende dai moltiplicatori $\beta_\cdot$, che vengono calcolati nella sezione successiva.
 
-\subsection{Funzione di infortunio}
+\paragraph{Funzione di infortunio}
 
 La fatica fisica è il fattore di rischio più importante, seguita dalla fatica psicologica e dalla densità sul tatami. I pesi $\omega_f$, $\omega_p$ e $\omega_d$ riflettono proprio questo ordine. La soglia $b = 1$ fa sì che, con il gruppo riposato, il rischio sia basso ma non nullo. \par
 
@@ -86,7 +86,7 @@ Per capire quanto è alto il rischio conviene guardare il rapporto $\frac{\lambd
 
 Il rischio relativo resta quindi lontano sia da zero sia dal suo valore massimo, che è $1$. Questo è importante: in questa fascia il rischio è sensibile alle variazioni della fatica, e quindi un cambiamento del carico di allenamento produce un cambiamento effettivo nel numero di infortuni.
 
-\subsection{Funzione di recupero}
+\paragraph{Funzione di recupero}
 
 La scelta più importante riguarda la velocità $\sigma_r$ con cui il recupero diminuisce. Nel capitolo sulle funzioni avevamo usato come esempio $\sigma_r = 0.2$. Con questo valore, però, il recupero diventa quasi nullo già a metà del periodo: gli atleti non riescono più a smaltire la fatica, che cresce senza fermarsi fino a circa $18$. Dopo circa $25$ sedute il rischio relativo arriva a $0.98$, cioè praticamente al massimo, come si vede nella \autoref{fig:sim-fatica} e nella \autoref{fig:sim-rischio}. \par
 
@@ -186,9 +186,6 @@ I requisiti sono passati alla funzione come vincoli: i due requisiti fissati esa
 
 Il risultato sono i parametri più vicini ai valori a priori tra tutti quelli che rispettano i requisiti. In questo modo la stima iniziale viene corretta il meno possibile, e i parametri finali conservano il significato che avevamo dato ai valori a priori.
 
-\section{Risultati}
-
-\subsection{Parametri calibrati}
 
 I parametri calcolati sono riportati nella \autoref{tab:sim-calibrati}. Sono tutti vicini ai valori a priori: la maggior parte cambia di pochi millesimi. \par
 
