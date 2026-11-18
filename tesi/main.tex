@@ -13,9 +13,11 @@
 
 \makeatletter
 \addto\extrasitalian{%
-  \renewcommand{\subsectionautorefname}{Sezione}%
-  \renewcommand{\subsubsectionautorefname}{Sezione}%
-  \renewcommand{\figureautorefname}{Figura}%
+    \renewcommand{\sectionautorefname}{Sezione}%
+    \renewcommand{\subsectionautorefname}{Sezione}%
+    \renewcommand{\subsubsectionautorefname}{Sezione}%
+    \renewcommand{\figureautorefname}{Figura}%
+    \renewcommand{\tableautorefname}{Tabella}%
 }
 \makeatother
 
@@ -36,4 +38,5 @@
     \input{chapters/model.tex}
     \input{chapters/functions.tex}
     \input{chapters/simulation.tex}
+    \input{chapters/control.tex}
 \end{document}
