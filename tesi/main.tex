@@ -10,6 +10,8 @@
 ]{unitsthesis}
 
 \addbibresource{main.bib}
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
 
 \makeatletter
 \addto\extrasitalian{%
@@ -34,6 +36,7 @@
 \graphicspath{ {./images} }
 
 \begin{document}
+    \input{chapters/introduction.tex}
     \input{chapters/model_intro.tex}
     \input{chapters/model.tex}
     \input{chapters/functions.tex}
