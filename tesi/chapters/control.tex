@@ -2,7 +2,7 @@
 
 Nel capitolo precedente abbiamo simulato il modello senza alcuna forma di prevenzione e abbiamo ottenuto uno scenario sfavorevole: in un periodo di cinquanta sedute si verificano circa $428$ infortuni, il gruppo perde il $15\%$ degli atleti, quasi tutti infortunati o malconci, e alla fine circa un terzo degli atleti rimasti è infortunato o malconcio. Questo scenario descrive che cosa succede quando l'allenatore si limita a proporre il programma di allenamento, senza intervenire per ridurre il rischio. \par
 
-Nella pratica, però, l'allenatore ha a disposizione diversi strumenti per prevenire gli infortuni. Può dedicare più tempo al riscaldamento e alla mobilità articolare, inserire esercizi di rinforzo muscolare e di propriocezione, controllare con più attenzione le coppie sul tatami, ad esempio evitando che atleti di peso o livello molto diversi lavorino insieme, oppure ridurre il numero di atleti che combattono contemporaneamente. Tutte queste azioni hanno lo stesso effetto: rendono meno probabile che un atleta si infortuni durante la seduta. \par
+Nella pratica, però, l'allenatore ha a disposizione diversi strumenti per prevenire gli infortuni. Può dedicare più tempo al riscaldamento e alla mobilità articolare, inserire esercizi di rinforzo muscolare e di propriocezione, controllare con più attenzione le coppie sul tatami, ad esempio evitando che atleti di peso o livello molto diversi lavorino insieme, oppure ridurre il numero di atleti che combattono contemporaneamente. Tutte queste azioni hanno lo stesso effetto: rendono meno probabile che un atleta si infortuni durante la seduta. Misure di questo tipo sono indicate in letteratura anche per la prevenzione degli infortuni nel judo \cite{pocecco2013}. \par
 
 In questo capitolo introduciamo nel modello un termine di controllo, indicato con $u(t)$, che rappresenta l'efficacia della prevenzione nella seduta $t$. Il controllo è la variabile su cui l'allenatore può agire: a differenza dei parametri del modello, che descrivono le caratteristiche del gruppo, il controllo descrive una scelta, e può cambiare da una seduta all'altra. \par
 
@@ -16,7 +16,7 @@ Il controllo $u(t)$ rappresenta l'efficacia della prevenzione nella seduta $t$, 
 \[
     u(t) \in [0, 1] \quad \text{con } t = 0, 1, \dots, T - 1
 \]
-Il valore $u(t) = 0$ corrisponde all'assenza di prevenzione: la seduta si svolge come nel capitolo precedente. Il valore $u(t) = 1$ corrisponde a una prevenzione perfetta, che elimini completamente il rischio di infortunio in quella seduta. I valori intermedi rappresentano una prevenzione parziale: ad esempio, $u(t) = 0.3$ significa che le misure adottate riducono del $30\%$ la probabilità di infortunio di ogni atleta. \par
+Il valore $u(t) = 0$ corrisponde all'assenza di prevenzione: la seduta si svolge come nel capitolo precedente. Il valore $u(t) = 1$ corrisponde a una prevenzione perfetta, che elimini il rischio di infortunio in quella seduta. I valori intermedi rappresentano una prevenzione parziale: ad esempio, $u(t) = 0.3$ significa che le misure adottate riducono del $30\%$ la probabilità di infortunio di ogni atleta. \par
 
 La prevenzione perfetta è naturalmente un caso limite, che non si può raggiungere nella pratica: anche con tutte le precauzioni possibili, in uno sport di contatto come il judo resta sempre un rischio residuo. Il valore $u(t) = 1$ serve soprattutto come riferimento, mentre le strategie realistiche useranno valori più bassi. \par
 

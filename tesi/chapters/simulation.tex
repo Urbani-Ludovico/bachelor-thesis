@@ -174,7 +174,7 @@ Con i valori a priori la simulazione è già vicina ai requisiti, ma non li risp
 
 \subsection{Calcolo dei parametri}
 
-Per correggere i valori a priori abbiamo usato la funzione \texttt{minimize} della libreria Python SciPy, una delle librerie più diffuse per il calcolo scientifico. Questa funzione cerca i valori dei parametri che rendono più piccola una certa quantità, detta funzione obiettivo, rispettando allo stesso tempo una serie di vincoli. \par
+Per correggere i valori a priori abbiamo usato la funzione \texttt{minimize} della libreria Python SciPy \cite{virtanen2020}, una delle librerie più diffuse per il calcolo scientifico. Questa funzione cerca i valori dei parametri che rendono più piccola una certa quantità, detta funzione obiettivo, rispettando allo stesso tempo una serie di vincoli. \par
 
 Come funzione obiettivo abbiamo usato la distanza dai valori a priori. Per ogni parametro si calcola la differenza tra il valore proposto e il valore a priori, la si divide per la larghezza dell'intervallo del parametro, la si eleva al quadrato e infine si sommano i risultati:
 \[
