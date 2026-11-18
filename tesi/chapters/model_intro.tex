@@ -51,7 +51,17 @@ L'orizzonte temporale è breve, ad esempio una settimana, un mese o una stagione
 
 Le popolazioni sono numeri reali, non conteggi interi. Il modello quindi è significativo e non distorto se il numero di atleti è sufficientemente numeroso. Questa ipotesi permette di utilizzare strumenti analitici continui e di evitare le complicazioni legate alla discretizzazione dei conteggi. Per gruppi piccoli, le fluttuazioni potrebbero diventare rilevanti e l'approssimazione continua potrebbe perdere accuratezza, ma per gruppi sufficientemente numerosi le dinamiche aggregate sono ben descritte dal modello continuo. \par
 
-A queste ipotesi si aggiungono quelle discusse nelle sezioni successive, riguardanti le equazioni del modello e le funzioni usate. In particolare, le ipotesi sul mescolamento degli accoppiamenti, sulla simmetria del rischio di infortunio e sulla numerosità del gruppo sono necessarie per giustificare l'uso delle fatiche medie al posto delle fatiche individuali e per garantire che il modello catturi in modo adeguato le dinamiche collettive.
+\subsection{Ipotesi sulla fatica media}\label{sec:ipotesi-fatica}
+
+Il modello non descrive la fatica di ogni singolo atleta, ma soltanto la fatica media del gruppo, e usa questa media per calcolare il rischio di infortunio di tutti gli atleti. Questa semplificazione richiede alcune ipotesi aggiuntive, che riguardano il modo in cui gli atleti si allenano insieme sul tatami. \par
+
+La prima è l'ipotesi di mescolamento. Durante l'allenamento di judo gli atleti lavorano a coppie, e nel corso di una seduta le coppie cambiano spesso: nel randori, ad esempio, ogni atleta combatte con molti compagni diversi. Supponiamo che questi cambi avvengano frequentemente e in modo casuale, così che ogni atleta, nel corso della seduta, incontri compagni che nel complesso rappresentano bene l'intero gruppo. In questo modo la fatica dei compagni con cui un atleta si allena è, in media, uguale alla fatica media del gruppo, e ha senso usare $\bar{F}_f$ e $\bar{F}_p$ al posto delle fatiche individuali. Se invece le coppie fossero fisse, ad esempio sempre gli stessi due atleti per tutta la seduta, la fatica rilevante sarebbe quella della singola coppia e la media del gruppo non basterebbe a descriverla. \par
+
+La seconda è l'ipotesi di simmetria. In uno sport di contatto un infortunio non dipende soltanto dalla stanchezza di chi si infortuna: un atleta riposato può farsi male perché il compagno, stanco, esegue male una tecnica o non controlla una caduta. Supponiamo quindi che il rischio dipenda dalla fatica dell'incontro nel suo insieme, cioè di entrambi gli atleti, e non solo da quella del singolo. Anche questa ipotesi porta a usare la fatica media del gruppo: ciò che conta è quanto è stanco in media chi si trova sul tatami, e non chi in particolare si infortuna. \par
+
+La terza riguarda il gruppo su cui si calcola la media. La fatica media è calcolata soltanto sugli atleti che si allenano, cioè sulle popolazioni $S$, $P$ e $M$, perché gli infortunati in $I$ sono fermi e non partecipano agli incontri. Supponiamo inoltre che l'evoluzione della fatica media non dipenda dai cambiamenti nella composizione del gruppo: quando un atleta si infortuna, abbandona o si aggiunge al gruppo, la fatica media degli altri non cambia per questo motivo. È una semplificazione ragionevole se il gruppo è numeroso, perché l'ingresso o l'uscita di pochi atleti sposta di poco la media. \par
+
+Queste ipotesi, insieme a quelle di omogeneità e di numerosità del gruppo discusse sopra, giustificano l'uso delle fatiche medie al posto delle fatiche individuali e permettono al modello di descrivere in modo adeguato le dinamiche collettive del gruppo.
 
 \section{Condizioni iniziali}
 
