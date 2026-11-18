@@ -1,0 +1,71 @@
+\chapter{Conclusioni}
+
+In questa tesi abbiamo costruito un modello matematico che descrive come cambia, seduta dopo seduta, un gruppo di judoka durante un periodo di allenamento, con l'obiettivo di studiare gli infortuni e l'effetto della prevenzione. \par
+
+Il modello divide gli atleti in quattro popolazioni: i sani, gli atleti con infortuni pregressi, gli infortunati gravi, che non possono allenarsi, e i malconci, che si allenano nonostante un infortunio lieve o una guarigione incompleta. A queste si aggiungono due variabili che descrivono la fatica media del gruppo, fisica e psicologica. Il passaggio da una popolazione all'altra è regolato da cinque funzioni, che descrivono gli ingressi di nuovi atleti, gli abbandoni, gli infortuni, il carico di allenamento e il recupero. La funzione più importante è quella di infortunio, che collega il rischio alla fatica del gruppo e alla densità di atleti sul tatami. \par
+
+Per ciascuna funzione abbiamo scelto una forma analitica semplice, con parametri interpretabili, e ne abbiamo studiato le proprietà. Poiché non disponevamo di dati reali, abbiamo poi scelto i parametri con una calibrazione per plausibilità: abbiamo fissato alcuni requisiti che la dinamica del gruppo deve rispettare e abbiamo cercato, con la libreria SciPy, i parametri più vicini a una stima iniziale che li soddisfano. Il risultato è uno scenario di riferimento che descrive un periodo di allenamento intenso senza prevenzione. \par
+
+Infine abbiamo introdotto nel modello un controllo, che rappresenta l'efficacia della prevenzione messa in atto dall'allenatore e riduce il rischio di infortunio di tutte le popolazioni. Abbiamo simulato una strategia di prevenzione proporzionale al carico, più intensa nei giorni di randori, dimezzata nei giorni di tecnica e assente nei giorni di riposo, e l'abbiamo confrontata con lo scenario senza prevenzione.
+
+\section{Risultati principali}
+
+Nello scenario senza prevenzione, in cinquanta sedute si verificano circa $428$ infortuni e il gruppo perde il $15\%$ degli atleti. Quasi tutti gli abbandoni, circa l'$87\%$, riguardano atleti infortunati o malconci, e alla fine del periodo circa un terzo degli atleti rimasti non è in condizioni ottimali. \par
+
+Dalle simulazioni sono emersi tre aspetti principali.
+\begin{itemize}
+    \item \textbf{La fatica aumenta il rischio.} Il rischio di infortunio cresce con la fatica accumulata, e infatti gli infortuni sono più numerosi nella seconda metà del periodo. La scelta della funzione di recupero si è rivelata decisiva: se il recupero diminuisce troppo in fretta, la fatica cresce senza limite, il rischio raggiunge il suo valore massimo e il carico di allenamento smette di avere effetto sugli infortuni.
+    \item \textbf{I malconci sono la popolazione più critica.} Pur essendo meno numerosi dei sani, producono circa il $41\%$ degli infortuni, perché sono la popolazione più a rischio. Inoltre alimentano un ciclo in cui gli infortuni lievi portano a nuovi infortuni gravi.
+    \item \textbf{Gli infortuni causano gli abbandoni.} Gli infortunati e i malconci abbandonano molto più facilmente degli atleti sani. Ridurre gli infortuni significa quindi anche tenere unito il gruppo.
+\end{itemize}
+
+La prevenzione proporzionale al carico, con una prevenzione media di circa $0.3$ per seduta, riduce gli infortuni del $31\%$, da circa $428$ a circa $296$, e gli abbandoni del $18\%$, da circa $124$ a circa $102$. L'effetto è particolarmente forte sui malconci, i cui infortuni si riducono quasi della metà, perché la prevenzione evita che molti atleti diventino malconci. Infine, l'effetto della prevenzione cresce in modo regolare con la sua intensità: anche una prevenzione leggera produce un beneficio apprezzabile.
+
+\section{Limiti del modello}
+
+Il modello è una semplificazione della realtà, e alcune delle scelte fatte per mantenerlo semplice ne limitano la validità. È importante esplicitarle, sia per interpretare correttamente i risultati sia per capire come il modello potrebbe essere migliorato.
+
+\paragraph{Assenza di dati reali}
+
+Il limite principale è che i parametri non sono stati stimati da dati reali. La calibrazione per plausibilità garantisce che la dinamica del gruppo sia ragionevole, ma il risultato dipende da due scelte soggettive: i valori iniziali dei parametri e le soglie dei requisiti, come il calo della popolazione o il picco di infortunati gravi. Con scelte diverse si otterrebbe uno scenario diverso. \par
+
+Per questo motivo i numeri ottenuti, come i circa $428$ infortuni o la riduzione del $31\%$ dovuta alla prevenzione, non vanno letti come previsioni di ciò che accade in una palestra reale. Hanno valore soprattutto nel confronto tra scenari diversi: ad esempio, è più affidabile l'affermazione che la prevenzione riduce gli infortuni dei malconci più di quelli dei sani rispetto al valore esatto della riduzione. Inoltre, molte combinazioni diverse di parametri possono produrre traiettorie simili, e senza dati non è possibile stabilire quale sia quella corretta.
+
+\paragraph{La fatica è la stessa per tutti}
+
+Il modello usa una sola fatica media per tutto il gruppo, giustificata dalle ipotesi di omogeneità, mescolamento e simmetria. Nella realtà, però, la fatica è diversa da atleta ad atleta: un malconcio è probabilmente più affaticato di un sano, e un atleta appena rientrato da un infortunio lo è meno di uno che si è allenato per tutto il periodo. Il modello non può rappresentare queste differenze, né la possibilità che un allenatore assegni carichi diversi ad atleti diversi. Inoltre, nelle simulazioni il carico fisico e quello psicologico sono uguali, quindi la distinzione tra le due componenti della fatica, presente nel modello, non è stata sfruttata.
+
+\paragraph{Il recupero e l'orizzonte temporale}
+
+La funzione di recupero scelta tende a zero con il passare del tempo. Su un orizzonte di cinquanta sedute questo non è un problema, perché il recupero diminuisce lentamente e alla fine del periodo vale ancora circa $0.15$. Su orizzonti più lunghi, però, la fatica crescerebbe senza limite e il rischio arriverebbe al suo valore massimo, con gli stessi problemi osservati per il recupero che decade rapidamente. Per orizzonti lunghi sarebbe necessario introdurre un valore minimo del recupero.
+
+\paragraph{Ingressi e abbandoni}
+
+Gli ingressi e gli abbandoni dipendono soltanto dal tempo, e la popolazione a cui si applicano interviene solo attraverso un moltiplicatore. Nella realtà, invece, la decisione di abbandonare può dipendere dalla fatica, dalla durata di un infortunio o dal clima del gruppo, e gli ingressi possono dipendere dalla dimensione del gruppo o dal periodo dell'anno. Il modello cattura queste differenze solo in modo indiretto, attraverso i diversi moltiplicatori di abbandono delle quattro popolazioni.
+
+\paragraph{Il controllo}
+
+Il controllo è stato modellato nel modo più semplice possibile: riduce il rischio di infortunio di una certa frazione, uguale per tutte le popolazioni. Questa scelta trascura diversi aspetti:
+\begin{itemize}
+    \item la prevenzione non ha alcun costo per l'allenamento: il tempo dedicato al riscaldamento o al rinforzo non riduce il carico né il beneficio della seduta;
+    \item la prevenzione non cambia la gravità degli infortuni né la velocità di guarigione, anche se nella realtà alcune misure, come la fisioterapia, potrebbero farlo;
+    \item la prevenzione è uguale per tutte le popolazioni, ma un allenatore potrebbe dedicare più attenzione proprio ai malconci, che sono i più a rischio;
+    \item la strategia di prevenzione è stata scelta a priori e non ottimizzata: non sappiamo se esista una strategia migliore a parità di prevenzione complessiva.
+\end{itemize}
+
+\paragraph{Un modello deterministico}
+
+Infine, il modello è deterministico e tratta le popolazioni come numeri reali. Gli infortuni, però, sono eventi casuali: due periodi di allenamento identici possono avere un numero di infortuni molto diverso. Il modello descrive soltanto l'andamento medio, ed è tanto più affidabile quanto più il gruppo è numeroso. Per gruppi piccoli, come quelli di molte palestre, le fluttuazioni casuali possono essere importanti quanto l'andamento medio.
+
+\section{Sviluppi futuri}
+
+I limiti discussi indicano alcune direzioni naturali per sviluppare questo lavoro.
+\begin{itemize}
+    \item \textbf{Raccogliere dati reali.} Anche pochi dati, come il numero di iscritti, di abbandoni e di infortuni in una stagione in una singola palestra, permetterebbero di stimare i parametri invece di sceglierli, e di verificare se il modello descrive correttamente un gruppo reale.
+    \item \textbf{Cercare la strategia ottima.} Invece di scegliere la strategia a priori, si potrebbe cercare quella che riduce di più gli infortuni a parità di prevenzione complessiva, oppure quella che raggiunge un certo obiettivo con il minimo sforzo, ad esempio con le tecniche del controllo ottimo o dell'apprendimento per rinforzo.
+    \item \textbf{Prevenzione mirata.} Permettere una prevenzione diversa per ciascuna popolazione consentirebbe di studiare strategie rivolte in particolare ai malconci, che i risultati indicano come la popolazione più critica.
+    \item \textbf{Il carico come controllo.} Oltre alla prevenzione, anche il carico di allenamento è una scelta dell'allenatore. Considerarlo come una seconda variabile di controllo permetterebbe di cercare un equilibrio tra un allenamento efficace e un numero contenuto di infortuni.
+    \item \textbf{Un modello stocastico.} Introdurre la casualità degli infortuni permetterebbe di descrivere anche gruppi piccoli e di stimare non solo il numero medio di infortuni, ma anche quanto può variare da un periodo all'altro.
+\end{itemize}
+
+In conclusione, il modello proposto è semplice, ma permette già di capire alcuni meccanismi importanti, come il legame tra fatica e rischio, il ruolo dei malconci e il collegamento tra infortuni e abbandoni, e di confrontare in modo quantitativo strategie di prevenzione diverse. Con l'aggiunta di dati reali e di alcune delle estensioni proposte, potrebbe diventare uno strumento utile per aiutare gli allenatori a progettare allenamenti più sicuri.
