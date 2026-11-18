@@ -76,7 +76,7 @@ Va notato, però, che il controllo ha anche effetti indiretti. Riducendo gli inf
 
 Il diagramma dei flussi è lo stesso del modello senza controllo, con l'unica differenza che le frecce che rappresentano gli infortuni, cioè quelle da $S$ e da $P$ verso $I$ e $M$ e quella da $M$ verso $I$, sono moltiplicate per $(1 - u(t))$. Quando $u(t)$ è vicino a $1$ queste frecce diventano molto sottili: gli atleti restano nelle popolazioni di partenza e si allenano senza infortunarsi. Quando $u(t)$ è vicino a $0$ il diagramma coincide con quello del capitolo sul modello.
 
-\subsection{Proprietà del modello con il controllo}
+\section{Proprietà}
 
 L'introduzione del controllo non modifica le proprietà principali del modello, che continuano a valere per qualsiasi scelta di $u(t)$ compresa tra $0$ e $1$.
 
@@ -96,7 +96,7 @@ Il controllo, però, cambia la composizione del gruppo, e quindi cambia indirett
 \paragraph{La fatica non dipende dal controllo}
 Le equazioni della fatica non contengono $u(t)$. Con lo stesso carico di allenamento, la fatica media del gruppo è la stessa per qualsiasi strategia di prevenzione. La prevenzione non rende gli atleti meno stanchi, ma riduce le conseguenze della stanchezza sul rischio di infortunio. Il rischio relativo $\frac{\tilde\lambda_\cdot}{\gamma_\cdot}$ cambia invece leggermente da una strategia all'altra, ma solo attraverso la densità sul tatami: con la prevenzione restano più atleti ad allenarsi, e il tatami è un po' più affollato.
 
-\subsection{La strategia di prevenzione}
+\section{La strategia di prevenzione}
 
 Se la prevenzione non avesse alcun costo, la strategia migliore sarebbe banale: applicare la massima prevenzione possibile in ogni seduta. Come abbiamo detto, però, la prevenzione richiede tempo e attenzione, e il tempo dedicato alla prevenzione viene sottratto all'allenamento vero e proprio. È quindi ragionevole dedicarle più spazio nelle sedute più impegnative e meno spazio in quelle leggere. \par
 
@@ -162,6 +162,43 @@ La riduzione non è uguale per tutte le popolazioni. Gli infortuni dei sani pass
 
 Anche gli infortunati gravi e i malconci hanno lo stesso andamento nei due scenari, con il massimo intorno alla quarantesima seduta, ma con la prevenzione restano sempre più bassi. Il picco di infortunati gravi scende da $52$ a $37$ atleti, cioè dal $10\%$ al $7\%$ del gruppo, e il picco dei malconci da $131$ a $106$. Nel momento peggiore, la frazione di infortunati e malconci passa dal $36\%$ al $27\%$ del gruppo.
 
+\subsection{Le popolazioni}
+
+La \autoref{fig:ctrl-popolazioni} mostra l'andamento delle quattro popolazioni nello scenario con prevenzione. L'andamento generale è lo stesso del capitolo precedente: i sani crescono leggermente nelle prime sedute, grazie ai nuovi ingressi, e poi diminuiscono; i pregressi diminuiscono lentamente per tutto il periodo; gli infortunati e i malconci partono da zero, crescono fino a un massimo verso la quarantesima seduta e poi calano, quando gli abbandoni diventano più frequenti. \par
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = \textwidth]{controllo/popolazioni.pdf}
+    \caption{Le quattro popolazioni nello scenario con prevenzione}\label{fig:ctrl-popolazioni}
+\end{figure}
+
+La prevenzione, quindi, non cambia la forma della dinamica, ma la rallenta. Un esempio è il momento in cui i malconci superano i pregressi e diventano la seconda popolazione del gruppo: senza prevenzione questo accade alla seduta $23$, con la prevenzione alla seduta $29$. I sani, invece, restano per tutto il periodo la popolazione più numerosa, e alla fine sono il $63\%$ del gruppo, contro il $57\%$ dello scenario senza prevenzione. \par
+
+La curva degli infortunati gravi ha un andamento a piccoli scalini, più visibile che nel capitolo precedente. Il motivo è che la prevenzione cambia da una seduta all'altra: nei giorni di randori riduce molto i nuovi infortuni, mentre nei giorni di riposo non agisce. Il numero di infortunati cresce quindi soprattutto dopo le sedute in cui la prevenzione è più bassa. \par
+
+Per confrontare meglio i due scenari, la \autoref{fig:ctrl-confronto-popolazioni} mostra ogni popolazione in un grafico separato, con la curva senza prevenzione e quella con prevenzione.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = \textwidth]{controllo/confronto_popolazioni.pdf}
+    \caption{Ciascuna popolazione con e senza prevenzione}\label{fig:ctrl-confronto-popolazioni}
+\end{figure}
+
+Il grafico mostra che la prevenzione agisce in due direzioni opposte. Per i sani e i pregressi la curva con prevenzione sta sempre sopra quella senza prevenzione: meno atleti si infortunano, e quindi più atleti restano in queste due popolazioni. Per gli infortunati e i malconci, invece, la curva con prevenzione sta sempre sotto. \par
+
+In tutti e quattro i casi la distanza tra le due curve cresce con il passare delle sedute, perché gli infortuni evitati si accumulano. Alla decima seduta la differenza è ancora piccola: ci sono $9$ sani in più e $9$ malconci in meno. Alla venticinquesima seduta ci sono $22$ sani in più e $21$ malconci in meno, e alla trentacinquesima $31$ sani in più e $26$ malconci in meno. \par
+
+Le differenze più grandi, però, si raggiungono in momenti diversi per le quattro popolazioni:
+\begin{itemize}
+    \item per i sani la differenza cresce fino all'ultima seduta, quando con la prevenzione ci sono $41$ sani in più, $284$ invece di $243$;
+    \item per i pregressi la differenza massima è di $12$ atleti, alla seduta $44$, e alla fine restano $48$ pregressi invece di $36$;
+    \item per gli infortunati la differenza massima è di $17$ atleti, intorno alla quarantesima seduta, cioè vicino al picco;
+    \item per i malconci la differenza massima è di $26$ atleti, intorno alla trentottesima seduta.
+\end{itemize}
+Per gli infortunati e i malconci la differenza diminuisce leggermente nelle ultime sedute. Questo non significa che la prevenzione diventi meno efficace, ma che senza prevenzione molti infortunati e malconci abbandonano il gruppo, e quindi le due curve si avvicinano. \par
+
+Il confronto mostra anche che la prevenzione ha l'effetto più grande, in proporzione, proprio sulle popolazioni a rischio. Alla fine del periodo i sani aumentano del $17\%$, mentre gli infortunati diminuiscono del $32\%$ e i malconci del $17\%$. La differenza tra infortunati e malconci insieme è massima alla trentottesima seduta, quando con la prevenzione ci sono $43$ atleti in meno in queste due popolazioni: in un gruppo di circa $540$ atleti, è come se l'$8\%$ del gruppo fosse tornato ad allenarsi in piena salute.
+
 
 \subsection{Abbandoni e popolazione}
 
@@ -200,6 +237,7 @@ Infine, abbiamo ripetuto la simulazione con diversi valori della prevenzione nel
 \end{table}
 
 L'effetto della prevenzione cresce in modo regolare con la sua intensità: ogni aumento di $0.2$ di $u_{\text{base}}$ evita circa $44$ infortuni e circa $8$ abbandoni. Anche con la prevenzione massima nel giorno di randori, cioè $u_{\text{base}} = 1$, gli infortuni si riducono circa della metà, ma non si annullano: la prevenzione è dimezzata nei giorni di tecnica e assente nei giorni di riposo, e in quelle sedute il rischio resta. L'allenatore può quindi scegliere l'intensità della prevenzione in base alle risorse disponibili, sapendo che anche una prevenzione leggera produce un beneficio apprezzabile.
+
 
 \subsection{Considerazioni}
 
