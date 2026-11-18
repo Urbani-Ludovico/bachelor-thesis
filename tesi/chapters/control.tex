@@ -1,0 +1,115 @@
+\chapter{Modello con controllo}
+
+Nel capitolo precedente abbiamo simulato il modello senza alcuna forma di prevenzione e abbiamo ottenuto uno scenario sfavorevole: in un periodo di cinquanta sedute si verificano circa $428$ infortuni, il gruppo perde il $15\%$ degli atleti, quasi tutti infortunati o malconci, e alla fine circa un terzo degli atleti rimasti è infortunato o malconcio. Questo scenario descrive che cosa succede quando l'allenatore si limita a proporre il programma di allenamento, senza intervenire per ridurre il rischio. \par
+
+Nella pratica, però, l'allenatore ha a disposizione diversi strumenti per prevenire gli infortuni. Può dedicare più tempo al riscaldamento e alla mobilità articolare, inserire esercizi di rinforzo muscolare e di propriocezione, controllare con più attenzione le coppie sul tatami, ad esempio evitando che atleti di peso o livello molto diversi lavorino insieme, oppure ridurre il numero di atleti che combattono contemporaneamente. Tutte queste azioni hanno lo stesso effetto: rendono meno probabile che un atleta si infortuni durante la seduta. \par
+
+In questo capitolo introduciamo nel modello un termine di controllo, indicato con $u(t)$, che rappresenta l'efficacia della prevenzione nella seduta $t$. Il controllo è la variabile su cui l'allenatore può agire: a differenza dei parametri del modello, che descrivono le caratteristiche del gruppo, il controllo descrive una scelta, e può cambiare da una seduta all'altra. \par
+
+La prevenzione, però, non è gratuita. Ogni minuto dedicato al riscaldamento o agli esercizi di rinforzo è un minuto sottratto alla tecnica e al randori, e un controllo più attento delle coppie richiede tempo e attenzione da parte dell'allenatore. Non è quindi realistico pensare di applicare la massima prevenzione in ogni seduta. La domanda a cui vogliamo rispondere è allora la seguente: se l'allenatore dedica alla prevenzione un impegno proporzionato alla fatica di ciascuna seduta, di quanto si riducono gli infortuni e gli abbandoni? \par
+
+Per rispondere a questa domanda manteniamo fisso tutto il resto. I parametri del modello e delle funzioni sono quelli calibrati nel capitolo precedente, e il carico di allenamento è lo stesso carico periodico. In questo modo le differenze tra le simulazioni dipendono soltanto dal controllo, e lo scenario senza prevenzione diventa il termine di confronto per misurare l'efficacia di ciascuna strategia.
+
+\section{Il modello con il controllo}
+
+Il controllo $u(t)$ rappresenta l'efficacia della prevenzione nella seduta $t$, ed è un numero compreso tra $0$ e $1$:
+\[
+    u(t) \in [0, 1] \quad \text{con } t = 0, 1, \dots, T - 1
+\]
+Il valore $u(t) = 0$ corrisponde all'assenza di prevenzione: la seduta si svolge come nel capitolo precedente. Il valore $u(t) = 1$ corrisponde a una prevenzione perfetta, che elimini completamente il rischio di infortunio in quella seduta. I valori intermedi rappresentano una prevenzione parziale: ad esempio, $u(t) = 0.3$ significa che le misure adottate riducono del $30\%$ la probabilità di infortunio di ogni atleta. \par
+
+La prevenzione perfetta è naturalmente un caso limite, che non si può raggiungere nella pratica: anche con tutte le precauzioni possibili, in uno sport di contatto come il judo resta sempre un rischio residuo. Il valore $u(t) = 1$ serve soprattutto come riferimento, mentre le strategie realistiche useranno valori più bassi. \par
+
+Il controllo può cambiare da una seduta all'altra. L'allenatore può decidere, ad esempio, di concentrare la prevenzione nei giorni di randori, quando il carico è più alto, oppure nella seconda parte del periodo, quando la fatica accumulata è maggiore. Per questo motivo il controllo è una funzione del tempo e non un singolo numero.
+
+\subsection{Le equazioni}
+
+Il controllo agisce soltanto sul rischio di infortunio. La probabilità che un atleta di una popolazione si infortuni nella seduta $t$, che senza prevenzione è $\tilde\lambda_\cdot(t)$, diventa
+\[
+    (1 - u(t)) \tilde\lambda_\cdot(t)
+\]
+cioè viene ridotta della frazione $u(t)$. \par
+
+Usando le stesse abbreviazioni definite in \autoref{sec:model-complete}:
+\begin{gather*}
+    \tilde\mu(t) = \mu\left(\frac{t}{T}\right) \\
+    \tilde\nu_\cdot(t) = \nu\left(\frac{t}{T}, \beta_\cdot\right) \\
+    \tilde\lambda_\cdot(t) = \lambda\left(\bar{F}_f(t), \bar{F}_p(t), \frac{S(t) + P(t) + M(t)}{A_{\max}}, \gamma_\cdot\right)
+\end{gather*}
+il modello con il controllo si può scrivere come:
+\begin{equation*}
+    \begin{aligned}
+        S(t+1) &= S(t)
+            + \alpha \tilde\mu(t)
+            - \tilde\nu_S(t) S(t)
+            - (1 - u(t)) \tilde\lambda_S(t) S(t) \\[10pt]
+        P(t+1) &= P(t)
+            + (1 - \alpha) \tilde\mu(t)
+            - \tilde\nu_P(t) P(t)
+            - (1 - u(t)) \tilde\lambda_P(t) P(t) \\[10pt]
+        I(t+1) &= I(t)
+            - \rho I(t)
+            - \tilde\nu_I(t) I(t) \\
+            &+ \pi (1 - u(t)) \left( \tilde\lambda_S(t) S(t)
+            + \tilde\lambda_P(t) P(t)
+            + \tilde\lambda_M(t) M(t) \right) \\[10pt]
+        M(t+1) &= M(t)
+            + \rho I(t)
+            - \tilde\nu_M(t) M(t) \\
+            &+ (1 - \pi) (1 - u(t)) \tilde\lambda_S(t) S(t)
+            + (1 - \pi) (1 - u(t)) \tilde\lambda_P(t) P(t) \\
+            &- \pi (1 - u(t)) \tilde\lambda_M(t) M(t) \\[10pt]
+        \bar{F}_f(t+1) &= \bar{F}_f(t)
+            + c_f(t)
+            - r(t) \bar{F}_f(t) \\[10pt]
+        \bar{F}_p(t+1) &= \bar{F}_p(t)
+            + c_p(t)
+            - r(t) \bar{F}_p(t)
+    \end{aligned}
+\end{equation*}
+
+Rispetto al modello senza controllo, l'unica differenza è il fattore $(1 - u(t))$ davanti a tutti i termini di infortunio. Tutti gli altri flussi restano invariati: gli ingressi, gli abbandoni, il recupero parziale da $I$ a $M$ e l'accumulo della fatica non dipendono dalla prevenzione. \par
+
+Questa scelta riflette il tipo di prevenzione che stiamo considerando. Il riscaldamento, gli esercizi di rinforzo e il controllo delle coppie riducono la probabilità di infortunarsi, ma non cambiano il carico della seduta, e quindi non cambiano la fatica accumulata dagli atleti. Allo stesso modo, la prevenzione non aiuta gli atleti già infortunati a guarire più in fretta e non influisce direttamente sulla loro decisione di abbandonare. \par
+
+Va notato, però, che il controllo ha anche effetti indiretti. Riducendo gli infortuni, la prevenzione mantiene più atleti nelle popolazioni $S$ e $P$, che abbandonano meno degli infortunati e dei malconci. Inoltre mantiene più atleti sul tatami, e quindi modifica la densità e, di conseguenza, il rischio delle sedute successive. Per questo motivo l'effetto complessivo di una strategia di prevenzione non si può calcolare semplicemente moltiplicando il numero di infortuni per $(1 - u)$, ma richiede di simulare il modello. \par
+
+Il diagramma dei flussi è lo stesso del modello senza controllo, con l'unica differenza che le frecce che rappresentano gli infortuni, cioè quelle da $S$ e da $P$ verso $I$ e $M$ e quella da $M$ verso $I$, sono moltiplicate per $(1 - u(t))$. Quando $u(t)$ è vicino a $1$ queste frecce diventano molto sottili: gli atleti restano nelle popolazioni di partenza e si allenano senza infortunarsi. Quando $u(t)$ è vicino a $0$ il diagramma coincide con quello del capitolo sul modello.
+
+\subsection{Proprietà del modello con il controllo}
+
+L'introduzione del controllo non modifica le proprietà principali del modello, che continuano a valere per qualsiasi scelta di $u(t)$ compresa tra $0$ e $1$.
+
+\paragraph{Il modello senza controllo è un caso particolare}
+Se $u(t) = 0$ per ogni seduta, il fattore $(1 - u(t))$ vale $1$ e le equazioni coincidono con quelle del modello senza controllo. Lo scenario del capitolo precedente è quindi il caso particolare in cui l'allenatore non fa alcuna prevenzione. Questa proprietà è stata verificata anche nelle simulazioni: con il controllo nullo si ottengono esattamente gli stessi risultati del capitolo precedente.
+
+\paragraph{Le popolazioni restano non negative}
+Poiché $u(t) \geq 0$, il rischio effettivo $(1 - u(t)) \tilde\lambda_\cdot(t)$ è sempre minore o uguale al rischio senza controllo $\tilde\lambda_\cdot(t)$. Le uscite da ciascuna popolazione possono quindi solo diminuire, e i vincoli di integrità del modello senza controllo continuano a valere. In particolare, se le popolazioni restano non negative senza prevenzione, restano non negative anche con qualsiasi strategia di prevenzione.
+
+\paragraph{La popolazione totale si conserva}
+Il controllo moltiplica tutti i termini di infortunio per lo stesso fattore, sia quando un atleta esce da una popolazione sia quando entra in un'altra. Gli infortuni continuano quindi a spostare gli atleti tra le popolazioni senza crearne né eliminarne, e la popolazione totale continua a cambiare soltanto per effetto degli ingressi e degli abbandoni:
+\[
+    N(t+1) = N(t) + \tilde\mu(t) - \tilde\nu_S(t) S(t) - \tilde\nu_P(t) P(t) - \tilde\nu_I(t) I(t) - \tilde\nu_M(t) M(t).
+\]
+Il controllo, però, cambia la composizione del gruppo, e quindi cambia indirettamente anche gli abbandoni: con più atleti sani e meno infortunati, gli abbandoni complessivi diminuiscono.
+
+\paragraph{La fatica non dipende dal controllo}
+Le equazioni della fatica non contengono $u(t)$. Con lo stesso carico di allenamento, la fatica media del gruppo è la stessa per qualsiasi strategia di prevenzione. La prevenzione non rende gli atleti meno stanchi, ma riduce le conseguenze della stanchezza sul rischio di infortunio. Il rischio relativo $\frac{\tilde\lambda_\cdot}{\gamma_\cdot}$ cambia invece leggermente da una strategia all'altra, ma solo attraverso la densità sul tatami: con la prevenzione restano più atleti ad allenarsi, e il tatami è un po' più affollato.
+
+\subsection{La strategia di prevenzione}
+
+Se la prevenzione non avesse alcun costo, la strategia migliore sarebbe banale: applicare la massima prevenzione possibile in ogni seduta. Come abbiamo detto, però, la prevenzione richiede tempo e attenzione, e il tempo dedicato alla prevenzione viene sottratto all'allenamento vero e proprio. È quindi ragionevole dedicarle più spazio nelle sedute più impegnative e meno spazio in quelle leggere. \par
+
+Per questo motivo scegliamo una prevenzione proporzionale al carico della seduta:
+\[
+    u(t) = u_{\text{base}} \cdot c(t),
+\]
+dove $u_{\text{base}}$ è la prevenzione applicata nel giorno di randori. Con il carico periodico del capitolo precedente, questa scelta dà:
+\begin{itemize}
+    \item nel giorno di randori, quando il carico è massimo, la prevenzione vale $u_{\text{base}}$;
+    \item nel giorno di tecnica, quando il carico è la metà, anche la prevenzione è la metà, cioè $\frac{u_{\text{base}}}{2}$;
+    \item nel giorno di riposo, quando il carico è nullo, non si fa prevenzione.
+\end{itemize}
+Questa strategia corrisponde a un comportamento naturale per un allenatore: riscaldamento più lungo, esercizi di rinforzo e un controllo più attento delle coppie nei giorni di randori, una prevenzione più leggera nei giorni di tecnica e nessuna attività particolare nei giorni di riposo. \par
+
+Nelle simulazioni usiamo $u_{\text{base}} = 0.6$: nel giorno di randori la prevenzione riduce del $60\%$ il rischio di infortunio, nel giorno di tecnica del $30\%$. In media, su tutto il periodo, la prevenzione vale circa $0.3$ per seduta.
