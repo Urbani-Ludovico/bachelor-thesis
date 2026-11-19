@@ -19,7 +19,7 @@ Le condizioni iniziali sono:
 \end{gather*}
 Il gruppo iniziale è quindi composto da $N(0) = 500$ atleti, di cui l'$80\%$ sani e il $20\%$ con infortuni pregressi. All'inizio nessun atleta è infortunato e il gruppo è riposato, perché supponiamo che il periodo inizi dopo una fase di recupero. Il gruppo è abbastanza numeroso da poter trattare le popolazioni come numeri reali, come richiesto dalle ipotesi del modello. \par
 
-La capienza del tatami è $A_{\max} = 800$ atleti. All'inizio del periodo la densità sul tatami vale quindi circa $0.62$: il tatami è affollato, ma non saturo. Nel corso del periodo la densità diminuisce, perché una parte degli atleti si infortuna gravemente e smette di allenarsi e, nelle ultime settimane, alcuni abbandonano: alla fine scende a circa $0.48$.
+La capienza del tatami è $A_{\max} = 800$ atleti. All'inizio del periodo la densità sul tatami vale quindi $0.625$: il tatami è affollato, ma non saturo. Nel corso del periodo la densità diminuisce, perché una parte degli atleti si infortuna gravemente e smette di allenarsi e, nelle ultime settimane, alcuni abbandonano: alla fine scende a circa $0.48$.
 
 \subsection{Carico di allenamento}
 
@@ -98,7 +98,7 @@ Da quel momento il rischio non dipende più dalla fatica, e quindi nemmeno dal c
     \caption{Fatica media del gruppo per due valori di $\sigma_r$}\label{fig:sim-fatica}
 \end{figure}
 
-Per questo scegliamo $\sigma_r = 0.05$. Il recupero diminuisce più lentamente: vale $1$ all'inizio, circa $0.76$ dopo $10$ sedute, circa $0.45$ dopo $25$ e ancora $0.15$ alla fine del periodo. La fatica oscilla seguendo il ciclo di tre sedute: aumenta nei giorni di randori e di tecnica e diminuisce nel giorno di riposo. Nelle prime venti sedute non supera circa $1.2$, poi cresce lentamente, man mano che il recupero diminuisce, fino a circa $2.8$ alla fine del periodo. \par
+Per questo scegliamo $\sigma_r = 0.05$. Il recupero diminuisce più lentamente: vale $1$ all'inizio, circa $0.76$ dopo $10$ sedute, circa $0.45$ dopo $25$ e ancora $0.15$ alla fine del periodo. La fatica oscilla seguendo il ciclo di tre sedute: aumenta sempre dopo il giorno di randori e diminuisce sempre dopo il giorno di riposo. Dopo il giorno di tecnica, invece, per gran parte del periodo diminuisce, perché il recupero smaltisce più fatica di quanta ne aggiunga il carico medio; solo nelle ultime sedute, dalla trentasettesima in poi, quando il recupero è più basso, aumenta anche dopo la tecnica. Nelle prime venti sedute non supera circa $1.2$, poi cresce lentamente, man mano che il recupero diminuisce, fino a circa $2.8$ alla fine del periodo. \par
 
 \begin{figure}[ht]
     \centering
@@ -189,7 +189,7 @@ Il risultato sono i parametri più vicini ai valori a priori tra tutti quelli ch
 
 I parametri calcolati sono riportati nella \autoref{tab:sim-calibrati}. Sono tutti vicini ai valori a priori: la maggior parte cambia di pochi millesimi. \par
 
-I moltiplicatori di abbandono dei sani e dei pregressi restano invariati. Le correzioni riguardano soprattutto i malconci e gli infortunati. Il moltiplicatore di abbandono dei malconci $\beta_M$ passa da $0.050$ a $0.059$ e quello degli infortunati $\beta_I$ da $0.100$ a $0.105$: abbandonano un po' di più, e questo porta la popolazione finale dall'$87\%$ all'$85\%$ richiesto. Il tasso di recupero parziale $\rho$ passa da $0.050$ a $0.054$: gli infortunati gravi tornano ad allenarsi un po' prima, in media dopo circa $18.7$ sedute invece di $20$, e questo abbassa il picco di infortunati gravi al $10\%$. \par
+I moltiplicatori di abbandono dei sani e dei pregressi restano praticamente invariati. Le correzioni riguardano soprattutto i malconci e gli infortunati. Il moltiplicatore di abbandono dei malconci $\beta_M$ passa da $0.050$ a $0.059$ e quello degli infortunati $\beta_I$ da $0.100$ a $0.105$: abbandonano un po' di più, e questo porta la popolazione finale dall'$87\%$ all'$85\%$ richiesto. Il tasso di recupero parziale $\rho$ passa da $0.050$ a $0.054$: gli infortunati gravi tornano ad allenarsi un po' prima, in media dopo circa $18.7$ sedute invece di $20$, e questo abbassa il picco di infortunati gravi al $10\%$. \par
 
 Con questi parametri, nel momento di massima fatica un atleta sano ha una probabilità di infortunarsi in una singola seduta di circa l'$1.7\%$, un atleta con infortunio pregresso di circa il $3.2\%$ e un malconcio di circa il $6.2\%$.
 

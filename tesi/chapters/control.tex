@@ -113,12 +113,12 @@ dove $u_{\text{base}}$ è la prevenzione applicata nel giorno di randori. Con il
 Questa strategia corrisponde a un comportamento naturale per un allenatore: riscaldamento più lungo, esercizi di rinforzo e un controllo più attento delle coppie nei giorni di randori, una prevenzione più leggera nei giorni di tecnica e nessuna attività particolare nei giorni di riposo. \par
 
 Nelle simulazioni usiamo $u_{\text{base}} = 0.6$: nel giorno di randori la prevenzione riduce del $60\%$ il rischio di infortunio, nel giorno di tecnica del $30\%$. In media, su tutto il periodo, la prevenzione vale circa $0.3$ per seduta.
-La \autoref{fig:ctrl-strategia} mostra il carico e la prevenzione nelle prime dodici sedute: la prevenzione segue esattamente l'andamento del carico, con un valore più basso.
+La \autoref{fig:ctrl-strategia} mostra il carico e la prevenzione nelle prime nove sedute: la prevenzione segue esattamente l'andamento del carico, con un valore più basso.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{controllo/strategia.pdf}
-    \caption{Carico di allenamento e prevenzione nelle prime dodici sedute}\label{fig:ctrl-strategia}
+    \caption{Carico di allenamento e prevenzione nelle prime nove sedute}\label{fig:ctrl-strategia}
 \end{figure}
 
 \section{Risultati}
@@ -150,7 +150,7 @@ Gli infortuni gravi diminuiscono nella stessa proporzione degli infortuni totali
 
 \subsection{Infortuni}
 
-La \autoref{fig:ctrl-infortuni} mostra gli infortuni accumulati dall'inizio del periodo. Senza prevenzione la curva cresce sempre più velocemente, perché la fatica aumenta e con essa il rischio. Con la prevenzione la curva ha lo stesso andamento, ma cresce più lentamente: la differenza tra i due scenari si allarga seduta dopo seduta. Nella prima metà del periodo la prevenzione evita circa $48$ infortuni, passando da $158$ a $110$; nella seconda metà ne evita circa $84$, passando da $270$ a $186$. La prevenzione è quindi più utile proprio quando la fatica è più alta.
+La \autoref{fig:ctrl-infortuni} mostra gli infortuni accumulati dall'inizio del periodo. Senza prevenzione la curva cresce sempre più velocemente fino alle ultime sedute, perché la fatica aumenta e con essa il rischio; solo dopo la quarantatreesima seduta rallenta leggermente, perché molti atleti a rischio abbandonano. Con la prevenzione la curva ha lo stesso andamento, ma cresce più lentamente: la differenza tra i due scenari si allarga seduta dopo seduta. Nella prima metà del periodo la prevenzione evita circa $48$ infortuni, passando da $158$ a $110$; nella seconda metà ne evita circa $84$, passando da $270$ a $186$. La prevenzione è quindi più utile proprio quando la fatica è più alta.
 
 \begin{figure}[ht]
     \centering
@@ -186,7 +186,7 @@ Per confrontare meglio i due scenari, la \autoref{fig:ctrl-confronto-popolazioni
 
 Il grafico mostra che la prevenzione agisce in due direzioni opposte. Per i sani e i pregressi la curva con prevenzione sta sempre sopra quella senza prevenzione: meno atleti si infortunano, e quindi più atleti restano in queste due popolazioni. Per gli infortunati e i malconci, invece, la curva con prevenzione sta sempre sotto. \par
 
-In tutti e quattro i casi la distanza tra le due curve cresce con il passare delle sedute, perché gli infortuni evitati si accumulano. Alla decima seduta la differenza è ancora piccola: ci sono $9$ sani in più e $9$ malconci in meno. Alla venticinquesima seduta ci sono $22$ sani in più e $21$ malconci in meno, e alla trentacinquesima $31$ sani in più e $26$ malconci in meno. \par
+In tutti e quattro i casi la distanza tra le due curve cresce con il passare delle sedute, perché gli infortuni evitati si accumulano. Alla decima seduta la differenza è ancora piccola: ci sono $10$ sani in più e $9$ malconci in meno. Alla venticinquesima seduta ci sono $23$ sani in più e $21$ malconci in meno, e alla trentacinquesima $31$ sani in più e $26$ malconci in meno. \par
 
 Le differenze più grandi, però, si raggiungono in momenti diversi per le quattro popolazioni:
 \begin{itemize}
