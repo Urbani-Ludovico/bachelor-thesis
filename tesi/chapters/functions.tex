@@ -158,7 +158,11 @@ La funzione è limitata superiormente da $\gamma$, cioè $\lambda(f_f, f_p, d, \
 
 La funzione è continua e derivabile su tutto il dominio, per definizione. Le derivate parziali rispetto a $f_f$, $f_p$ e $d$ sono positive, perché la sigmoide è crescente rispetto al suo argomento. Quindi la funzione è monotona crescente rispetto a $f_f$, $f_p$ e $d$. \par
 
-La funzione è lineare rispetto a $\gamma$, cioè $\lambda(f_f, f_p, d, \gamma) = \gamma \cdot s\left(\omega_f f_f + \omega_p f_p + \omega_d d - b\right)$, dove $s(z) = \frac{1}{1 + e^{-z}}$ è la sigmoide logistica. Questa proprietà permette di separare il contributo del moltiplicatore di rischio da quello della fatica e della densità. \par
+La funzione è lineare rispetto a $\gamma$, cioè
+\[
+    \lambda(f_f, f_p, d, \gamma) = \gamma \cdot s\left(\omega_f f_f + \omega_p f_p + \omega_d d - b\right)
+\]
+dove $s(z) = \frac{1}{1 + e^{-z}}$ è la sigmoide logistica. Questa proprietà permette di separare il contributo del moltiplicatore di rischio da quello della fatica e della densità. \par
 
 Il valore in assenza di fatica e densità è $\lambda(0, 0, 0, \gamma) = \frac{\gamma}{1 + e^b}$. Per $b = 0$, questo valore è $\frac{\gamma}{2}$, mentre per $b$ grande, questo valore tende a zero. La scelta di $b$ controlla quindi il rischio di base in assenza di fatica e densità. \par
 
