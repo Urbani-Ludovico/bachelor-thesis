@@ -183,6 +183,41 @@ I requisiti sono stati passati alla funzione come vincoli: i due requisiti fissa
 
 Il risultato consiste nei parametri più vicini ai valori a priori tra tutti quelli che rispettano i requisiti. In tal modo la stima iniziale viene corretta il meno possibile, e i parametri finali conservano il significato attribuito ai valori a priori.
 
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[
+        block/.style = {
+            rectangle, rounded corners = 4pt, draw = ColorP, line width = 1pt, fill = ColorP!12,
+            minimum width = 2.5cm, minimum height = 1.4cm, align = center, font = \small
+        },
+        input/.style = {
+            rectangle, rounded corners = 4pt, draw = gray, line width = 0.8pt, fill = gray!8,
+            minimum width = 2.5cm, minimum height = 1cm, align = center, font = \small
+        },
+        flow/.style = {-Stealth, line width = 1.2pt}
+    ]
+        \node[input] (prior) {Valori a priori\\e intervalli};
+        \node[block, right = 0.6cm of prior] (minimize) {\texttt{minimize}\\distanza minima\\dai valori\\a priori};
+        \node[block, draw = ColorS, fill = ColorS!12, right = 0.6cm of minimize] (calibrated) {Parametri\\calibrati};
+        \node[block, right = 0.6cm of calibrated] (simulation) {Simulazione\\finale};
+
+        \node[input, above = 0.7cm of minimize] (requirements) {Requisiti (vincoli)};
+        \node[input, below = 0.9cm of minimize] (trial) {Simulazione di prova};
+
+        \draw[flow] (prior) -- (minimize);
+        \draw[flow] (minimize) -- (calibrated);
+        \draw[flow] (calibrated) -- (simulation);
+        \draw[flow, draw = gray] (requirements) -- (minimize);
+        \draw[flow, draw = gray] ([xshift = -0.5cm] minimize.south) to[bend right = 35]
+            node[left, font = \footnotesize] {parametri proposti} ([xshift = -0.5cm] trial.north);
+        \draw[flow, draw = gray] ([xshift = 0.5cm] trial.north) to[bend right = 35]
+            node[right, font = \footnotesize] {requisiti rispettati?} ([xshift = 0.5cm] minimize.south);
+    \end{tikzpicture}
+    \caption{La procedura di calibrazione dei parametri}
+    \label{fig:calibrazione}
+\end{figure}
+
+
 
 I parametri calcolati sono riportati nella \autoref{tab:sim-calibrati}. Essi risultano tutti vicini ai valori a priori: la maggior parte cambia di pochi millesimi. \par
 
@@ -292,6 +327,13 @@ La \autoref{fig:sim-frazioni} mostra la frazione di infortunati gravi e quella d
 Complessivamente si verificano circa $428$ infortuni, di cui $170$ gravi e $258$ lievi. In media si verificano circa $9$ infortuni per seduta, ma il numero cresce nel tempo insieme alla fatica: sono circa $4$ nella prima seduta e arrivano a circa $13$ intorno alla quarantatreesima. Nella seconda metà del periodo si verificano circa $270$ infortuni, contro i $158$ della prima metà. \par
 
 Gli infortuni si distribuiscono tra le popolazioni nel modo seguente: circa $184$ riguardano i sani, $70$ i pregressi e $174$ i malconci. I malconci, pur essendo molto meno numerosi dei sani, producono il $41\%$ degli infortuni, quasi quanto i sani, perché costituiscono la popolazione più a rischio. \par
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = \textwidth]{simulazione/infortuni_per_popolazione.pdf}
+    \caption{Infortuni per popolazione di provenienza}\label{fig:sim-infortuni-popolazione}
+\end{figure}
+
 
 Una parte degli atleti si infortuna più di una volta, ad esempio prima in modo lieve, diventando malconci, e poi in modo grave. Rapportando gli infortuni al numero di presenze sul tatami si ottengono circa $17$ infortuni ogni $1000$ presenze, un valore elevato, coerente con uno scenario privo di prevenzione.
 

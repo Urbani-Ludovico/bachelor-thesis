@@ -4,6 +4,12 @@ Nel capitolo precedente abbiamo simulato il modello in assenza di qualsiasi form
 
 Nella pratica, tuttavia, l'allenatore può avvalersi di diversi strumenti per prevenire gli infortuni. Egli può riservare più tempo al riscaldamento e alla mobilità articolare, inserire esercizi di rinforzo muscolare e di propriocezione, sorvegliare con maggiore attenzione le coppie che lavorano sul tatami, evitando ad esempio accoppiamenti tra atleti di peso o livello molto differenti, oppure limitare il numero di atleti che combattono nello stesso momento. Tutte queste misure producono il medesimo risultato: diminuiscono la probabilità che un atleta si infortuni nel corso della seduta. Interventi di questo tipo sono segnalati in letteratura anche per la prevenzione degli infortuni nel judo \cite{pocecco2013}. \par
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = 0.8\textwidth]{pictures/control.jpg}
+    \creditcaption[L'allenatore durante l'allenamento]{Kosei Inoue, campione olimpico e allenatore, segue un allenamento.}{Foto \textcopyright~Japan Forward, \url{https://japan-forward.com/kosei-inoue-world-championships-children-and-the-significance-of-judo/}}
+\end{figure}
+
 In questo capitolo inseriamo nel modello un termine di controllo, denotato con $u(t)$, che esprime l'efficacia della prevenzione nella seduta $t$. Il controllo è la variabile sulla quale l'allenatore può intervenire: diversamente dai parametri del modello, che riflettono le caratteristiche del gruppo, il controllo rappresenta una scelta e può variare da una seduta alla successiva. \par
 
 La prevenzione, tuttavia, comporta un costo. Ogni minuto impiegato nel riscaldamento o negli esercizi di rinforzo è un minuto che viene sottratto alla tecnica e al randori, e una sorveglianza più accurata delle coppie richiede tempo e attenzione da parte dell'allenatore. Non è quindi verosimile ipotizzare di applicare la massima prevenzione in ogni seduta. La domanda cui intendiamo rispondere è dunque la seguente: se l'allenatore destina alla prevenzione un impegno commisurato alla fatica di ciascuna seduta, in quale misura si riducono gli infortuni e gli abbandoni? \par
@@ -75,6 +81,109 @@ Questa scelta rispecchia il tipo di prevenzione preso in considerazione. Il risc
 Occorre tuttavia rilevare che il controllo produce anche effetti indiretti. Riducendo gli infortuni, la prevenzione trattiene più atleti nelle popolazioni $S$ e $P$, le quali abbandonano meno degli infortunati e dei malconci. Inoltre mantiene un maggior numero di atleti sul tatami, modificando così la densità e, di conseguenza, il rischio delle sedute successive. Per questo motivo l'effetto complessivo di una strategia di prevenzione non può essere calcolato semplicemente moltiplicando il numero di infortuni per $(1 - u)$, ma richiede di simulare il modello. \par
 
 Il diagramma dei flussi è identico a quello del modello senza controllo, con l'unica differenza che le frecce rappresentanti gli infortuni, vale a dire quelle da $S$ e da $P$ verso $I$ e $M$ e quella da $M$ verso $I$, sono moltiplicate per $(1 - u(t))$. Quando $u(t)$ si avvicina a $1$ tali frecce diventano molto sottili: gli atleti permangono nelle popolazioni di partenza e si allenano senza infortunarsi. Quando $u(t)$ si avvicina a $0$ il diagramma coincide con quello del capitolo sul modello.
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}
+        \node[
+            circle, 
+            fill = ColorS,
+            text = white,
+            font = \bfseries\LARGE,
+            minimum size = 40pt,
+            inner sep = 0pt
+        ] (S) at (0, 0) {S};
+        \node[
+            circle, 
+            fill = ColorP,
+            text = white,
+            font = \bfseries\LARGE,
+            minimum size = 40pt,
+            inner sep = 0pt
+        ] (P) at (8, 0) {P};
+        \node[
+            circle, 
+            fill = ColorI,
+            text = white,
+            font = \bfseries\LARGE,
+            minimum size = 40pt,
+            inner sep = 0pt
+        ] (I) at (0, -8) {I};
+        \node[
+            circle, 
+            fill = ColorM,
+            text = white,
+            font = \bfseries\LARGE,
+            minimum size = 40pt,
+            inner sep = 0pt
+        ] (M) at (8, -8) {M};
+
+        \draw[
+            -Stealth,
+            draw = ColorS,
+            line width = 2pt
+        ] (S) -- node[left, font = \large, text = ColorS] {$ \pi (1-u) \lambda_S $} (I);
+        \draw[
+            -Stealth,
+            draw = ColorS,
+            line width = 2pt
+        ] (S) -- node[sloped, above, pos = 0.27, font = \large, text = ColorS] {$ (1-\pi) (1-u) \lambda_S $} (M);
+        \draw[
+            -Stealth,
+            draw = ColorP,
+            line width = 2pt
+        ] (P) -- node[sloped, above, pos = 0.27, font = \large, text = ColorP] {$ \pi (1-u) \lambda_P $} (I);
+        \draw[
+            -Stealth,
+            draw = ColorP,
+            line width = 2pt
+        ] (P) -- node[right, font = \large, text = ColorP] {$ (1-\pi) (1-u) \lambda_P $} (M);
+
+        \draw[
+            -Stealth,
+            draw = ColorI,
+            line width = 2pt
+        ] (I) to[bend left=15] node[above, font = \large, text = ColorI] {$ \rho $} (M);
+        \draw[
+            -Stealth,
+            draw = ColorM,
+            line width = 2pt
+        ] (M) to[bend left=15] node[below, font = \large, text = ColorM] {$ \pi (1-u) \lambda_M $} (I);
+
+        \draw[
+            Stealth-,
+            draw = ColorS,
+            line width = 2pt
+        ] (S) -- node[right, font = \large, text = ColorS] {$ \alpha \mu $} ++(90:2cm);
+        \draw[
+            -Stealth,
+            draw = ColorS,
+            line width = 2pt
+        ] (S) -- node[above, font = \large, text = ColorS] {$ \nu_S $} ++(180:2cm);
+        \draw[
+            Stealth-,
+            draw = ColorP,
+            line width = 2pt
+        ] (P) -- node[left, font = \large, text = ColorP] {$ (1-\alpha) \mu $} ++(90:2cm);
+        \draw[
+            -Stealth,
+            draw = ColorP,
+            line width = 2pt
+        ] (P) -- node[above, font = \large, text = ColorP] {$ \nu_P $} ++(0:2cm);
+        \draw[
+            -Stealth,
+            draw = ColorI,
+            line width = 2pt
+        ] (I) -- node[left, font = \large, text = ColorI] {$ \nu_I $} ++(270:2cm);
+        \draw[
+            -Stealth,
+            draw = ColorM,
+            line width = 2pt
+        ] (M) -- node[right, font = \large, text = ColorM] {$ \nu_M $} ++(270:2cm);
+    \end{tikzpicture}
+    \caption{Diagramma dei flussi con il controllo}\label{fig:flussi-controllo}
+\end{figure}
+
 
 \section{Proprietà}
 
@@ -234,7 +343,20 @@ Infine, abbiamo ripetuto la simulazione con diversi valori della prevenzione nel
 
 L'effetto della prevenzione cresce in modo regolare con la sua intensità: ogni incremento di $0.2$ di $u_{\text{base}}$ evita circa $44$ infortuni e circa $8$ abbandoni. Anche con la prevenzione massima nel giorno di randori, cioè $u_{\text{base}} = 1$, gli infortuni si riducono di circa la metà, ma non si annullano: la prevenzione è dimezzata nei giorni di tecnica e assente nei giorni di riposo, e in quelle sedute il rischio persiste. L'allenatore può quindi scegliere l'intensità della prevenzione in base alle risorse disponibili, sapendo che anche una prevenzione leggera produce un beneficio apprezzabile.
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = \textwidth]{controllo/intensita.pdf}
+    \caption{Infortuni e abbandoni al variare dell'intensità della prevenzione}\label{fig:ctrl-intensita}
+\end{figure}
+
+
 
 \subsection{Considerazioni}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = 0.8\textwidth]{pictures/warm-up.jpeg}
+    \caption[Riscaldamento a terra]{Esercizi a terra durante il riscaldamento, una delle forme di prevenzione degli infortuni}
+\end{figure}
 
 La strategia di prevenzione proporzionale al carico migliora tutti gli aspetti dello scenario: riduce gli infortuni di circa un terzo, gli abbandoni di quasi un quinto e lascia al termine del periodo un gruppo più numeroso e più sano. I risultati confermano inoltre i tre aspetti emersi nel capitolo precedente: la prevenzione è più efficace nella seconda metà del periodo, quando la fatica è più alta, ha un effetto particolarmente marcato sui malconci, dei quali riduce sia il numero sia gli infortuni, e, riducendo gli infortuni, riduce anche gli abbandoni, pur senza agire direttamente sulla decisione di abbandonare.

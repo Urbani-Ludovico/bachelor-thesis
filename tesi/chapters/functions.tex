@@ -115,6 +115,13 @@ Il parametro $\sigma_\nu \in \mathbb{R}_{> 0}$, come per $\mu$, rappresenta la l
 
 La funzione di infortunio $\lambda$ descrive la probabilità che un atleta si infortuni durante una seduta. È la funzione più importante del modello, perché collega la fatica e la densità sul tatami alla dinamica degli infortuni e, di conseguenza, alla composizione del gruppo. \par
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = 0.6\textwidth]{pictures/grip.jpg}
+    \creditcaption[Lotta per la presa]{Due atleti si contendono la presa: il contatto continuo espone entrambi al rischio di infortunio.}{Foto di Eva Rinaldi, Wikimedia Commons, licenza CC BY-SA 2.0, \url{https://commons.wikimedia.org/wiki/File:International_Judo_Federation,_Mick_Cutajar_(8721394031).jpg}}
+\end{figure}
+
+
 La forma analitica che adottiamo per la funzione di infortunio è la seguente:
 \[
     \lambda(f_f, f_p, d, \gamma) = \gamma \frac{1}{1 + \exp\left(-\omega_f f_f - \omega_p f_p - \omega_d d + b\right)},
@@ -172,6 +179,13 @@ Il limite per $f_f, f_p, d \to +\infty$ è $\lambda \to \gamma$, cioè la funzio
 
 Le funzioni di carico $c_f$ e $c_p$ descrivono la quantità di fatica fisica e psicologica aggiunta in ogni seduta di allenamento. Costituiscono l'ingresso principale del modello per la dinamica della fatica e sono trattate come parametri esogeni. In questa sezione non adottiamo una forma analitica specifica, ma presentiamo tre esempi che illustrano come il carico possa essere costante, periodico o variabile. La scelta tra questi esempi dipende dal fenomeno modellato e dai dati disponibili, e il modello è progettato per accogliere qualsiasi funzione che rispetti i domini e i vincoli discussi nel capitolo precedente.
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = 0.5\textwidth]{pictures/throw-training.jpg}
+    \creditcaption[Proiezione durante un allenamento]{Una proiezione durante un allenamento: nei giorni di randori il carico è massimo.}{Foto di Cpl L.~Bibby, \textcopyright~Crown copyright, Open Government Licence v1.0, \url{https://commons.wikimedia.org/wiki/File:Combined_Services_Judo_Team_Training_Camp_MOD_45151758.jpg}}
+\end{figure}
+
+
 \paragraph{Carico costante}
 Il primo esempio è il carico costante, in cui le funzioni di carico assumono lo stesso valore in ogni seduta. Formalmente, si ha:
 \begin{gather*}
@@ -225,6 +239,13 @@ La forma variabile, come rappresentato in \autoref{fig:function-c-variabile}, no
 \section{Funzione di recupero}
 
 La funzione di recupero $r$ descrive il tasso di smaltimento della fatica in ogni seduta. Regola la dinamica della fatica e costituisce, insieme alle funzioni di carico, uno dei due termini che determinano l'evoluzione di $\bar{F}_f$ e $\bar{F}_p$. \par
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = 0.7\textwidth]{pictures/fatigue.jpg}
+    \creditcaption[Atleta stanco dopo un incontro]{Un atleta in ginocchio sul tatami dopo un incontro: la fatica accumulata richiede tempo per essere smaltita.}{Foto di F.~Frazão, Agência Brasil, licenza CC BY 3.0 BR, \url{https://commons.wikimedia.org/wiki/File:Rio_2016_Judo_1036119-090816judo01766.jpg}}
+\end{figure}
+
 
 La forma analitica che adottiamo per la funzione di recupero è la seguente:
 \[
