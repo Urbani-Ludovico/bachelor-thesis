@@ -33,6 +33,13 @@
 
 \setcounter{tocdepth}{1}
 
+% Figures and tables never float past the end of their subsection
+\usepackage[section]{placeins}
+\NewCommandCopy{\placeinsSubsection}{\subsection}
+\RenewDocumentCommand{\subsection}{}{\FloatBarrier\placeinsSubsection}
+\NewCommandCopy{\placeinsSubsubsection}{\subsubsection}
+\RenewDocumentCommand{\subsubsection}{}{\FloatBarrier\placeinsSubsubsection}
+
 \graphicspath{ {./images} }
 
 \captionsetup{justification = centering}
