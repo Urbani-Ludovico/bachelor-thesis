@@ -1,34 +1,34 @@
 \chapter{Modello con controllo}
 
-Nel capitolo precedente abbiamo simulato il modello senza alcuna forma di prevenzione e abbiamo ottenuto uno scenario sfavorevole: in un periodo di cinquanta sedute si verificano circa $428$ infortuni, il gruppo perde il $15\%$ degli atleti, quasi tutti infortunati o malconci, e alla fine circa un terzo degli atleti rimasti è infortunato o malconcio. Questo scenario descrive che cosa succede quando l'allenatore si limita a proporre il programma di allenamento, senza intervenire per ridurre il rischio. \par
+Nel capitolo precedente abbiamo simulato il modello in assenza di qualsiasi forma di prevenzione, ricavando uno scenario sfavorevole: nell'arco di cinquanta sedute si registrano circa $428$ infortuni, il gruppo perde il $15\%$ dei propri atleti, in gran parte infortunati o malconci, e al termine del periodo circa un terzo di coloro che restano risulta infortunato o malconcio. Questo scenario illustra la situazione che si determina quando l'allenatore si limita a proporre il programma di allenamento senza adottare alcun intervento volto a ridurre il rischio. \par
 
-Nella pratica, però, l'allenatore ha a disposizione diversi strumenti per prevenire gli infortuni. Può dedicare più tempo al riscaldamento e alla mobilità articolare, inserire esercizi di rinforzo muscolare e di propriocezione, controllare con più attenzione le coppie sul tatami, ad esempio evitando che atleti di peso o livello molto diversi lavorino insieme, oppure ridurre il numero di atleti che combattono contemporaneamente. Tutte queste azioni hanno lo stesso effetto: rendono meno probabile che un atleta si infortuni durante la seduta. Misure di questo tipo sono indicate in letteratura anche per la prevenzione degli infortuni nel judo \cite{pocecco2013}. \par
+Nella pratica, tuttavia, l'allenatore può avvalersi di diversi strumenti per prevenire gli infortuni. Egli può riservare più tempo al riscaldamento e alla mobilità articolare, inserire esercizi di rinforzo muscolare e di propriocezione, sorvegliare con maggiore attenzione le coppie che lavorano sul tatami, evitando ad esempio accoppiamenti tra atleti di peso o livello molto differenti, oppure limitare il numero di atleti che combattono nello stesso momento. Tutte queste misure producono il medesimo risultato: diminuiscono la probabilità che un atleta si infortuni nel corso della seduta. Interventi di questo tipo sono segnalati in letteratura anche per la prevenzione degli infortuni nel judo \cite{pocecco2013}. \par
 
-In questo capitolo introduciamo nel modello un termine di controllo, indicato con $u(t)$, che rappresenta l'efficacia della prevenzione nella seduta $t$. Il controllo è la variabile su cui l'allenatore può agire: a differenza dei parametri del modello, che descrivono le caratteristiche del gruppo, il controllo descrive una scelta, e può cambiare da una seduta all'altra. \par
+In questo capitolo inseriamo nel modello un termine di controllo, denotato con $u(t)$, che esprime l'efficacia della prevenzione nella seduta $t$. Il controllo è la variabile sulla quale l'allenatore può intervenire: diversamente dai parametri del modello, che riflettono le caratteristiche del gruppo, il controllo rappresenta una scelta e può variare da una seduta alla successiva. \par
 
-La prevenzione, però, non è gratuita. Ogni minuto dedicato al riscaldamento o agli esercizi di rinforzo è un minuto sottratto alla tecnica e al randori, e un controllo più attento delle coppie richiede tempo e attenzione da parte dell'allenatore. Non è quindi realistico pensare di applicare la massima prevenzione in ogni seduta. La domanda a cui vogliamo rispondere è allora la seguente: se l'allenatore dedica alla prevenzione un impegno proporzionato alla fatica di ciascuna seduta, di quanto si riducono gli infortuni e gli abbandoni? \par
+La prevenzione, tuttavia, comporta un costo. Ogni minuto impiegato nel riscaldamento o negli esercizi di rinforzo è un minuto che viene sottratto alla tecnica e al randori, e una sorveglianza più accurata delle coppie richiede tempo e attenzione da parte dell'allenatore. Non è quindi verosimile ipotizzare di applicare la massima prevenzione in ogni seduta. La domanda cui intendiamo rispondere è dunque la seguente: se l'allenatore destina alla prevenzione un impegno commisurato alla fatica di ciascuna seduta, in quale misura si riducono gli infortuni e gli abbandoni? \par
 
-Per rispondere a questa domanda manteniamo fisso tutto il resto. I parametri del modello e delle funzioni sono quelli calibrati nel capitolo precedente, e il carico di allenamento è lo stesso carico periodico. In questo modo le differenze tra le simulazioni dipendono soltanto dal controllo, e lo scenario senza prevenzione diventa il termine di confronto per misurare l'efficacia di ciascuna strategia.
+Per rispondere a questa domanda manteniamo invariato tutto il resto. I parametri del modello e delle funzioni sono quelli calibrati nel capitolo precedente, e il carico di allenamento rimane lo stesso carico periodico. In questo modo le differenze tra le simulazioni dipendono esclusivamente dal controllo, e lo scenario privo di prevenzione costituisce il termine di confronto per valutare l'efficacia di ciascuna strategia.
 
 \section{Il modello con il controllo}
 
-Il controllo $u(t)$ rappresenta l'efficacia della prevenzione nella seduta $t$, ed è un numero compreso tra $0$ e $1$:
+Il controllo $u(t)$ esprime l'efficacia della prevenzione nella seduta $t$ ed è un numero compreso tra $0$ e $1$:
 \[
     u(t) \in [0, 1] \quad \text{con } t = 0, 1, \dots, T - 1
 \]
-Il valore $u(t) = 0$ corrisponde all'assenza di prevenzione: la seduta si svolge come nel capitolo precedente. Il valore $u(t) = 1$ corrisponde a una prevenzione perfetta, che elimini il rischio di infortunio in quella seduta. I valori intermedi rappresentano una prevenzione parziale: ad esempio, $u(t) = 0.3$ significa che le misure adottate riducono del $30\%$ la probabilità di infortunio di ogni atleta. \par
+Il valore $u(t) = 0$ corrisponde all'assenza di prevenzione: la seduta si svolge come nel capitolo precedente. Il valore $u(t) = 1$ corrisponde a una prevenzione perfetta, in grado di annullare il rischio di infortunio in quella seduta. I valori intermedi rappresentano una prevenzione parziale: ad esempio, $u(t) = 0.3$ significa che le misure adottate riducono del $30\%$ la probabilità di infortunio di ciascun atleta. \par
 
-La prevenzione perfetta è naturalmente un caso limite, che non si può raggiungere nella pratica: anche con tutte le precauzioni possibili, in uno sport di contatto come il judo resta sempre un rischio residuo. Il valore $u(t) = 1$ serve soprattutto come riferimento, mentre le strategie realistiche useranno valori più bassi. \par
+La prevenzione perfetta costituisce naturalmente un caso limite, irrealizzabile nella pratica: anche adottando tutte le precauzioni possibili, in uno sport di contatto come il judo permane sempre un rischio residuo. Il valore $u(t) = 1$ serve soprattutto come riferimento, mentre le strategie realistiche faranno ricorso a valori inferiori. \par
 
-Il controllo può cambiare da una seduta all'altra. L'allenatore può decidere, ad esempio, di concentrare la prevenzione nei giorni di randori, quando il carico è più alto, oppure nella seconda parte del periodo, quando la fatica accumulata è maggiore. Per questo motivo il controllo è una funzione del tempo e non un singolo numero.
+Il controllo può variare da una seduta all'altra. L'allenatore può decidere, ad esempio, di concentrare la prevenzione nei giorni di randori, quando il carico è più elevato, oppure nella seconda parte del periodo, quando la fatica accumulata è maggiore. Per questa ragione il controllo è una funzione del tempo e non un singolo numero.
 
 \subsection{Le equazioni}
 
-Il controllo agisce soltanto sul rischio di infortunio. La probabilità che un atleta di una popolazione si infortuni nella seduta $t$, che senza prevenzione è $\tilde\lambda_\cdot(t)$, diventa
+Il controllo agisce esclusivamente sul rischio di infortunio. La probabilità che un atleta di una popolazione si infortuni nella seduta $t$, che in assenza di prevenzione è $\tilde\lambda_\cdot(t)$, diventa
 \[
     (1 - u(t)) \tilde\lambda_\cdot(t)
 \]
-cioè viene ridotta della frazione $u(t)$. \par
+ovvero viene ridotta della frazione $u(t)$. \par
 
 Usando le stesse abbreviazioni definite in \autoref{sec:model-complete}:
 \begin{gather*}
@@ -68,51 +68,51 @@ il modello con il controllo si può scrivere come:
     \end{aligned}
 \end{equation*}
 
-Rispetto al modello senza controllo, l'unica differenza è il fattore $(1 - u(t))$ davanti a tutti i termini di infortunio. Tutti gli altri flussi restano invariati: gli ingressi, gli abbandoni, il recupero parziale da $I$ a $M$ e l'accumulo della fatica non dipendono dalla prevenzione. \par
+Rispetto al modello senza controllo, l'unica differenza consiste nel fattore $(1 - u(t))$ che precede tutti i termini di infortunio. Tutti gli altri flussi rimangono invariati: gli ingressi, gli abbandoni, il recupero parziale da $I$ a $M$ e l'accumulo della fatica non dipendono dalla prevenzione. \par
 
-Questa scelta riflette il tipo di prevenzione che stiamo considerando. Il riscaldamento, gli esercizi di rinforzo e il controllo delle coppie riducono la probabilità di infortunarsi, ma non cambiano il carico della seduta, e quindi non cambiano la fatica accumulata dagli atleti. Allo stesso modo, la prevenzione non aiuta gli atleti già infortunati a guarire più in fretta e non influisce direttamente sulla loro decisione di abbandonare. \par
+Questa scelta rispecchia il tipo di prevenzione preso in considerazione. Il riscaldamento, gli esercizi di rinforzo e la sorveglianza delle coppie riducono la probabilità di infortunarsi, ma non modificano il carico della seduta e dunque non incidono sulla fatica accumulata dagli atleti. Parimenti, la prevenzione non favorisce una guarigione più rapida degli atleti già infortunati e non influenza direttamente la loro decisione di abbandonare. \par
 
-Va notato, però, che il controllo ha anche effetti indiretti. Riducendo gli infortuni, la prevenzione mantiene più atleti nelle popolazioni $S$ e $P$, che abbandonano meno degli infortunati e dei malconci. Inoltre mantiene più atleti sul tatami, e quindi modifica la densità e, di conseguenza, il rischio delle sedute successive. Per questo motivo l'effetto complessivo di una strategia di prevenzione non si può calcolare semplicemente moltiplicando il numero di infortuni per $(1 - u)$, ma richiede di simulare il modello. \par
+Occorre tuttavia rilevare che il controllo produce anche effetti indiretti. Riducendo gli infortuni, la prevenzione trattiene più atleti nelle popolazioni $S$ e $P$, le quali abbandonano meno degli infortunati e dei malconci. Inoltre mantiene un maggior numero di atleti sul tatami, modificando così la densità e, di conseguenza, il rischio delle sedute successive. Per questo motivo l'effetto complessivo di una strategia di prevenzione non può essere calcolato semplicemente moltiplicando il numero di infortuni per $(1 - u)$, ma richiede di simulare il modello. \par
 
-Il diagramma dei flussi è lo stesso del modello senza controllo, con l'unica differenza che le frecce che rappresentano gli infortuni, cioè quelle da $S$ e da $P$ verso $I$ e $M$ e quella da $M$ verso $I$, sono moltiplicate per $(1 - u(t))$. Quando $u(t)$ è vicino a $1$ queste frecce diventano molto sottili: gli atleti restano nelle popolazioni di partenza e si allenano senza infortunarsi. Quando $u(t)$ è vicino a $0$ il diagramma coincide con quello del capitolo sul modello.
+Il diagramma dei flussi è identico a quello del modello senza controllo, con l'unica differenza che le frecce rappresentanti gli infortuni, vale a dire quelle da $S$ e da $P$ verso $I$ e $M$ e quella da $M$ verso $I$, sono moltiplicate per $(1 - u(t))$. Quando $u(t)$ si avvicina a $1$ tali frecce diventano molto sottili: gli atleti permangono nelle popolazioni di partenza e si allenano senza infortunarsi. Quando $u(t)$ si avvicina a $0$ il diagramma coincide con quello del capitolo sul modello.
 
 \section{Proprietà}
 
-L'introduzione del controllo non modifica le proprietà principali del modello, che continuano a valere per qualsiasi scelta di $u(t)$ compresa tra $0$ e $1$.
+L'introduzione del controllo non altera le proprietà principali del modello, che continuano a valere per qualsiasi scelta di $u(t)$ compresa tra $0$ e $1$.
 
 \paragraph{Il modello senza controllo è un caso particolare}
-Se $u(t) = 0$ per ogni seduta, il fattore $(1 - u(t))$ vale $1$ e le equazioni coincidono con quelle del modello senza controllo. Lo scenario del capitolo precedente è quindi il caso particolare in cui l'allenatore non fa alcuna prevenzione. Questa proprietà è stata verificata anche nelle simulazioni: con il controllo nullo si ottengono esattamente gli stessi risultati del capitolo precedente.
+Se $u(t) = 0$ per ogni seduta, il fattore $(1 - u(t))$ vale $1$ e le equazioni coincidono con quelle del modello senza controllo. Lo scenario del capitolo precedente rappresenta dunque il caso particolare in cui l'allenatore non adotta alcuna prevenzione. Tale proprietà è stata verificata anche nelle simulazioni: con il controllo nullo si ottengono esattamente gli stessi risultati del capitolo precedente.
 
 \paragraph{Le popolazioni restano non negative}
-Poiché $u(t) \geq 0$, il rischio effettivo $(1 - u(t)) \tilde\lambda_\cdot(t)$ è sempre minore o uguale al rischio senza controllo $\tilde\lambda_\cdot(t)$. Le uscite da ciascuna popolazione possono quindi solo diminuire, e i vincoli di integrità del modello senza controllo continuano a valere. In particolare, se le popolazioni restano non negative senza prevenzione, restano non negative anche con qualsiasi strategia di prevenzione.
+Poiché $u(t) \geq 0$, il rischio effettivo $(1 - u(t)) \tilde\lambda_\cdot(t)$ è sempre minore o uguale al rischio senza controllo $\tilde\lambda_\cdot(t)$. Le uscite da ciascuna popolazione possono pertanto solo diminuire, e i vincoli di integrità del modello senza controllo continuano a valere. In particolare, se le popolazioni restano non negative in assenza di prevenzione, restano non negative anche con qualsiasi strategia di prevenzione.
 
 \paragraph{La popolazione totale si conserva}
-Il controllo moltiplica tutti i termini di infortunio per lo stesso fattore, sia quando un atleta esce da una popolazione sia quando entra in un'altra. Gli infortuni continuano quindi a spostare gli atleti tra le popolazioni senza crearne né eliminarne, e la popolazione totale continua a cambiare soltanto per effetto degli ingressi e degli abbandoni:
+Il controllo moltiplica tutti i termini di infortunio per lo stesso fattore, sia quando un atleta esce da una popolazione sia quando entra in un'altra. Gli infortuni continuano quindi a spostare gli atleti tra le popolazioni senza crearne né eliminarne, e la popolazione totale continua a variare soltanto per effetto degli ingressi e degli abbandoni:
 \[
     N(t+1) = N(t) + \tilde\mu(t) - \tilde\nu_S(t) S(t) - \tilde\nu_P(t) P(t) - \tilde\nu_I(t) I(t) - \tilde\nu_M(t) M(t).
 \]
-Il controllo, però, cambia la composizione del gruppo, e quindi cambia indirettamente anche gli abbandoni: con più atleti sani e meno infortunati, gli abbandoni complessivi diminuiscono.
+Il controllo, tuttavia, modifica la composizione del gruppo e quindi influenza indirettamente anche gli abbandoni: con più atleti sani e meno infortunati, gli abbandoni complessivi diminuiscono.
 
 \paragraph{La fatica non dipende dal controllo}
-Le equazioni della fatica non contengono $u(t)$. Con lo stesso carico di allenamento, la fatica media del gruppo è la stessa per qualsiasi strategia di prevenzione. La prevenzione non rende gli atleti meno stanchi, ma riduce le conseguenze della stanchezza sul rischio di infortunio. Il rischio relativo $\frac{\tilde\lambda_\cdot}{\gamma_\cdot}$ cambia invece leggermente da una strategia all'altra, ma solo attraverso la densità sul tatami: con la prevenzione restano più atleti ad allenarsi, e il tatami è un po' più affollato.
+Le equazioni della fatica non contengono $u(t)$. A parità di carico di allenamento, la fatica media del gruppo è la stessa per qualsiasi strategia di prevenzione. La prevenzione non rende gli atleti meno stanchi, ma attenua le conseguenze della stanchezza sul rischio di infortunio. Il rischio relativo $\frac{\tilde\lambda_\cdot}{\gamma_\cdot}$ varia invece lievemente da una strategia all'altra, ma soltanto per effetto della densità sul tatami: con la prevenzione rimangono più atleti ad allenarsi, e il tatami risulta un po' più affollato.
 
 \section{La strategia di prevenzione}
 
-Se la prevenzione non avesse alcun costo, la strategia migliore sarebbe banale: applicare la massima prevenzione possibile in ogni seduta. Come abbiamo detto, però, la prevenzione richiede tempo e attenzione, e il tempo dedicato alla prevenzione viene sottratto all'allenamento vero e proprio. È quindi ragionevole dedicarle più spazio nelle sedute più impegnative e meno spazio in quelle leggere. \par
+Se la prevenzione non comportasse alcun costo, la strategia ottimale sarebbe banale: applicare la massima prevenzione possibile in ogni seduta. Come si è detto, però, la prevenzione richiede tempo e attenzione, e il tempo dedicato alla prevenzione viene sottratto all'allenamento vero e proprio. È dunque ragionevole riservarle maggiore spazio nelle sedute più impegnative e minore in quelle leggere. \par
 
-Per questo motivo scegliamo una prevenzione proporzionale al carico della seduta:
+Per questa ragione adottiamo una prevenzione proporzionale al carico della seduta:
 \[
     u(t) = u_{\text{base}} \cdot c(t),
 \]
-dove $u_{\text{base}}$ è la prevenzione applicata nel giorno di randori. Con il carico periodico del capitolo precedente, questa scelta dà:
+dove $u_{\text{base}}$ è la prevenzione applicata nel giorno di randori. Con il carico periodico del capitolo precedente, tale scelta comporta:
 \begin{itemize}
     \item nel giorno di randori, quando il carico è massimo, la prevenzione vale $u_{\text{base}}$;
     \item nel giorno di tecnica, quando il carico è la metà, anche la prevenzione è la metà, cioè $\frac{u_{\text{base}}}{2}$;
-    \item nel giorno di riposo, quando il carico è nullo, non si fa prevenzione.
+    \item nel giorno di riposo, quando il carico è nullo, non si applica alcuna prevenzione.
 \end{itemize}
-Questa strategia corrisponde a un comportamento naturale per un allenatore: riscaldamento più lungo, esercizi di rinforzo e un controllo più attento delle coppie nei giorni di randori, una prevenzione più leggera nei giorni di tecnica e nessuna attività particolare nei giorni di riposo. \par
+Questa strategia corrisponde a un comportamento naturale per un allenatore: riscaldamento più prolungato, esercizi di rinforzo e sorveglianza più attenta delle coppie nei giorni di randori, prevenzione più leggera nei giorni di tecnica e nessuna attività particolare nei giorni di riposo. \par
 
-Nelle simulazioni usiamo $u_{\text{base}} = 0.6$: nel giorno di randori la prevenzione riduce del $60\%$ il rischio di infortunio, nel giorno di tecnica del $30\%$. In media, su tutto il periodo, la prevenzione vale circa $0.3$ per seduta.
+Nelle simulazioni impieghiamo $u_{\text{base}} = 0.6$: nel giorno di randori la prevenzione riduce del $60\%$ il rischio di infortunio, nel giorno di tecnica del $30\%$. In media, sull'intero periodo, la prevenzione vale circa $0.3$ per seduta.
 La \autoref{fig:ctrl-strategia} mostra il carico e la prevenzione nelle prime nove sedute: la prevenzione segue esattamente l'andamento del carico, con un valore più basso.
 
 \begin{figure}[ht]
@@ -123,9 +123,9 @@ La \autoref{fig:ctrl-strategia} mostra il carico e la prevenzione nelle prime no
 
 \section{Risultati}
 
-Simuliamo ora il modello con la strategia di prevenzione appena descritta e confrontiamo i risultati con lo scenario senza prevenzione del capitolo precedente. Tutto il resto è invariato: gli stessi parametri calibrati, lo stesso carico di allenamento e lo stesso gruppo di partenza. \par
+Simuliamo ora il modello con la strategia di prevenzione appena descritta e confrontiamo i risultati con lo scenario senza prevenzione del capitolo precedente. Tutto il resto rimane invariato: gli stessi parametri calibrati, lo stesso carico di allenamento e lo stesso gruppo di partenza. \par
 
-La \autoref{tab:ctrl-confronto} riassume i risultati principali. La prevenzione migliora tutte le grandezze considerate: gli infortuni totali scendono da circa $428$ a circa $296$, cioè del $31\%$, e gli abbandoni da circa $124$ a circa $102$, cioè del $18\%$. Di conseguenza, alla fine del periodo restano nel gruppo $448$ atleti invece di $425$, e tra questi ci sono $284$ sani invece di $243$.
+La \autoref{tab:ctrl-confronto} riassume i risultati principali. La prevenzione migliora tutte le grandezze considerate: gli infortuni totali scendono da circa $428$ a circa $296$, cioè del $31\%$, e gli abbandoni da circa $124$ a circa $102$, cioè del $18\%$. Di conseguenza, al termine del periodo restano nel gruppo $448$ atleti anziché $425$, e tra essi vi sono $284$ sani invece di $243$.
 
 \begin{table}[ht]
     \centering
@@ -146,11 +146,11 @@ La \autoref{tab:ctrl-confronto} riassume i risultati principali. La prevenzione 
     \caption{Confronto tra lo scenario senza prevenzione e quello con prevenzione}\label{tab:ctrl-confronto}
 \end{table}
 
-Gli infortuni gravi diminuiscono nella stessa proporzione degli infortuni totali, perché la prevenzione riduce la probabilità di infortunarsi ma non cambia la gravità dell'infortunio quando avviene: la frazione di infortuni gravi resta sempre la stessa, data dal parametro $\pi$.
+Gli infortuni gravi diminuiscono nella stessa proporzione degli infortuni totali, poiché la prevenzione riduce la probabilità di infortunarsi ma non altera la gravità dell'infortunio quando questo si verifica: la frazione di infortuni gravi resta sempre la stessa, determinata dal parametro $\pi$.
 
 \subsection{Infortuni}
 
-La \autoref{fig:ctrl-infortuni} mostra gli infortuni accumulati dall'inizio del periodo. Senza prevenzione la curva cresce sempre più velocemente fino alle ultime sedute, perché la fatica aumenta e con essa il rischio; solo dopo la quarantatreesima seduta rallenta leggermente, perché molti atleti a rischio abbandonano. Con la prevenzione la curva ha lo stesso andamento, ma cresce più lentamente: la differenza tra i due scenari si allarga seduta dopo seduta. Nella prima metà del periodo la prevenzione evita circa $48$ infortuni, passando da $158$ a $110$; nella seconda metà ne evita circa $84$, passando da $270$ a $186$. La prevenzione è quindi più utile proprio quando la fatica è più alta.
+La \autoref{fig:ctrl-infortuni} mostra gli infortuni accumulati dall'inizio del periodo. In assenza di prevenzione la curva cresce con velocità sempre maggiore fino alle ultime sedute, poiché la fatica aumenta e con essa il rischio; soltanto dopo la quarantatreesima seduta rallenta lievemente, perché molti atleti a rischio abbandonano. Con la prevenzione la curva presenta lo stesso andamento, ma cresce più lentamente: la differenza tra i due scenari si amplia seduta dopo seduta. Nella prima metà del periodo la prevenzione evita circa $48$ infortuni, passando da $158$ a $110$; nella seconda metà ne evita circa $84$, passando da $270$ a $186$. La prevenzione risulta quindi più utile proprio quando la fatica è più elevata.
 
 \begin{figure}[ht]
     \centering
@@ -158,13 +158,13 @@ La \autoref{fig:ctrl-infortuni} mostra gli infortuni accumulati dall'inizio del 
     \caption{Infortuni accumulati dall'inizio del periodo, con e senza prevenzione}\label{fig:ctrl-infortuni}
 \end{figure}
 
-La riduzione non è uguale per tutte le popolazioni. Gli infortuni dei sani passano da $184$ a $141$, quelli dei pregressi da $70$ a $57$ e quelli dei malconci da $174$ a $98$. Gli infortuni dei malconci si riducono quasi della metà, molto più di quelli dei sani. Il motivo è un effetto indiretto della prevenzione: evitando gli infortuni lievi dei sani e dei pregressi, la prevenzione impedisce che molti atleti diventino malconci. Ci sono quindi meno malconci sul tatami e, poiché i malconci sono la popolazione più a rischio, gli infortuni diminuiscono più del previsto. \par
+La riduzione non è uniforme tra le popolazioni. Gli infortuni dei sani passano da $184$ a $141$, quelli dei pregressi da $70$ a $57$ e quelli dei malconci da $174$ a $98$. Gli infortuni dei malconci si riducono quasi della metà, in misura molto maggiore rispetto a quelli dei sani. La ragione risiede in un effetto indiretto della prevenzione: evitando gli infortuni lievi dei sani e dei pregressi, la prevenzione impedisce che molti atleti diventino malconci. Vi sono dunque meno malconci sul tatami e, poiché i malconci costituiscono la popolazione più a rischio, gli infortuni diminuiscono più del previsto. \par
 
-Anche gli infortunati gravi e i malconci hanno lo stesso andamento nei due scenari, con il massimo intorno alla quarantesima seduta, ma con la prevenzione restano sempre più bassi. Il picco di infortunati gravi scende da $52$ a $37$ atleti, cioè dal $10\%$ al $7\%$ del gruppo, e il picco dei malconci da $131$ a $106$. Nel momento peggiore, la frazione di infortunati e malconci passa dal $36\%$ al $27\%$ del gruppo.
+Anche gli infortunati gravi e i malconci presentano lo stesso andamento nei due scenari, con il massimo intorno alla quarantesima seduta, ma con la prevenzione rimangono sempre più bassi. Il picco di infortunati gravi scende da $52$ a $37$ atleti, cioè dal $10\%$ al $7\%$ del gruppo, e il picco dei malconci da $131$ a $106$. Nel momento peggiore, la frazione di infortunati e malconci passa dal $36\%$ al $27\%$ del gruppo.
 
 \subsection{Le popolazioni}
 
-La \autoref{fig:ctrl-popolazioni} mostra l'andamento delle quattro popolazioni nello scenario con prevenzione. L'andamento generale è lo stesso del capitolo precedente: i sani crescono leggermente nelle prime sedute, grazie ai nuovi ingressi, e poi diminuiscono; i pregressi diminuiscono lentamente per tutto il periodo; gli infortunati e i malconci partono da zero, crescono fino a un massimo verso la quarantesima seduta e poi calano, quando gli abbandoni diventano più frequenti. \par
+La \autoref{fig:ctrl-popolazioni} mostra l'andamento delle quattro popolazioni nello scenario con prevenzione. L'andamento generale è il medesimo del capitolo precedente: i sani crescono lievemente nelle prime sedute, grazie ai nuovi ingressi, e poi diminuiscono; i pregressi diminuiscono lentamente per tutto il periodo; gli infortunati e i malconci partono da zero, crescono fino a un massimo verso la quarantesima seduta e poi calano, quando gli abbandoni diventano più frequenti. \par
 
 \begin{figure}[ht]
     \centering
@@ -172,9 +172,9 @@ La \autoref{fig:ctrl-popolazioni} mostra l'andamento delle quattro popolazioni n
     \caption{Le quattro popolazioni nello scenario con prevenzione}\label{fig:ctrl-popolazioni}
 \end{figure}
 
-La prevenzione, quindi, non cambia la forma della dinamica, ma la rallenta. Un esempio è il momento in cui i malconci superano i pregressi e diventano la seconda popolazione del gruppo: senza prevenzione questo accade alla seduta $23$, con la prevenzione alla seduta $29$. I sani, invece, restano per tutto il periodo la popolazione più numerosa, e alla fine sono il $63\%$ del gruppo, contro il $57\%$ dello scenario senza prevenzione. \par
+La prevenzione, dunque, non modifica la forma della dinamica, ma la rallenta. Un esempio è offerto dal momento in cui i malconci superano i pregressi e diventano la seconda popolazione del gruppo: senza prevenzione ciò avviene alla seduta $23$, con la prevenzione alla seduta $29$. I sani, invece, restano per tutto il periodo la popolazione più numerosa, e alla fine costituiscono il $63\%$ del gruppo, contro il $57\%$ dello scenario senza prevenzione. \par
 
-La curva degli infortunati gravi ha un andamento a piccoli scalini, più visibile che nel capitolo precedente. Il motivo è che la prevenzione cambia da una seduta all'altra: nei giorni di randori riduce molto i nuovi infortuni, mentre nei giorni di riposo non agisce. Il numero di infortunati cresce quindi soprattutto dopo le sedute in cui la prevenzione è più bassa. \par
+La curva degli infortunati gravi presenta un andamento a piccoli scalini, più evidente che nel capitolo precedente. La ragione è che la prevenzione varia da una seduta all'altra: nei giorni di randori riduce molto i nuovi infortuni, mentre nei giorni di riposo non agisce. Il numero di infortunati cresce quindi soprattutto dopo le sedute in cui la prevenzione è più bassa. \par
 
 Per confrontare meglio i due scenari, la \autoref{fig:ctrl-confronto-popolazioni} mostra ogni popolazione in un grafico separato, con la curva senza prevenzione e quella con prevenzione.
 
@@ -184,25 +184,25 @@ Per confrontare meglio i due scenari, la \autoref{fig:ctrl-confronto-popolazioni
     \caption{Ciascuna popolazione con e senza prevenzione}\label{fig:ctrl-confronto-popolazioni}
 \end{figure}
 
-Il grafico mostra che la prevenzione agisce in due direzioni opposte. Per i sani e i pregressi la curva con prevenzione sta sempre sopra quella senza prevenzione: meno atleti si infortunano, e quindi più atleti restano in queste due popolazioni. Per gli infortunati e i malconci, invece, la curva con prevenzione sta sempre sotto. \par
+Il grafico evidenzia che la prevenzione agisce in due direzioni opposte. Per i sani e i pregressi la curva con prevenzione si colloca sempre al di sopra di quella senza prevenzione: meno atleti si infortunano, e quindi più atleti permangono in queste due popolazioni. Per gli infortunati e i malconci, invece, la curva con prevenzione si colloca sempre al di sotto. \par
 
-In tutti e quattro i casi la distanza tra le due curve cresce con il passare delle sedute, perché gli infortuni evitati si accumulano. Alla decima seduta la differenza è ancora piccola: ci sono $10$ sani in più e $9$ malconci in meno. Alla venticinquesima seduta ci sono $23$ sani in più e $21$ malconci in meno, e alla trentacinquesima $31$ sani in più e $26$ malconci in meno. \par
+In tutti e quattro i casi la distanza tra le due curve cresce con il passare delle sedute, poiché gli infortuni evitati si accumulano. Alla decima seduta la differenza è ancora modesta: vi sono $10$ sani in più e $9$ malconci in meno. Alla venticinquesima seduta vi sono $23$ sani in più e $21$ malconci in meno, e alla trentacinquesima $31$ sani in più e $26$ malconci in meno. \par
 
-Le differenze più grandi, però, si raggiungono in momenti diversi per le quattro popolazioni:
+Le differenze più ampie, tuttavia, si raggiungono in momenti diversi per le quattro popolazioni:
 \begin{itemize}
-    \item per i sani la differenza cresce fino all'ultima seduta, quando con la prevenzione ci sono $41$ sani in più, $284$ invece di $243$;
+    \item per i sani la differenza cresce fino all'ultima seduta, quando con la prevenzione vi sono $41$ sani in più, $284$ invece di $243$;
     \item per i pregressi la differenza massima è di $12$ atleti, alla seduta $44$, e alla fine restano $48$ pregressi invece di $36$;
-    \item per gli infortunati la differenza massima è di $17$ atleti, intorno alla quarantesima seduta, cioè vicino al picco;
+    \item per gli infortunati la differenza massima è di $17$ atleti, intorno alla quarantesima seduta, cioè in prossimità del picco;
     \item per i malconci la differenza massima è di $26$ atleti, intorno alla trentottesima seduta.
 \end{itemize}
-Per gli infortunati e i malconci la differenza diminuisce leggermente nelle ultime sedute. Questo non significa che la prevenzione diventi meno efficace, ma che senza prevenzione molti infortunati e malconci abbandonano il gruppo, e quindi le due curve si avvicinano. \par
+Per gli infortunati e i malconci la differenza diminuisce lievemente nelle ultime sedute. Ciò non significa che la prevenzione diventi meno efficace, bensì che in assenza di prevenzione molti infortunati e malconci abbandonano il gruppo, e quindi le due curve si avvicinano. \par
 
-Il confronto mostra anche che la prevenzione ha l'effetto più grande, in proporzione, proprio sulle popolazioni a rischio. Alla fine del periodo i sani aumentano del $17\%$, mentre gli infortunati diminuiscono del $32\%$ e i malconci del $17\%$. La differenza tra infortunati e malconci insieme è massima alla trentottesima seduta, quando con la prevenzione ci sono $43$ atleti in meno in queste due popolazioni: in un gruppo di circa $540$ atleti, è come se l'$8\%$ del gruppo fosse tornato ad allenarsi in piena salute.
+Il confronto mostra inoltre che la prevenzione produce l'effetto più rilevante, in proporzione, proprio sulle popolazioni a rischio. Al termine del periodo i sani aumentano del $17\%$, mentre gli infortunati diminuiscono del $32\%$ e i malconci del $17\%$. La differenza tra infortunati e malconci insieme è massima alla trentottesima seduta, quando con la prevenzione vi sono $43$ atleti in meno in queste due popolazioni: in un gruppo di circa $540$ atleti, è come se l'$8\%$ del gruppo fosse tornato ad allenarsi in piena salute.
 
 
 \subsection{Abbandoni e popolazione}
 
-La \autoref{fig:ctrl-abbandoni} mostra gli abbandoni accumulati. In entrambi gli scenari gli abbandoni sono quasi nulli per i primi due terzi del periodo e si concentrano nelle ultime settimane, come previsto dalla funzione di abbandono. Con la prevenzione, però, la curva resta più bassa e alla fine del periodo gli abbandoni sono circa $22$ in meno.
+La \autoref{fig:ctrl-abbandoni} mostra gli abbandoni accumulati. In entrambi gli scenari gli abbandoni sono quasi nulli per i primi due terzi del periodo e si concentrano nelle ultime settimane, come previsto dalla funzione di abbandono. Con la prevenzione, tuttavia, la curva rimane più bassa e alla fine del periodo gli abbandoni risultano circa $22$ in meno.
 
 \begin{figure}[ht]
     \centering
@@ -210,9 +210,9 @@ La \autoref{fig:ctrl-abbandoni} mostra gli abbandoni accumulati. In entrambi gli
     \caption{Abbandoni accumulati dall'inizio del periodo, con e senza prevenzione}\label{fig:ctrl-abbandoni}
 \end{figure}
 
-La riduzione degli abbandoni è un effetto indiretto: il controllo non agisce sulla funzione di abbandono, ma riduce il numero di atleti infortunati e malconci, che sono quelli più propensi ad abbandonare. Gli abbandoni degli infortunati passano da $44$ a $30$ e quelli dei malconci da $64$ a $52$. Gli abbandoni dei sani e dei pregressi, invece, aumentano leggermente, da $12$ a $14$ e da $4$ a $5$: non perché i sani abbandonino più facilmente, ma perché con la prevenzione ci sono più sani nel gruppo. Il saldo complessivo resta comunque nettamente positivo. \par
+La riduzione degli abbandoni costituisce un effetto indiretto: il controllo non agisce sulla funzione di abbandono, ma riduce il numero di atleti infortunati e malconci, che sono i più propensi ad abbandonare. Gli abbandoni degli infortunati passano da $44$ a $30$ e quelli dei malconci da $64$ a $52$. Gli abbandoni dei sani e dei pregressi, invece, aumentano lievemente, da $12$ a $14$ e da $4$ a $5$: non perché i sani abbandonino più facilmente, ma perché con la prevenzione vi sono più sani nel gruppo. Il saldo complessivo rimane comunque nettamente positivo. \par
 
-Alla fine del periodo il gruppo è più numeroso e in condizioni migliori: restano $284$ sani, $48$ pregressi, $26$ infortunati e $90$ malconci, e la frazione di infortunati e malconci scende dal $34\%$ al $26\%$.
+Al termine del periodo il gruppo è più numeroso e in condizioni migliori: restano $284$ sani, $48$ pregressi, $26$ infortunati e $90$ malconci, e la frazione di infortunati e malconci scende dal $34\%$ al $26\%$.
 
 \subsection{Intensità della prevenzione}
 
@@ -236,9 +236,9 @@ Infine, abbiamo ripetuto la simulazione con diversi valori della prevenzione nel
     \caption{Effetto dell'intensità della prevenzione}\label{tab:ctrl-intensita}
 \end{table}
 
-L'effetto della prevenzione cresce in modo regolare con la sua intensità: ogni aumento di $0.2$ di $u_{\text{base}}$ evita circa $44$ infortuni e circa $8$ abbandoni. Anche con la prevenzione massima nel giorno di randori, cioè $u_{\text{base}} = 1$, gli infortuni si riducono circa della metà, ma non si annullano: la prevenzione è dimezzata nei giorni di tecnica e assente nei giorni di riposo, e in quelle sedute il rischio resta. L'allenatore può quindi scegliere l'intensità della prevenzione in base alle risorse disponibili, sapendo che anche una prevenzione leggera produce un beneficio apprezzabile.
+L'effetto della prevenzione cresce in modo regolare con la sua intensità: ogni incremento di $0.2$ di $u_{\text{base}}$ evita circa $44$ infortuni e circa $8$ abbandoni. Anche con la prevenzione massima nel giorno di randori, cioè $u_{\text{base}} = 1$, gli infortuni si riducono di circa la metà, ma non si annullano: la prevenzione è dimezzata nei giorni di tecnica e assente nei giorni di riposo, e in quelle sedute il rischio persiste. L'allenatore può quindi scegliere l'intensità della prevenzione in base alle risorse disponibili, sapendo che anche una prevenzione leggera produce un beneficio apprezzabile.
 
 
 \subsection{Considerazioni}
 
-La strategia di prevenzione proporzionale al carico migliora tutti gli aspetti dello scenario: riduce gli infortuni di circa un terzo, gli abbandoni di quasi un quinto e lascia alla fine del periodo un gruppo più numeroso e più sano. I risultati confermano inoltre i tre aspetti emersi nel capitolo precedente: la prevenzione è più efficace nella seconda metà del periodo, quando la fatica è più alta, ha un effetto particolarmente forte sui malconci, di cui riduce sia il numero sia gli infortuni, e, riducendo gli infortuni, riduce anche gli abbandoni, pur senza agire direttamente sulla decisione di abbandonare.
+La strategia di prevenzione proporzionale al carico migliora tutti gli aspetti dello scenario: riduce gli infortuni di circa un terzo, gli abbandoni di quasi un quinto e lascia al termine del periodo un gruppo più numeroso e più sano. I risultati confermano inoltre i tre aspetti emersi nel capitolo precedente: la prevenzione è più efficace nella seconda metà del periodo, quando la fatica è più alta, ha un effetto particolarmente marcato sui malconci, dei quali riduce sia il numero sia gli infortuni, e, riducendo gli infortuni, riduce anche gli abbandoni, pur senza agire direttamente sulla decisione di abbandonare.
