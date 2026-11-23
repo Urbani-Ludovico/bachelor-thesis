@@ -1,14 +1,14 @@
 \chapter{Calibrazione dei parametri e simulazione}
 
-Nei capitoli precedenti abbiamo costruito il modello e scelto una forma analitica per ciascuna delle sue funzioni. Per poterlo simulare, però, bisogna assegnare un valore a tutti i parametri. In questo capitolo scegliamo questi valori e descriviamo la dinamica che ne risulta. \par
+Nei capitoli precedenti abbiamo costruito il modello e scelto una forma analitica per ciascuna delle sue funzioni. Per poterlo simulare, tuttavia, è necessario assegnare un valore a tutti i parametri. In questo capitolo scegliamo tali valori e descriviamo la dinamica che ne deriva. \par
 
-Non avendo dati reali con cui confrontare il modello, procediamo in questo modo: fissiamo alcuni requisiti che la dinamica deve rispettare, ad esempio quanto può calare il gruppo o quanti atleti possono essere infortunati, e cerchiamo i valori dei parametri che li soddisfano. In altre parole, invece di chiederci quali siano i valori ``veri'' dei parametri, che non possiamo conoscere senza dati, ci chiediamo quali valori producano un comportamento del gruppo coerente con quello che vogliamo rappresentare. \par
+Non disponendo di dati reali con cui confrontare il modello, procediamo nel modo seguente: fissiamo alcuni requisiti che la dinamica deve rispettare, ad esempio quanto può calare il gruppo o quanti atleti possono essere infortunati, e cerchiamo i valori dei parametri che li soddisfano. In altre parole, invece di domandarci quali siano i valori ``veri'' dei parametri, che non possiamo conoscere senza dati, ci chiediamo quali valori producano un comportamento del gruppo coerente con quello che vogliamo rappresentare. \par
 
-Lo scenario che costruiamo è sfavorevole, ma non estremo: rappresenta un periodo di allenamento intenso senza alcuna forma di prevenzione, con molti infortuni, in cui però il gruppo resta in gran parte unito e gli atleti sani raramente abbandonano. Nel capitolo successivo verrà introdotto un controllo, cioè le strategie di prevenzione a disposizione dell'allenatore, e questo scenario servirà come termine di confronto per misurarne l'efficacia. Se lo scenario di partenza avesse pochi infortuni, il controllo avrebbe poco margine per migliorarlo e sarebbe difficile confrontare strategie diverse. Per questo motivo preferiamo partire da una situazione in cui gli infortuni sono un problema evidente.
+Lo scenario che costruiamo è sfavorevole, ma non estremo: rappresenta un periodo di allenamento intenso senza alcuna forma di prevenzione, con molti infortuni, in cui però il gruppo resta in gran parte unito e gli atleti sani raramente abbandonano. Nel capitolo successivo verrà introdotto un controllo, cioè le strategie di prevenzione a disposizione dell'allenatore, e questo scenario servirà come termine di confronto per misurarne l'efficacia. Se lo scenario di partenza presentasse pochi infortuni, il controllo avrebbe poco margine per migliorarlo e sarebbe difficile confrontare strategie diverse. Per questo motivo preferiamo partire da una situazione in cui gli infortuni sono un problema evidente.
 
 \section{Impostazione della simulazione}
 
-Consideriamo un orizzonte di $T = 50$ sedute di allenamento. Con una seduta al giorno, l'orizzonte corrisponde a circa sette settimane, cioè a un periodo di preparazione di media durata, come può essere la preparazione a una gara importante o un blocco di allenamento a inizio stagione. Si tratta di un orizzonte abbastanza lungo da osservare l'accumulo della fatica e degli infortuni, ma abbastanza breve da rispettare l'ipotesi che gli atleti infortunati non abbiano il tempo di guarire completamente. \par
+Fissiamo un orizzonte di $T = 50$ sedute di allenamento. Ipotizzando una seduta al giorno, tale orizzonte equivale a circa sette settimane, vale a dire un periodo di preparazione di durata media, paragonabile alla preparazione per una gara importante oppure a un blocco di allenamento collocato a inizio stagione. La durata scelta è sufficientemente ampia da permettere di osservare l'accumulo della fatica e degli infortuni, ma al tempo stesso abbastanza contenuta da rispettare l'ipotesi secondo cui gli atleti infortunati non hanno il tempo di guarire del tutto. \par
 
 Le condizioni iniziali sono:
 \begin{gather*}
@@ -17,13 +17,13 @@ Le condizioni iniziali sono:
     I(0) = M(0) = 0 \\
     \bar{F}_f(0) = \bar{F}_p(0) = 0
 \end{gather*}
-Il gruppo iniziale è quindi composto da $N(0) = 500$ atleti, di cui l'$80\%$ sani e il $20\%$ con infortuni pregressi. All'inizio nessun atleta è infortunato e il gruppo è riposato, perché supponiamo che il periodo inizi dopo una fase di recupero. Il gruppo è abbastanza numeroso da poter trattare le popolazioni come numeri reali, come richiesto dalle ipotesi del modello. \par
+Il gruppo di partenza è dunque formato da $N(0) = 500$ atleti, dei quali l'$80\%$ sani e il $20\%$ con infortuni pregressi. Inizialmente nessun atleta risulta infortunato e il gruppo è riposato, poiché assumiamo che il periodo cominci dopo una fase di recupero. La numerosità del gruppo è tale da consentire di trattare le popolazioni come numeri reali, come richiesto dalle ipotesi del modello. \par
 
-La capienza del tatami è $A_{\max} = 800$ atleti. All'inizio del periodo la densità sul tatami vale quindi $0.625$: il tatami è affollato, ma non saturo. Nel corso del periodo la densità diminuisce, perché una parte degli atleti si infortuna gravemente e smette di allenarsi e, nelle ultime settimane, alcuni abbandonano: alla fine scende a circa $0.48$.
+La capienza del tatami è $A_{\max} = 800$ atleti. All'inizio del periodo la densità sul tatami è quindi pari a $0.625$: il tatami è affollato, ma non saturo. Nel corso del periodo la densità cala, poiché una parte degli atleti riporta infortuni gravi e smette di allenarsi e, nelle ultime settimane, alcuni abbandonano: alla fine essa scende a circa $0.48$.
 
 \subsection{Carico di allenamento}
 
-Il carico di allenamento è una scelta dell'allenatore e non viene calibrato. Usiamo il carico periodico introdotto nel capitolo sulle funzioni, in cui si alternano una seduta ad alto carico, una a carico medio e una senza carico:
+Il carico di allenamento costituisce una scelta dell'allenatore e non viene calibrato. Adottiamo il carico periodico presentato nel capitolo sulle funzioni, nel quale si susseguono una seduta ad alto carico, una a carico medio e una priva di carico:
 \[
     c_f(t) = c_p(t) = \begin{cases}
         1 & \text{se } t = 3n \\
@@ -31,19 +31,19 @@ Il carico di allenamento è una scelta dell'allenatore e non viene calibrato. Us
         0 & \text{se } t = 3n + 2
     \end{cases}
 \]
-Questo carico rappresenta un ciclo di tre giorni molto comune nella pratica: un giorno di randori intenso, un giorno di tecnica e un giorno di riposo o di lavoro leggero. Il carico medio per seduta è pari a $0.5$. \par
+Tale carico corrisponde a un ciclo di tre giorni assai diffuso nella pratica: un giorno di randori intenso, un giorno di tecnica e un giorno di riposo o di lavoro leggero. Il carico medio per seduta risulta pari a $0.5$. \par
 
-Poiché carico fisico e psicologico sono uguali, anche le due componenti della fatica sono uguali per ogni $t$, cioè $\bar{F}_f(t) = \bar{F}_p(t)$. Questa scelta semplifica la lettura dei risultati e non toglie nulla agli scopi di questo capitolo. La distinzione tra le due componenti diventerà importante quando si confronteranno programmi di allenamento con un diverso equilibrio tra impegno fisico e impegno mentale. \par
+Dato che carico fisico e carico psicologico coincidono, anche le due componenti della fatica sono uguali per ogni $t$, ovvero $\bar{F}_f(t) = \bar{F}_p(t)$. Questa scelta rende più semplice la lettura dei risultati e non compromette gli scopi del capitolo. La distinzione tra le due componenti assumerà rilevanza nel momento in cui si metteranno a confronto programmi di allenamento caratterizzati da un diverso equilibrio tra impegno fisico e impegno mentale. \par
 
-Va osservato che i parametri che troveremo valgono per questo carico. Se l'allenatore cambiasse programma, i parametri del gruppo resterebbero gli stessi, ma la dinamica cambierebbe: è proprio questo che permetterà, in seguito, di confrontare programmi di allenamento diversi.
+È opportuno osservare che i parametri individuati valgono per questo specifico carico. Qualora l'allenatore modificasse il programma, i parametri del gruppo rimarrebbero invariati, ma la dinamica cambierebbe: proprio questo consentirà, in seguito, di confrontare programmi di allenamento differenti.
 
 \section{Parametri delle funzioni}
 
-I parametri si dividono in due gruppi. Il primo è formato dai parametri delle funzioni $\mu$, $\nu$, $\lambda$ e $r$, che ne determinano la forma. Il secondo è formato dai parametri delle equazioni del modello, cioè $\alpha$, $\pi$, $\rho$, i moltiplicatori di abbandono $\beta_\cdot$ e i moltiplicatori di rischio $\gamma_\cdot$. \par
+I parametri si articolano in due gruppi. Il primo comprende i parametri delle funzioni $\mu$, $\nu$, $\lambda$ e $r$, che ne definiscono la forma. Il secondo comprende i parametri delle equazioni del modello, ovvero $\alpha$, $\pi$, $\rho$, i moltiplicatori di abbandono $\beta_\cdot$ e i moltiplicatori di rischio $\gamma_\cdot$. \par
 
-I due gruppi hanno un ruolo diverso. I parametri delle funzioni descrivono \emph{come} cambiano nel tempo gli ingressi, gli abbandoni, il rischio e il recupero. I parametri del modello descrivono invece \emph{quanto} questi fenomeni pesano su ciascuna popolazione. Per questo li trattiamo separatamente: i parametri delle funzioni vengono scelti direttamente, in base al comportamento che vogliamo ottenere, mentre i parametri del modello vengono calcolati nella sezione successiva. Tenere separati i due gruppi riduce anche il numero di parametri da calcolare, da diciannove a dieci. \par
+I due gruppi svolgono un ruolo differente. I parametri delle funzioni descrivono \emph{in che modo} variano nel tempo ingressi, abbandoni, rischio e recupero. I parametri del modello descrivono invece \emph{quanto} tali fenomeni incidono su ciascuna popolazione. Per tale ragione li trattiamo separatamente: i parametri delle funzioni vengono fissati direttamente, in funzione del comportamento che intendiamo ottenere, mentre i parametri del modello sono calcolati nella sezione seguente. La separazione dei due gruppi consente inoltre di ridurre il numero di parametri da calcolare, da diciannove a dieci. \par
 
-I valori scelti per i parametri delle funzioni sono riportati nella \autoref{tab:sim-funzioni} e commentati di seguito.
+I valori scelti per i parametri delle funzioni sono riportati nella \autoref{tab:sim-funzioni} e commentati qui di seguito.
 
 \begin{table}[ht]
     \centering
@@ -68,29 +68,29 @@ I valori scelti per i parametri delle funzioni sono riportati nella \autoref{tab
 
 \paragraph{Funzione di crescita}
 
-Nella prima seduta entrano $5$ nuovi atleti, poi gli ingressi diminuiscono rapidamente. In tutto entrano circa $49$ nuovi atleti, cioè circa il $10\%$ del gruppo iniziale, e quasi tutti, circa $47$, arrivano nelle prime $15$ sedute. Dopo la metà del periodo gli ingressi sono praticamente nulli. \par
+Nel corso della prima seduta entrano $5$ nuovi atleti, dopodiché gli ingressi calano rapidamente. Complessivamente entrano circa $49$ nuovi atleti, ovvero circa il $10\%$ del gruppo iniziale, e quasi tutti, all'incirca $47$, arrivano entro le prime $15$ sedute. Superata la metà del periodo gli ingressi risultano praticamente nulli. \par
 
-Questo profilo descrive un gruppo che si completa nelle prime due settimane: alcuni atleti arrivano in ritardo, ad esempio per motivi di lavoro, di studio o di trasporto, ma dopo questa fase il gruppo resta chiuso. La crescita della popolazione all'inizio del periodo dipende quasi soltanto da questi due parametri, perché nelle prime settimane gli abbandoni sono trascurabili.
+Tale profilo descrive un gruppo che si completa nelle prime due settimane: alcuni atleti giungono in ritardo, ad esempio per ragioni di lavoro, di studio o di trasporto, ma dopo questa fase il gruppo rimane chiuso. La crescita della popolazione nella fase iniziale del periodo dipende quasi esclusivamente da questi due parametri, poiché nelle prime settimane gli abbandoni sono trascurabili.
 
 \paragraph{Funzione di abbandono}
 
-Gli abbandoni seguono l'andamento opposto. Il rapporto tra la funzione di abbandono e il suo valore massimo è praticamente nullo a metà del periodo, vale circa $0.08$ dopo due terzi del periodo, circa $0.41$ all'$80\%$ e circa $0.80$ al $90\%$, per raggiungere il massimo nell'ultima seduta. Gli abbandoni si concentrano quindi nelle ultime due settimane. \par
+Gli abbandoni presentano un andamento opposto. Il rapporto tra la funzione di abbandono e il suo valore massimo è praticamente nullo a metà del periodo, assume valore circa $0.08$ dopo due terzi del periodo, circa $0.41$ all'$80\%$ e circa $0.80$ al $90\%$, fino a raggiungere il massimo nell'ultima seduta. Gli abbandoni si concentrano dunque nelle ultime due settimane. \par
 
-Questo riflette ciò che accade spesso nella pratica: verso la fine di un periodo di allenamento lungo aumentano gli impegni esterni, la stanchezza accumulata si fa sentire e alcuni atleti decidono di interrompere prima. Quanto la funzione pesi su ciascuna popolazione dipende dai moltiplicatori $\beta_\cdot$, che vengono calcolati nella sezione successiva.
+Ciò rispecchia quanto spesso si verifica nella pratica: verso la conclusione di un periodo di allenamento prolungato crescono gli impegni esterni, la stanchezza accumulata si fa sentire e alcuni atleti scelgono di interrompere anzitempo. L'entità con cui la funzione incide su ciascuna popolazione dipende dai moltiplicatori $\beta_\cdot$, calcolati nella sezione successiva.
 
 \paragraph{Funzione di infortunio}
 
-La fatica fisica è il fattore di rischio più importante, seguita dalla fatica psicologica e dalla densità sul tatami. I pesi $\omega_f$, $\omega_p$ e $\omega_d$ riflettono proprio questo ordine. La soglia $b = 1$ fa sì che, con il gruppo riposato, il rischio sia basso ma non nullo. \par
+Il fattore di rischio più rilevante è la fatica fisica, seguita dalla fatica psicologica e dalla densità sul tatami. I pesi $\omega_f$, $\omega_p$ e $\omega_d$ rispecchiano esattamente questo ordine. La soglia $b = 1$ garantisce che, con il gruppo riposato, il rischio sia contenuto ma non nullo. \par
 
-Per capire quanto è alto il rischio conviene guardare il rapporto $\frac{\lambda}{\gamma_\cdot}$, che chiamiamo rischio relativo: indica quale frazione del rischio massimo $\gamma_\cdot$ viene raggiunta, ed è uguale per tutte le popolazioni. Nella simulazione il rischio relativo cresce insieme alla fatica, da circa $0.29$ all'inizio a circa $0.79$ alla fine del periodo. \par
+Per valutare l'entità del rischio è utile considerare il rapporto $\frac{\lambda}{\gamma_\cdot}$, che denominiamo rischio relativo: esso indica la frazione del rischio massimo $\gamma_\cdot$ effettivamente raggiunta ed è identico per tutte le popolazioni. Nella simulazione il rischio relativo cresce parallelamente alla fatica, passando da circa $0.29$ all'inizio a circa $0.79$ al termine del periodo. \par
 
-Il rischio relativo resta quindi lontano sia da zero sia dal suo valore massimo, che è $1$. Questo è importante: in questa fascia il rischio è sensibile alle variazioni della fatica, e quindi un cambiamento del carico di allenamento produce un cambiamento effettivo nel numero di infortuni.
+Il rischio relativo si mantiene pertanto distante sia da zero sia dal suo valore massimo, pari a $1$. Ciò è rilevante: in questa fascia il rischio risulta sensibile alle variazioni della fatica, e dunque una modifica del carico di allenamento si traduce in una variazione effettiva del numero di infortuni.
 
 \paragraph{Funzione di recupero}
 
-La scelta più importante riguarda la velocità $\sigma_r$ con cui il recupero diminuisce. Nel capitolo sulle funzioni avevamo usato come esempio $\sigma_r = 0.2$. Con questo valore, però, il recupero diventa quasi nullo già a metà del periodo: gli atleti non riescono più a smaltire la fatica, che cresce senza fermarsi fino a circa $18$. Dopo circa $25$ sedute il rischio relativo arriva a $0.98$, cioè praticamente al massimo, come si vede nella \autoref{fig:sim-fatica} e nella \autoref{fig:sim-rischio}. \par
+La scelta più significativa concerne la velocità $\sigma_r$ con cui il recupero diminuisce. Nel capitolo sulle funzioni avevamo impiegato, a titolo di esempio, $\sigma_r = 0.2$. Con tale valore, tuttavia, il recupero si riduce quasi a zero già a metà del periodo: gli atleti non sono più in grado di smaltire la fatica, che cresce ininterrottamente fino a circa $18$. Dopo circa $25$ sedute il rischio relativo raggiunge $0.98$, cioè praticamente il massimo, come illustrato nella \autoref{fig:sim-fatica} e nella \autoref{fig:sim-rischio}. \par
 
-Da quel momento il rischio non dipende più dalla fatica, e quindi nemmeno dal carico di allenamento: qualunque programma di allenamento darebbe lo stesso risultato. Con $\sigma_r = 0.2$, inoltre, gli infortuni salgono a circa $709$, contro i circa $428$ ottenuti con il valore scelto qui sotto: un aumento di due terzi dovuto soltanto al recupero. \par
+Da quel momento il rischio non dipende più dalla fatica, e quindi neppure dal carico di allenamento: qualsiasi programma di allenamento condurrebbe al medesimo risultato. Con $\sigma_r = 0.2$, inoltre, gli infortuni salgono a circa $709$, rispetto ai circa $428$ ottenuti con il valore scelto più avanti: un incremento di due terzi imputabile esclusivamente al recupero. \par
 
 \begin{figure}[ht]
     \centering
@@ -98,7 +98,7 @@ Da quel momento il rischio non dipende più dalla fatica, e quindi nemmeno dal c
     \caption{Fatica media del gruppo per due valori di $\sigma_r$}\label{fig:sim-fatica}
 \end{figure}
 
-Per questo scegliamo $\sigma_r = 0.05$. Il recupero diminuisce più lentamente: vale $1$ all'inizio, circa $0.76$ dopo $10$ sedute, circa $0.45$ dopo $25$ e ancora $0.15$ alla fine del periodo. La fatica oscilla seguendo il ciclo di tre sedute: aumenta sempre dopo il giorno di randori e diminuisce sempre dopo il giorno di riposo. Dopo il giorno di tecnica, invece, per gran parte del periodo diminuisce, perché il recupero smaltisce più fatica di quanta ne aggiunga il carico medio; solo nelle ultime sedute, dalla trentasettesima in poi, quando il recupero è più basso, aumenta anche dopo la tecnica. Nelle prime venti sedute non supera circa $1.2$, poi cresce lentamente, man mano che il recupero diminuisce, fino a circa $2.8$ alla fine del periodo. \par
+Scegliamo pertanto $\sigma_r = 0.05$. Il recupero cala più lentamente: vale $1$ all'inizio, circa $0.76$ dopo $10$ sedute, circa $0.45$ dopo $25$ e ancora $0.15$ al termine del periodo. La fatica oscilla seguendo il ciclo di tre sedute: cresce sempre dopo il giorno di randori e diminuisce sempre dopo il giorno di riposo. Dopo il giorno di tecnica, invece, per gran parte del periodo diminuisce, poiché il recupero smaltisce più fatica di quanta ne aggiunga il carico medio; soltanto nelle ultime sedute, dalla trentasettesima in poi, quando il recupero è più basso, aumenta anche dopo la tecnica. Nelle prime venti sedute non supera circa $1.2$, poi cresce gradualmente, man mano che il recupero diminuisce, fino a circa $2.8$ al termine del periodo. \par
 
 \begin{figure}[ht]
     \centering
@@ -106,38 +106,38 @@ Per questo scegliamo $\sigma_r = 0.05$. Il recupero diminuisce più lentamente: 
     \caption{Rischio relativo di infortunio per due valori di $\sigma_r$}\label{fig:sim-rischio}
 \end{figure}
 
-Con questa scelta il rischio relativo segue lo stesso andamento oscillante della fatica e resta lontano dal massimo. In questo modo il carico di allenamento continua a influire sugli infortuni per tutto il periodo, che è proprio ciò che vogliamo studiare quando introdurremo il controllo.
+Con questa scelta il rischio relativo segue lo stesso andamento oscillante della fatica e si mantiene lontano dal massimo. In tal modo il carico di allenamento continua a incidere sugli infortuni per l'intera durata del periodo, che è esattamente ciò che intendiamo studiare quando introdurremo il controllo.
 
 \section{Parametri del modello}
 
-Restano da scegliere i dieci parametri del modello: $\alpha$, $\pi$, $\rho$, $\beta_S$, $\beta_P$, $\beta_M$, $\beta_I$, $\gamma_S$, $\gamma_P$ e $\gamma_M$. Li scegliamo in modo che la simulazione rispetti i seguenti requisiti:
+Rimangono da determinare i dieci parametri del modello: $\alpha$, $\pi$, $\rho$, $\beta_S$, $\beta_P$, $\beta_M$, $\beta_I$, $\gamma_S$, $\gamma_P$ e $\gamma_M$. Li scegliamo in modo tale che la simulazione soddisfi i seguenti requisiti:
 \begin{itemize}
-    \item la popolazione totale non cresce più del $10\%$:
+    \item la popolazione complessiva non superi il $10\%$ di crescita:
         \[
             N(t) \leq 1.10 \cdot N(0)
         \]
-    \item alla fine del periodo la popolazione totale è l'$85\%$ di quella iniziale:
+    \item al termine del periodo la popolazione complessiva risulti pari all'$85\%$ di quella iniziale:
         \[
             N(T) = 0.85 \cdot N(0)
         \]
-    \item in ogni seduta gli infortunati e i malconci sono al massimo la metà del gruppo:
+    \item in ciascuna seduta gli infortunati e i malconci non superino la metà del gruppo:
         \[
             I(t) + M(t) \leq 0.50 \cdot N(t)
         \]
-    \item gli infortunati gravi arrivano al massimo al $10\%$ del gruppo:
+    \item gli infortunati gravi non eccedano il $10\%$ del gruppo:
         \[
             I(t) / N(t) \leq 0.1
         \]
-    \item i moltiplicatori rispettano l'ordine $\beta_S \leq \beta_P \leq \beta_M \leq \beta_I$ e $\gamma_S \leq \gamma_P \leq \gamma_M$.
+    \item i moltiplicatori rispettino l'ordine $\beta_S \leq \beta_P \leq \beta_M \leq \beta_I$ e $\gamma_S \leq \gamma_P \leq \gamma_M$.
 \end{itemize}
 
-Ogni requisito ha un significato preciso. Il primo dice che il gruppo è già quasi completo all'inizio del periodo e che i nuovi arrivi sono pochi. Il secondo fissa quanto il gruppo si riduce: alla fine del periodo se ne va circa un atleta su sette, una perdita sensibile ma non tale da compromettere il gruppo. Il terzo esclude le situazioni in cui la maggior parte del gruppo è infortunata e l'allenamento perderebbe di senso. Il quarto fissa la gravità dello scenario: nel momento peggiore un atleta su dieci è fermo per un infortunio grave. L'ultimo riprende le ipotesi del modello: chi ha un infortunio pregresso o in corso abbandona più facilmente e si infortuna più facilmente di chi è sano. \par
+Ogni requisito possiede un significato ben preciso. Il primo stabilisce che il gruppo è già quasi completo all'inizio del periodo e che i nuovi arrivi sono esigui. Il secondo determina l'entità della riduzione: alla conclusione del periodo se ne va circa un atleta su sette, una perdita consistente ma non tale da compromettere il gruppo. Il terzo esclude le situazioni in cui la maggioranza del gruppo risulta infortunata e l'allenamento perderebbe di significato. Il quarto definisce la gravità dello scenario: nel momento peggiore un atleta su dieci è fermo a causa di un infortunio grave. L'ultimo riprende le ipotesi del modello: chi ha un infortunio pregresso o in corso abbandona con maggiore facilità e si infortuna più facilmente di chi è sano. \par
 
-I requisiti sul calo della popolazione e sugli infortunati gravi sono fissati esattamente al loro valore limite, così che lo scenario sia il più sfavorevole possibile senza superare questi limiti. Gli altri requisiti sono limiti massimi: devono essere rispettati, ma non è necessario raggiungerli.
+I requisiti relativi al calo della popolazione e agli infortunati gravi sono fissati esattamente al loro valore limite, affinché lo scenario risulti il più sfavorevole possibile senza oltrepassare tali limiti. Gli altri requisiti costituiscono limiti massimi: vanno rispettati, ma non è necessario raggiungerli.
 
 \subsection{Valori a priori}
 
-Per ogni parametro scegliamo un valore iniziale, detto valore a priori, e un intervallo di valori ammessi, riportati nella \autoref{tab:sim-intervalli}. Gli intervalli escludono i valori estremi, come un rischio nullo o un recupero immediato, che non descriverebbero una situazione reale. Per i sani e i pregressi gli intervalli dei moltiplicatori di abbandono sono molto stretti: un atleta che sta bene e si allena regolarmente difficilmente lascia il gruppo nel giro di poche settimane.
+Per ciascun parametro individuiamo un valore iniziale, denominato valore a priori, e un intervallo di valori ammessi, riportati nella \autoref{tab:sim-intervalli}. Gli intervalli escludono i valori estremi, quali un rischio nullo o un recupero immediato, che non descriverebbero una situazione realistica. Per i sani e i pregressi gli intervalli dei moltiplicatori di abbandono sono molto ristretti: un atleta che sta bene e si allena con regolarità difficilmente lascia il gruppo nel giro di poche settimane.
 
 \begin{table}[ht]
     \centering
@@ -161,35 +161,35 @@ Per ogni parametro scegliamo un valore iniziale, detto valore a priori, e un int
     \caption{Intervalli e valori a priori dei parametri del modello}\label{tab:sim-intervalli}
 \end{table}
 
-I valori a priori descrivono un gruppo che si allena senza prevenzione:
+I valori a priori descrivono un gruppo che si allena in assenza di prevenzione:
 \begin{itemize}
-    \item $\alpha = 0.8$: i nuovi atleti hanno la stessa composizione del gruppo iniziale, con l'$80\%$ di sani;
+    \item $\alpha = 0.8$: i nuovi atleti presentano la stessa composizione del gruppo iniziale, con l'$80\%$ di sani;
     \item $\pi = 0.4$: due infortuni su cinque sono gravi;
     \item $\rho = 0.05$: gli infortunati gravi tornano ad allenarsi lentamente, dopo circa $20$ sedute in media;
-    \item i moltiplicatori di abbandono sono molto bassi per i sani e per i pregressi, $\beta_S = 0.005$ e $\beta_P = 0.01$, e più alti per i malconci e gli infortunati, $\beta_M = 0.05$ e $\beta_I = 0.1$: chi sta bene resta quasi sempre nel gruppo, chi si è fatto male è molto più propenso a lasciarlo;
-    \item i moltiplicatori di rischio crescono dai sani ai malconci: un malconcio ha un rischio quattro volte più alto di un sano.
+    \item i moltiplicatori di abbandono sono molto bassi per i sani e per i pregressi, $\beta_S = 0.005$ e $\beta_P = 0.01$, e più elevati per i malconci e gli infortunati, $\beta_M = 0.05$ e $\beta_I = 0.1$: chi sta bene rimane quasi sempre nel gruppo, chi si è fatto male è molto più incline a lasciarlo;
+    \item i moltiplicatori di rischio aumentano dai sani ai malconci: un malconcio presenta un rischio quattro volte superiore a quello di un sano.
 \end{itemize}
 
-Con i valori a priori la simulazione è già vicina ai requisiti, ma non li rispetta del tutto. Il picco di infortunati gravi è circa il $10.2\%$ del gruppo, appena sopra il limite del $10\%$, e alla fine del periodo resta l'$87\%$ del gruppo, cioè $436$ atleti, invece dell'$85\%$. Gli infortuni totali sono circa $417$. Bisogna quindi correggere leggermente i valori a priori.
+Con i valori a priori la simulazione è già prossima ai requisiti, ma non li rispetta completamente. Il picco di infortunati gravi è pari a circa il $10.2\%$ del gruppo, appena al di sopra del limite del $10\%$, e al termine del periodo resta l'$87\%$ del gruppo, cioè $436$ atleti, anziché l'$85\%$. Gli infortuni totali sono circa $417$. Occorre pertanto correggere leggermente i valori a priori.
 
 \subsection{Calcolo dei parametri}
 
-Per correggere i valori a priori abbiamo usato la funzione \texttt{minimize} della libreria Python SciPy \cite{virtanen2020}, una delle librerie più diffuse per il calcolo scientifico. Questa funzione cerca i valori dei parametri che rendono più piccola una certa quantità, detta funzione obiettivo, rispettando allo stesso tempo una serie di vincoli. \par
+Per correggere i valori a priori abbiamo impiegato la funzione \texttt{minimize} della libreria Python SciPy \cite{virtanen2020}, una delle librerie più diffuse per il calcolo scientifico. Tale funzione ricerca i valori dei parametri che minimizzano una determinata quantità, denominata funzione obiettivo, rispettando al contempo una serie di vincoli. \par
 
-Come funzione obiettivo abbiamo usato la distanza dai valori a priori. Per ogni parametro si calcola la differenza tra il valore proposto e il valore a priori, la si divide per la larghezza dell'intervallo del parametro, la si eleva al quadrato e infine si sommano i risultati:
+Come funzione obiettivo abbiamo utilizzato la distanza dai valori a priori. Per ogni parametro si calcola la differenza tra il valore proposto e il valore a priori, la si divide per la larghezza dell'intervallo del parametro, la si eleva al quadrato e infine si sommano i risultati:
 \[
     \text{distanza} = \sum_{\text{parametri}} \left(\frac{\text{valore} - \text{valore a priori}}{\text{larghezza dell'intervallo}}\right)^2.
 \]
-La divisione per la larghezza dell'intervallo serve a rendere confrontabili parametri che possono variare in intervalli di ampiezza diversa: ogni variazione viene misurata in proporzione allo spazio a disposizione di quel parametro. Il quadrato, invece, fa sì che le differenze positive e negative contino allo stesso modo e che una correzione grande su un solo parametro pesi più di tante correzioni piccole. \par
+La divisione per la larghezza dell'intervallo rende confrontabili parametri che possono variare in intervalli di ampiezza diversa: ogni variazione viene misurata in proporzione allo spazio a disposizione di quel parametro. Il quadrato, dal canto suo, fa sì che le differenze positive e negative contribuiscano allo stesso modo e che una correzione grande su un solo parametro pesi più di molte correzioni piccole. \par
 
-I requisiti sono passati alla funzione come vincoli: i due requisiti fissati esattamente, cioè il calo della popolazione e il picco di infortunati gravi, come vincoli di uguaglianza, gli altri come vincoli di disuguaglianza. Gli intervalli della \autoref{tab:sim-intervalli} sono passati come limiti per ciascun parametro. In presenza di vincoli, la funzione \texttt{minimize} usa automaticamente il metodo SLSQP\footnote{Il metodo SLSQP (Sequential Least Squares Programming, o Sequential Least Squares Quadratic Programming) è un algoritmo di ottimizzazione numerica progettato per minimizzare funzioni scalari di più variabili soggette a vincoli non lineari.}, adatto a problemi con pochi parametri e vincoli di questo tipo. \par
+I requisiti sono stati passati alla funzione come vincoli: i due requisiti fissati esattamente, ovvero il calo della popolazione e il picco di infortunati gravi, come vincoli di uguaglianza, gli altri come vincoli di disuguaglianza. Gli intervalli della \autoref{tab:sim-intervalli} sono stati passati come limiti per ciascun parametro. In presenza di vincoli, la funzione \texttt{minimize} adopera automaticamente il metodo SLSQP\footnote{Il metodo SLSQP (Sequential Least Squares Programming, o Sequential Least Squares Quadratic Programming) è un algoritmo di ottimizzazione numerica progettato per minimizzare funzioni scalari di più variabili soggette a vincoli non lineari.}, adatto a problemi con pochi parametri e vincoli di questo tipo. \par
 
-Il risultato sono i parametri più vicini ai valori a priori tra tutti quelli che rispettano i requisiti. In questo modo la stima iniziale viene corretta il meno possibile, e i parametri finali conservano il significato che avevamo dato ai valori a priori.
+Il risultato consiste nei parametri più vicini ai valori a priori tra tutti quelli che rispettano i requisiti. In tal modo la stima iniziale viene corretta il meno possibile, e i parametri finali conservano il significato attribuito ai valori a priori.
 
 
-I parametri calcolati sono riportati nella \autoref{tab:sim-calibrati}. Sono tutti vicini ai valori a priori: la maggior parte cambia di pochi millesimi. \par
+I parametri calcolati sono riportati nella \autoref{tab:sim-calibrati}. Essi risultano tutti vicini ai valori a priori: la maggior parte cambia di pochi millesimi. \par
 
-I moltiplicatori di abbandono dei sani e dei pregressi restano praticamente invariati. Le correzioni riguardano soprattutto i malconci e gli infortunati. Il moltiplicatore di abbandono dei malconci $\beta_M$ passa da $0.050$ a $0.059$ e quello degli infortunati $\beta_I$ da $0.100$ a $0.105$: abbandonano un po' di più, e questo porta la popolazione finale dall'$87\%$ all'$85\%$ richiesto. Il tasso di recupero parziale $\rho$ passa da $0.050$ a $0.054$: gli infortunati gravi tornano ad allenarsi un po' prima, in media dopo circa $18.7$ sedute invece di $20$, e questo abbassa il picco di infortunati gravi al $10\%$. \par
+I moltiplicatori di abbandono dei sani e dei pregressi restano praticamente invariati. Le correzioni interessano soprattutto i malconci e gli infortunati. Il moltiplicatore di abbandono dei malconci $\beta_M$ passa da $0.050$ a $0.059$ e quello degli infortunati $\beta_I$ da $0.100$ a $0.105$: abbandonano un po' di più, e ciò porta la popolazione finale dall'$87\%$ all'$85\%$ richiesto. Il tasso di recupero parziale $\rho$ passa da $0.050$ a $0.054$: gli infortunati gravi tornano ad allenarsi un po' prima, in media dopo circa $18.7$ sedute anziché $20$, e questo abbassa il picco di infortunati gravi al $10\%$. \par
 
 Con questi parametri, nel momento di massima fatica un atleta sano ha una probabilità di infortunarsi in una singola seduta di circa l'$1.7\%$, un atleta con infortunio pregresso di circa il $3.2\%$ e un malconcio di circa il $6.2\%$.
 
@@ -215,8 +215,8 @@ Con questi parametri, nel momento di massima fatica un atleta sano ha una probab
     \caption{Parametri del modello: valori a priori e valori calibrati}\label{tab:sim-calibrati}
 \end{table}
 
-La \autoref{tab:sim-confronto} confronta i risultati ottenuti con i valori a priori e con i valori calibrati. Le correzioni sono piccole e lo scenario cambia poco: il gruppo finale passa da $436$ a $425$ atleti, il picco di infortunati gravi resta intorno ai $52$ atleti e gli infortuni totali passano da circa $417$ a circa $428$. \\
-Con infortuni totali non si intende le singole persone che si sono infortunate, ma il numero totale di infortuni avvenuti. Infatti lo stesso atleta può infortunarsi più di una volta.
+La \autoref{tab:sim-confronto} confronta i risultati ottenuti con i valori a priori e con i valori calibrati. Le correzioni sono modeste e lo scenario muta poco: il gruppo finale passa da $436$ a $425$ atleti, il picco di infortunati gravi resta intorno ai $52$ atleti e gli infortuni totali passano da circa $417$ a circa $428$. \\
+Con infortuni totali non si intendono le singole persone che si sono infortunate, bensì il numero complessivo di infortuni verificatisi. Infatti lo stesso atleta può infortunarsi più di una volta.
 
 \begin{table}[ht]
     \centering
@@ -238,11 +238,11 @@ Con infortuni totali non si intende le singole persone che si sono infortunate, 
 
 \subsection{Popolazione totale}
 
-La \autoref{fig:sim-totale} mostra la popolazione totale rispetto a quella iniziale. Si distinguono tre fasi. \par
+La \autoref{fig:sim-totale} mostra la popolazione totale rispetto a quella iniziale. Si possono distinguere tre fasi. \par
 
-Nella prima fase, durante le prime due settimane, il gruppo cresce grazie ai nuovi ingressi: dopo $10$ sedute è già al $108\%$ di quello iniziale. Nella seconda fase, nella parte centrale del periodo, il gruppo resta stabile intorno al $110\%$: gli ingressi sono finiti e gli abbandoni non sono ancora cominciati. Il massimo, circa $549$ atleti, viene raggiunto intorno alla venticinquesima seduta. \par
+Nella prima fase, nel corso delle prime due settimane, il gruppo cresce grazie ai nuovi ingressi: dopo $10$ sedute è già al $108\%$ di quello iniziale. Nella seconda fase, nella parte centrale del periodo, il gruppo si mantiene stabile intorno al $110\%$: gli ingressi sono terminati e gli abbandoni non sono ancora iniziati. Il massimo, circa $549$ atleti, viene raggiunto intorno alla venticinquesima seduta. \par
 
-Nella terza fase, nell'ultimo terzo del periodo, cominciano gli abbandoni e il gruppo cala. Intorno alla quarantaquattresima seduta torna sotto il valore iniziale, alla quarantacinquesima è al $97\%$ e alla fine arriva a $425$ atleti, cioè l'$85\%$ di quello iniziale, come richiesto. \par
+Nella terza fase, nell'ultimo terzo del periodo, iniziano gli abbandoni e il gruppo cala. Intorno alla quarantaquattresima seduta torna sotto il valore iniziale, alla quarantacinquesima è al $97\%$ e alla fine arriva a $425$ atleti, cioè l'$85\%$ di quello iniziale, come richiesto. \par
 
 \begin{figure}[ht]
     \centering
@@ -250,7 +250,7 @@ Nella terza fase, nell'ultimo terzo del periodo, cominciano gli abbandoni e il g
     \caption{Popolazione totale rispetto a quella iniziale}\label{fig:sim-totale}
 \end{figure}
 
-In tutto abbandonano circa $124$ atleti: solo $12$ sani e $4$ pregressi, contro $44$ infortunati e $64$ malconci. Gli infortunati e i malconci, che all'inizio non esistevano, sono quindi responsabili dell'$87\%$ degli abbandoni. Gli infortuni sono la causa principale della riduzione del gruppo: ridurre gli infortuni vorrebbe dire anche tenere unito il gruppo.
+Complessivamente abbandonano circa $124$ atleti: soltanto $12$ sani e $4$ pregressi, contro $44$ infortunati e $64$ malconci. Gli infortunati e i malconci, che all'inizio non esistevano, sono dunque responsabili dell'$87\%$ degli abbandoni. Gli infortuni costituiscono la causa principale della riduzione del gruppo: ridurre gli infortuni significherebbe anche mantenere unito il gruppo.
 
 \subsection{Le quattro popolazioni}
 
@@ -280,17 +280,17 @@ La \autoref{fig:sim-popolazioni} mostra le quattro popolazioni e la \autoref{tab
     \caption{Le quattro popolazioni ogni dieci sedute}\label{tab:sim-popolazioni}
 \end{table}
 
-Nelle prime sedute i sani restano quasi costanti, perché i nuovi ingressi compensano gli infortuni; dopo, sia i sani sia i pregressi diminuiscono per tutto il periodo. La diminuzione è dovuta soprattutto agli infortuni, che li spostano tra i malconci o tra gli infortunati, mentre gli abbandoni pesano poco. I pregressi diminuiscono più rapidamente dei sani in proporzione, perché hanno un rischio di infortunio più alto: alla fine ne restano $36$ su $100$, mentre i sani sono $243$ su $400$. \par
+Nelle prime sedute i sani rimangono quasi costanti, poiché i nuovi ingressi compensano gli infortuni; successivamente, sia i sani sia i pregressi diminuiscono per tutto il periodo. La diminuzione è dovuta soprattutto agli infortuni, che li spostano tra i malconci o tra gli infortunati, mentre gli abbandoni incidono poco. I pregressi diminuiscono più rapidamente dei sani in proporzione, perché presentano un rischio di infortunio più elevato: alla fine ne restano $36$ su $100$, mentre i sani sono $243$ su $400$. \par
 
-Gli infortunati e i malconci partono da zero e crescono per gran parte del periodo. Raggiungono il massimo intorno alla quarantesima seduta, con circa $52$ infortunati e $131$ malconci, e poi diminuiscono a causa degli abbandoni. I malconci superano i pregressi già intorno alla ventitreesima seduta, ma infortunati e malconci insieme restano sempre meno numerosi di sani e pregressi insieme. \par
+Gli infortunati e i malconci partono da zero e crescono per gran parte del periodo. Raggiungono il massimo intorno alla quarantesima seduta, con circa $52$ infortunati e $131$ malconci, per poi diminuire a causa degli abbandoni. I malconci superano i pregressi già intorno alla ventitreesima seduta, ma infortunati e malconci insieme restano sempre meno numerosi di sani e pregressi insieme. \par
 
-I malconci sono sempre più numerosi degli infortunati gravi, per due motivi. Il primo è che la maggior parte degli infortuni è lieve e porta l'atleta direttamente in $M$. Il secondo è che anche gli infortunati gravi, quando guariscono parzialmente, passano in $M$. I malconci, a loro volta, hanno il rischio di infortunio più alto e possono infortunarsi gravemente, tornando in $I$. \par
+I malconci sono sempre più numerosi degli infortunati gravi, per due ragioni. La prima è che la maggior parte degli infortuni è lieve e conduce l'atleta direttamente in $M$. La seconda è che anche gli infortunati gravi, quando guariscono parzialmente, passano in $M$. I malconci, a loro volta, presentano il rischio di infortunio più alto e possono infortunarsi gravemente, tornando in $I$. \par
 
-Alla fine del periodo restano $243$ sani, $36$ pregressi, $38$ infortunati e $108$ malconci: circa un terzo degli atleti rimasti è infortunato o malconcio.
+Al termine del periodo restano $243$ sani, $36$ pregressi, $38$ infortunati e $108$ malconci: circa un terzo degli atleti rimasti è infortunato o malconcio.
 
 \subsection{Infortunati}
 
-La \autoref{fig:sim-frazioni} mostra la frazione di infortunati gravi e quella di infortunati e malconci insieme. Entrambe crescono in modo regolare per gran parte del periodo. Gli infortunati gravi raggiungono il $10\%$ del gruppo intorno alla quarantaduesima seduta, senza mai superarlo. Infortunati e malconci insieme arrivano al massimo al $36\%$ del gruppo, quindi restano ben sotto il limite del $50\%$. Nelle ultime sedute entrambe le frazioni diminuiscono leggermente, non perché ci siano meno infortuni, ma perché molti infortunati e malconci abbandonano. \par
+La \autoref{fig:sim-frazioni} mostra la frazione di infortunati gravi e quella di infortunati e malconci insieme. Entrambe crescono in modo regolare per gran parte del periodo. Gli infortunati gravi raggiungono il $10\%$ del gruppo intorno alla quarantaduesima seduta, senza mai superarlo. Infortunati e malconci insieme arrivano al massimo al $36\%$ del gruppo, rimanendo quindi ben al di sotto del limite del $50\%$. Nelle ultime sedute entrambe le frazioni diminuiscono leggermente, non perché vi siano meno infortuni, ma perché molti infortunati e malconci abbandonano. \par
 
 \begin{figure}[ht]
     \centering
@@ -298,21 +298,21 @@ La \autoref{fig:sim-frazioni} mostra la frazione di infortunati gravi e quella d
     \caption{Frazione di infortunati gravi e di infortunati e malconci}\label{fig:sim-frazioni}
 \end{figure}
 
-In tutto si verificano circa $428$ infortuni, di cui $170$ gravi e $258$ lievi. In media si verificano circa $9$ infortuni per seduta, ma il numero cresce nel tempo insieme alla fatica: sono circa $4$ nella prima seduta e arrivano a circa $13$ intorno alla quarantatreesima. Nella seconda metà del periodo si verificano circa $270$ infortuni, contro i $158$ della prima metà. \par
+Complessivamente si verificano circa $428$ infortuni, di cui $170$ gravi e $258$ lievi. In media si verificano circa $9$ infortuni per seduta, ma il numero cresce nel tempo insieme alla fatica: sono circa $4$ nella prima seduta e arrivano a circa $13$ intorno alla quarantatreesima. Nella seconda metà del periodo si verificano circa $270$ infortuni, contro i $158$ della prima metà. \par
 
-Gli infortuni si ripartiscono tra le popolazioni in questo modo: circa $184$ riguardano i sani, $70$ i pregressi e $174$ i malconci. I malconci, pur essendo molto meno numerosi dei sani, producono il $41\%$ degli infortuni, quasi quanto i sani, perché sono la popolazione più a rischio. \par
+Gli infortuni si distribuiscono tra le popolazioni nel modo seguente: circa $184$ riguardano i sani, $70$ i pregressi e $174$ i malconci. I malconci, pur essendo molto meno numerosi dei sani, producono il $41\%$ degli infortuni, quasi quanto i sani, perché costituiscono la popolazione più a rischio. \par
 
-Una parte degli atleti si infortuna più di una volta, ad esempio prima in modo lieve, diventando malconci, e poi in modo grave. Rapportando gli infortuni al numero di presenze sul tatami si ottengono circa $17$ infortuni ogni $1000$ presenze, un valore alto, coerente con uno scenario senza prevenzione.
+Una parte degli atleti si infortuna più di una volta, ad esempio prima in modo lieve, diventando malconci, e poi in modo grave. Rapportando gli infortuni al numero di presenze sul tatami si ottengono circa $17$ infortuni ogni $1000$ presenze, un valore elevato, coerente con uno scenario privo di prevenzione.
 
 \section{Considerazioni finali}
 
-Lo scenario ottenuto descrive un periodo di allenamento intenso senza prevenzione: si verificano circa $428$ infortuni, il gruppo perde il $15\%$ degli atleti e alla fine circa un terzo degli atleti rimasti è infortunato o malconcio. Allo stesso tempo, lo scenario rispetta tutti i requisiti: la popolazione non cresce più del $10\%$, alla fine è l'$85\%$ di quella iniziale, gli infortunati gravi non superano il $10\%$ e gli infortunati e i malconci non superano la metà del gruppo. \par
+Lo scenario ottenuto descrive un periodo di allenamento intenso senza prevenzione: si verificano circa $428$ infortuni, il gruppo perde il $15\%$ degli atleti e alla fine circa un terzo degli atleti rimasti è infortunato o malconcio. Al tempo stesso, lo scenario rispetta tutti i requisiti: la popolazione non cresce più del $10\%$, alla fine è l'$85\%$ di quella iniziale, gli infortunati gravi non superano il $10\%$ e gli infortunati e i malconci non superano la metà del gruppo. \par
 
-Dai risultati emergono tre aspetti su cui il controllo potrà agire:
+Dai risultati emergono tre aspetti sui quali il controllo potrà intervenire:
 \begin{itemize}
-    \item il rischio di infortunio cresce con la fatica, e infatti gli infortuni sono più numerosi nella seconda metà del periodo: ridurre la fatica, ad esempio cambiando l'alternanza tra sedute intense e sedute di recupero, riduce gli infortuni;
-    \item i malconci sono la popolazione più a rischio e producono circa il $41\%$ degli infortuni: una strategia di prevenzione mirata a loro, ad esempio riducendone il carico, può avere un effetto importante;
-    \item gli infortunati e i malconci sono la causa principale degli abbandoni: ridurre gli infortuni aiuta anche a tenere unito il gruppo.
+    \item il rischio di infortunio cresce con la fatica, e difatti gli infortuni sono più numerosi nella seconda metà del periodo: ridurre la fatica, ad esempio modificando l'alternanza tra sedute intense e sedute di recupero, riduce gli infortuni;
+    \item i malconci sono la popolazione più a rischio e producono circa il $41\%$ degli infortuni: una strategia di prevenzione mirata a loro, ad esempio riducendone il carico, può avere un effetto rilevante;
+    \item gli infortunati e i malconci sono la causa principale degli abbandoni: ridurre gli infortuni aiuta anche a mantenere unito il gruppo.
 \end{itemize}
 
-I parametri scelti non sono stimati da dati reali, ma dai requisiti che abbiamo fissato e dai valori a priori. Con requisiti o valori a priori diversi si otterrebbe uno scenario diverso. Lo scenario va quindi inteso come un caso di riferimento, utile per confrontare strategie diverse, e non come una previsione di ciò che accade in una palestra reale. Disporre anche di pochi dati reali, come il numero di iscritti, di abbandoni e di infortuni in una stagione, permetterebbe di scegliere i requisiti in modo più oggettivo.
+I parametri scelti non sono stimati a partire da dati reali, bensì dai requisiti che abbiamo fissato e dai valori a priori. Con requisiti o valori a priori differenti si otterrebbe uno scenario diverso. Lo scenario va dunque inteso come un caso di riferimento, utile per confrontare strategie diverse, e non come una previsione di ciò che accade in una palestra reale. Disporre anche di pochi dati reali, come il numero di iscritti, di abbandoni e di infortuni in una stagione, permetterebbe di scegliere i requisiti in modo più oggettivo.
