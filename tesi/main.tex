@@ -35,6 +35,11 @@
 
 \graphicspath{ {./images} }
 
+\captionsetup{justification = centering}
+\NewDocumentCommand{\creditcaption}{O{#2} m m}{%
+    \caption[#1]{#2\\{\footnotesize\itshape #3}}%
+}
+
 \SetTblrInner{
     hline{1,Z} = {0.08em},
     hline{2} = {0.05em}
