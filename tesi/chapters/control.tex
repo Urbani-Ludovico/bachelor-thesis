@@ -129,10 +129,11 @@ La \autoref{tab:ctrl-confronto} riassume i risultati principali. La prevenzione 
 
 \begin{table}[ht]
     \centering
+    \caption{Confronto tra lo scenario senza prevenzione e quello con prevenzione}\label{tab:ctrl-confronto}
     \begin{tblr}{
-        colspec = {|l|c|c|c|},
-        hlines,
-        vlines,
+        colspec = {lccc},
+        hline{1,Z} = {0.08em},
+        hline{2} = {0.05em},
     }
         & Senza prevenzione & Con prevenzione & Variazione \\
         Infortuni totali & $428$ & $296$ & $-31\%$ \\
@@ -143,7 +144,6 @@ La \autoref{tab:ctrl-confronto} riassume i risultati principali. La prevenzione 
         Atleti alla fine & $425$ & $448$ & $+5\%$ \\
         Sani alla fine & $243$ & $284$ & $+17\%$ \\
     \end{tblr}
-    \caption{Confronto tra lo scenario senza prevenzione e quello con prevenzione}\label{tab:ctrl-confronto}
 \end{table}
 
 Gli infortuni gravi diminuiscono nella stessa proporzione degli infortuni totali, poiché la prevenzione riduce la probabilità di infortunarsi ma non altera la gravità dell'infortunio quando questo si verifica: la frazione di infortuni gravi resta sempre la stessa, determinata dal parametro $\pi$.
@@ -220,10 +220,11 @@ Infine, abbiamo ripetuto la simulazione con diversi valori della prevenzione nel
 
 \begin{table}[ht]
     \centering
+    \caption{Effetto dell'intensità della prevenzione}\label{tab:ctrl-intensita}
     \begin{tblr}{
-        colspec = {|c|c|c|c|c|},
-        hlines,
-        vlines,
+        colspec = {ccccc},
+        hline{1,Z} = {0.08em},
+        hline{2} = {0.05em},
     }
         $u_{\text{base}}$ & Prevenzione media & Infortuni & Abbandoni & Atleti alla fine \\
         $0$ & $0$ & $428$ & $124$ & $85\%$ \\
@@ -233,7 +234,6 @@ Infine, abbiamo ripetuto la simulazione con diversi valori della prevenzione nel
         $0.8$ & $0.41$ & $253$ & $93$ & $91\%$ \\
         $1$ & $0.51$ & $211$ & $85$ & $93\%$ \\
     \end{tblr}
-    \caption{Effetto dell'intensità della prevenzione}\label{tab:ctrl-intensita}
 \end{table}
 
 L'effetto della prevenzione cresce in modo regolare con la sua intensità: ogni incremento di $0.2$ di $u_{\text{base}}$ evita circa $44$ infortuni e circa $8$ abbandoni. Anche con la prevenzione massima nel giorno di randori, cioè $u_{\text{base}} = 1$, gli infortuni si riducono di circa la metà, ma non si annullano: la prevenzione è dimezzata nei giorni di tecnica e assente nei giorni di riposo, e in quelle sedute il rischio persiste. L'allenatore può quindi scegliere l'intensità della prevenzione in base alle risorse disponibili, sapendo che anche una prevenzione leggera produce un beneficio apprezzabile.

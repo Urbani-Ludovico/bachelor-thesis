@@ -47,10 +47,12 @@ I valori scelti per i parametri delle funzioni sono riportati nella \autoref{tab
 
 \begin{table}[ht]
     \centering
+    \caption{Parametri delle funzioni del modello}\label{tab:sim-funzioni}
     \begin{tblr}{
-        colspec = {|c|c|c|l|},
-        hlines,
-        vlines
+        colspec = {cccl},
+        hline{1,Z} = {0.08em},
+        hline{2} = {0.05em},
+        hline{4,5,9} = {0.03em},
     }
         Funzione & Parametro & Valore & Significato \\
         \SetCell[r=2]{c} $\mu$ & $\omega_\mu$ & $5$ & ingressi nella prima seduta \\
@@ -63,7 +65,6 @@ I valori scelti per i parametri delle funzioni sono riportati nella \autoref{tab
         \SetCell[r=2]{c}$r$ & $\omega_r$ & $1$ & recupero iniziale \\
             & $\sigma_r$ & $0.05$ & velocità di decadimento del recupero \\
     \end{tblr}
-    \caption{Parametri delle funzioni del modello}\label{tab:sim-funzioni}
 \end{table}
 
 \paragraph{Funzione di crescita}
@@ -141,10 +142,11 @@ Per ciascun parametro individuiamo un valore iniziale, denominato valore a prior
 
 \begin{table}[ht]
     \centering
+    \caption{Intervalli e valori a priori dei parametri del modello}\label{tab:sim-intervalli}
     \begin{tblr}{
-        colspec = {|c|c|c|},
-        hlines,
-        vlines,
+        colspec = {ccc},
+        hline{1,Z} = {0.08em},
+        hline{2} = {0.05em},
     }
         Parametro & Intervallo & Valore a priori \\
         $\alpha$ & $[0.5, 1]$ & $0.8$ \\
@@ -158,7 +160,6 @@ Per ciascun parametro individuiamo un valore iniziale, denominato valore a prior
         $\gamma_P$ & $[0.001, 0.3]$ & $0.04$ \\
         $\gamma_M$ & $[0.001, 0.3]$ & $0.08$ \\
     \end{tblr}
-    \caption{Intervalli e valori a priori dei parametri del modello}\label{tab:sim-intervalli}
 \end{table}
 
 I valori a priori descrivono un gruppo che si allena in assenza di prevenzione:
@@ -195,10 +196,11 @@ Con questi parametri, nel momento di massima fatica un atleta sano ha una probab
 
 \begin{table}[ht]
     \centering
+    \caption{Parametri del modello: valori a priori e valori calibrati}\label{tab:sim-calibrati}
     \begin{tblr}{
-        colspec = {|c|c|c|},
-        hlines,
-        vlines,
+        colspec = {ccc},
+        hline{1,Z} = {0.08em},
+        hline{2} = {0.05em},
     }
         Parametro & Valore a priori & Valore calibrato \\
         $\alpha$ & $0.800$ & $0.800$ \\
@@ -212,7 +214,6 @@ Con questi parametri, nel momento di massima fatica un atleta sano ha una probab
         $\gamma_P$ & $0.040$ & $0.040$ \\
         $\gamma_M$ & $0.080$ & $0.078$ \\
     \end{tblr}
-    \caption{Parametri del modello: valori a priori e valori calibrati}\label{tab:sim-calibrati}
 \end{table}
 
 La \autoref{tab:sim-confronto} confronta i risultati ottenuti con i valori a priori e con i valori calibrati. Le correzioni sono modeste e lo scenario muta poco: il gruppo finale passa da $436$ a $425$ atleti, il picco di infortunati gravi resta intorno ai $52$ atleti e gli infortuni totali passano da circa $417$ a circa $428$. \\
@@ -220,10 +221,11 @@ Con infortuni totali non si intendono le singole persone che si sono infortunate
 
 \begin{table}[ht]
     \centering
+    \caption{Risultati della simulazione con i valori a priori e con i valori calibrati}\label{tab:sim-confronto}
     \begin{tblr}{
-        colspec = {|l|c|c|},
-        hlines,
-        vlines,
+        colspec = {lcc},
+        hline{1,Z} = {0.08em},
+        hline{2} = {0.05em},
     }
         & Valori a priori & Valori calibrati \\
         Popolazione massima & $110\%$ & $110\%$ \\
@@ -233,7 +235,6 @@ Con infortuni totali non si intendono le singole persone che si sono infortunate
         Massimo di infortunati e malconci & $35\%$ & $36\%$ \\
         Infortuni totali & $417$ & $428$ \\
     \end{tblr}
-    \caption{Risultati della simulazione con i valori a priori e con i valori calibrati}\label{tab:sim-confronto}
 \end{table}
 
 \subsection{Popolazione totale}
@@ -264,10 +265,11 @@ La \autoref{fig:sim-popolazioni} mostra le quattro popolazioni e la \autoref{tab
 
 \begin{table}[ht]
     \centering
+    \caption{Le quattro popolazioni ogni dieci sedute}\label{tab:sim-popolazioni}
     \begin{tblr}{
-        colspec = {|c|c|c|c|c|c|},
-        hlines,
-        vlines,
+        colspec = {cccccc},
+        hline{1,Z} = {0.08em},
+        hline{2} = {0.05em},
     }
         Seduta & $S$ & $P$ & $I$ & $M$ & Infortunati e malconci \\
         $0$ & $400$ & $100$ & $0$ & $0$ & $0\%$ \\
@@ -277,7 +279,6 @@ La \autoref{fig:sim-popolazioni} mostra le quattro popolazioni e la \autoref{tab
         $40$ & $293$ & $51$ & $52$ & $131$ & $35\%$ \\
         $50$ & $243$ & $36$ & $38$ & $108$ & $34\%$ \\
     \end{tblr}
-    \caption{Le quattro popolazioni ogni dieci sedute}\label{tab:sim-popolazioni}
 \end{table}
 
 Nelle prime sedute i sani rimangono quasi costanti, poiché i nuovi ingressi compensano gli infortuni; successivamente, sia i sani sia i pregressi diminuiscono per tutto il periodo. La diminuzione è dovuta soprattutto agli infortuni, che li spostano tra i malconci o tra gli infortunati, mentre gli abbandoni incidono poco. I pregressi diminuiscono più rapidamente dei sani in proporzione, perché presentano un rischio di infortunio più elevato: alla fine ne restano $36$ su $100$, mentre i sani sono $243$ su $400$. \par
