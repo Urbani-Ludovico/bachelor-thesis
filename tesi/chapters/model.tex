@@ -416,7 +416,7 @@ In questa sezione vengono riportati i domini di tutti i parametri e le funzioni 
         È la funzione di recupero, non negativa e limitata. Rappresenta il tasso di smaltimento della fatica in ogni seduta. Il limite superiore $r \leq 1$ garantisce che la fatica non possa essere smaltita più di quanto sia stata accumulata.
 \end{itemize}
 
-\subsection{Vincoli di integrità}
+\section{Vincoli di integrità}
 
 In questa sottosezione vengono riportati i vincoli di integrità del modello. Per ciascuno indichiamo la formulazione, il ruolo e le condizioni che esso impone. I vincoli di integrità garantiscono che le variabili di stato rimangano non negative, che le uscite da ciascuna popolazione non superino il contenuto della popolazione stessa e che le transizioni tra popolazioni siano conservative. Essi costituiscono le condizioni minime affinché il modello sia ben posto e le sue soluzioni abbiano significato fisico. \par
 
@@ -464,3 +464,35 @@ la popolazione totale al tempo $t$, si richiede che l'evoluzione di $N(t)$ sia d
         &- \nu\left(\frac{t}{T}, \beta_M\right) M(t).
 \end{align*}
 Il vincolo garantisce che la popolazione totale cambi solo per effetto degli ingressi e degli abbandoni, e che le transizioni interne tra popolazioni siano conservative. Se il vincolo fosse violato, ci sarebbe una perdita o una creazione di atleti non giustificata dal modello. La conservazione è una conseguenza diretta della struttura delle equazioni delle popolazioni, in cui ogni transizione interna compare con segno opposto in due popolazioni diverse.
+
+\section{Proprietà del modello}
+
+Nelle seguenti proprietà useremo le abbreviazioni $\tilde\mu$, $\tilde\nu_\cdot$ e $\tilde\lambda_\cdot$ introdotte per la forma compatta e indichiamo con $\bar{F}_\cdot$ una qualsiasi delle due componenti della fatica, con il relativo carico $c_\cdot$.
+
+\paragraph{Non negatività}
+Se le condizioni iniziali sono non negative e i vincoli di integrità sono soddisfatti per ogni $t$, allora $S(t)$, $P(t)$, $I(t)$, $M(t)$, $\bar{F}_f(t)$ e $\bar{F}_p(t)$ sono non negative per ogni $t \in \{0, 1, \dots, T\}$. \\
+Il motivo è che ogni popolazione al passo $t+1$ è formata da due parti: gli atleti che restano nella popolazione e quelli che vi entrano. I vincoli di integrità garantiscono che da una popolazione non possano uscire più atleti di quanti ne contenga, quindi la parte di chi resta non è mai negativa. Gli ingressi, cioè i nuovi atleti, gli infortunati e i recuperati, sono prodotti di quantità non negative. Lo stesso vale per la fatica: il recupero smaltisce al massimo tutta la fatica accumulata e il carico aggiunto non è mai negativo. Quindi, partendo da valori non negativi, il modello non produce mai valori negativi.
+
+\paragraph{Popolazione totale}
+La popolazione totale $N(t) = S(t) + P(t) + I(t) + M(t)$ soddisfa
+\[
+    N(t+1) = N(t) + \tilde\mu(t) - \tilde\nu_S(t) S(t) - \tilde\nu_P(t) P(t) - \tilde\nu_I(t) I(t) - \tilde\nu_M(t) M(t).
+\]
+Gli infortuni e i recuperi, infatti, spostano gli atleti da una popolazione all'altra senza crearne o eliminarne. Un sano che si infortuna, ad esempio, esce da $S$ ed entra in $I$ o in $M$, un infortunato che recupera esce da $I$ ed entra in $M$. Sommando le quattro equazioni, questi termini compaiono una volta con il segno meno e una volta con il segno più, e si annullano. Restano soltanto i nuovi ingressi e gli abbandoni. \\
+Di conseguenza gli infortuni non cambiano il numero di atleti del gruppo, ma soltanto la sua composizione. Il gruppo cresce soltanto per effetto dei nuovi ingressi e diminuisce soltanto per effetto degli abbandoni. Poiché in ogni seduta entrano al massimo $\omega_\mu$ atleti, la popolazione non supera mai $N(0) + t \cdot \omega_\mu$.
+
+\paragraph{Limite della fatica}
+Se il carico non supera mai un valore massimo $c_{\max}$ e il recupero non scende mai sotto un valore minimo $r_{\min} > 0$, allora
+\[
+    \bar{F}_\cdot(t) \leq \max\left\{\bar{F}_\cdot(0), \frac{c_{\max}}{r_{\min}}\right\} \qquad \text{per ogni } t.
+\]
+Il recupero smaltisce una frazione della fatica accumulata: più la fatica è alta, più fatica viene smaltita in una seduta. Quando la fatica raggiunge il valore $\frac{c_{\max}}{r_{\min}}$, la quantità smaltita è almeno pari al carico massimo, quindi la fatica non può più crescere. \\
+Questa proprietà richiede che il recupero non scenda mai sotto un valore minimo positivo. La funzione di recupero adottata nel seguito tende a zero per $t \to +\infty$, quindi su un orizzonte illimitato la stima non vale. È il motivo per cui, con un recupero che decade troppo rapidamente, la fatica può crescere senza limite. Su un orizzonte finito, invece, il recupero ha un minimo positivo, raggiunto nell'ultima seduta, e la fatica resta limitata.
+
+\paragraph{Equilibrio della fatica}
+Se il carico e il recupero sono costanti, $c_\cdot(t) = c$ e $r(t) = r$, con $0 < r \leq 1$, allora la fatica tende al valore di equilibrio
+\[
+    \bar{F}^* = \frac{c}{r}.
+\]
+Se la fatica è sopra l'equilibrio, il recupero smaltisce più di quanto il carico aggiunga e la fatica scende; se è sotto, accade il contrario e la fatica sale. In ogni seduta la distanza dall'equilibrio si riduce della frazione $r$, cioè viene moltiplicata per $1 - r$. \\
+Il recupero determina anche la velocità con cui l'equilibrio viene raggiunto: con $r$ piccolo la distanza dall'equilibrio si riduce lentamente e la fatica impiega molte sedute ad assestarsi.
