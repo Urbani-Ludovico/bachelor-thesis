@@ -1,0 +1,88 @@
+\chapter{Elenco dei simboli}
+
+In questa appendice sono raccolti i simboli usati nella tesi, divisi per gruppo. Per ogni simbolo è riportato il significato e, dove presente, il valore usato nelle simulazioni dei capitoli \ref{chap:simulazione} e \ref{chap:controllo}.
+
+\section{Tempo e variabili di stato}
+
+\begin{tblr}{
+    colspec = {Q[c, m] X[l, m] Q[c, m]},
+    width = \textwidth
+}
+    Simbolo & Significato & Valore \\
+    $t$ & Seduta, cioè passo del modello, con $t = 0, 1, \dots, T$ & \\
+    $T$ & Orizzonte temporale, cioè numero di sedute & $50$ \\
+    $S(t)$ & Atleti sani & $S(0) = 400$ \\
+    $P(t)$ & Atleti con infortuni pregressi & $P(0) = 100$ \\
+    $I(t)$ & Atleti infortunati gravi & $I(0) = 0$ \\
+    $M(t)$ & Atleti malconci & $M(0) = 0$ \\
+    $N(t)$ & Popolazione totale, $S + P + I + M$ & $N(0) = 500$ \\
+    $\bar{F}_f(t)$ & Fatica fisica media & $\bar{F}_f(0) = 0$ \\
+    $\bar{F}_p(t)$ & Fatica psicologica media & $\bar{F}_p(0) = 0$ \\
+\end{tblr}
+
+\section{Parametri del modello}
+
+\begin{tblr}{
+    colspec = {Q[c, m] X[l, m] Q[c, m]},
+    width = \textwidth
+}
+    Simbolo & Significato & Valore \\
+    $\alpha$ & Frazione dei nuovi ingressi che entra tra i sani & $0.800$ \\
+    $\pi$ & Probabilità che un infortunio sia grave & $0.397$ \\
+    $\rho$ & Tasso di recupero parziale, da $I$ a $M$ & $0.054$ \\
+    $\beta_S$ & Moltiplicatore di abbandono dei sani & $0.005$ \\
+    $\beta_P$ & Moltiplicatore di abbandono dei pregressi & $0.010$ \\
+    $\beta_M$ & Moltiplicatore di abbandono dei malconci & $0.059$ \\
+    $\beta_I$ & Moltiplicatore di abbandono degli infortunati & $0.105$ \\
+    $\gamma_S$ & Moltiplicatore di rischio dei sani & $0.021$ \\
+    $\gamma_P$ & Moltiplicatore di rischio dei pregressi & $0.040$ \\
+    $\gamma_M$ & Moltiplicatore di rischio dei malconci & $0.078$ \\
+    $A_{\max}$ & Capienza del tatami, scala di riferimento della densità & $800$ \\
+\end{tblr}
+
+\section{Funzioni}
+
+\begin{tblr}{
+    colspec = {Q[c, m] X[l, m]},
+    width = \textwidth
+}
+    Simbolo & Significato \\
+    $\mu(x)$ & Funzione di crescita: nuovi atleti nella seduta, con $x = t / T$ \\
+    $\nu(x, \beta)$ & Funzione di abbandono: frazione di atleti che abbandona nella seduta \\
+    $\lambda(f_f, f_p, d, \gamma)$ & Funzione di infortunio: probabilità di infortunarsi nella seduta \\
+    $s(z)$ & Sigmoide logistica, $s(z) = \frac{1}{1 + e^{-z}}$ \\
+    $d$ & Densità sul tatami, $\frac{S + P + M}{A_{\max}}$ \\
+    $c_f(t)$, $c_p(t)$ & Carico fisico e psicologico della seduta \\
+    $r(t)$ & Funzione di recupero: frazione di fatica smaltita nella seduta \\
+    $\tilde\mu(t)$, $\tilde\nu_\cdot(t)$, $\tilde\lambda_\cdot(t)$ & Funzioni valutate al tempo $t$, usate nella forma compatta del modello \\
+    $\frac{\lambda}{\gamma_\cdot}$ & Rischio relativo: frazione del rischio massimo raggiunta \\
+\end{tblr}
+
+\section{Parametri delle funzioni}
+
+\begin{tblr}{
+    colspec = {Q[c, m] X[l, m] Q[c, m]},
+    width = \textwidth
+}
+    Simbolo & Significato & Valore \\
+    $\omega_\mu$ & Ampiezza della funzione di crescita: ingressi nella prima seduta & $5$ \\
+    $\sigma_\mu$ & Larghezza della funzione di crescita & $0.15$ \\
+    $\sigma_\nu$ & Larghezza della funzione di abbandono & $0.15$ \\
+    $\omega_f$ & Peso della fatica fisica nella funzione di infortunio & $0.5$ \\
+    $\omega_p$ & Peso della fatica psicologica nella funzione di infortunio & $0.3$ \\
+    $\omega_d$ & Peso della densità nella funzione di infortunio & $0.2$ \\
+    $b$ & Soglia della funzione di infortunio & $1$ \\
+    $\omega_r$ & Recupero iniziale & $1$ \\
+    $\sigma_r$ & Velocità di decadimento del recupero & $0.05$ \\
+\end{tblr}
+
+\section{Controllo}
+
+\begin{tblr}{
+    colspec = {Q[c, m] X[l, m] Q[c, m]},
+    width = \textwidth
+}
+    Simbolo & Significato & Valore \\
+    $u(t)$ & Controllo: frazione di rischio eliminata dalla prevenzione nella seduta & $u_{\text{base}} \, c(t)$ \\
+    $u_{\text{base}}$ & Prevenzione nel giorno di randori & $0.6$ \\
+\end{tblr}

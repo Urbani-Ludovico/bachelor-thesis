@@ -14,6 +14,9 @@
 % Bibliography database
 \addbibresource{main.bib}
 
+% Appendices in TOC
+\usepackage[titletoc]{appendix}
+
 % Diagrams
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, calc, positioning, decorations.pathreplacing}
@@ -57,4 +60,8 @@
     \input{chapters/simulation.tex}
     \input{chapters/control.tex}
     \input{chapters/conclusions.tex}
+
+    \begin{appendices}
+        \input{chapters/symbols.tex}
+    \end{appendices}
 \end{document}
