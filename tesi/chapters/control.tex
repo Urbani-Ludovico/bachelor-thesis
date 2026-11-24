@@ -80,7 +80,7 @@ Questa scelta rispecchia il tipo di prevenzione preso in considerazione. Il risc
 
 Occorre tuttavia rilevare che il controllo produce anche effetti indiretti. Riducendo gli infortuni, la prevenzione trattiene più atleti nelle popolazioni $S$ e $P$, le quali abbandonano meno degli infortunati e dei malconci. Inoltre mantiene un maggior numero di atleti sul tatami, modificando così la densità e, di conseguenza, il rischio delle sedute successive. Per questo motivo l'effetto complessivo di una strategia di prevenzione non può essere calcolato semplicemente moltiplicando il numero di infortuni per $(1 - u)$, ma richiede di simulare il modello. \par
 
-Il diagramma dei flussi è identico a quello del modello senza controllo, con l'unica differenza che le frecce rappresentanti gli infortuni, vale a dire quelle da $S$ e da $P$ verso $I$ e $M$ e quella da $M$ verso $I$, sono moltiplicate per $(1 - u(t))$. Quando $u(t)$ si avvicina a $1$ tali frecce diventano molto sottili: gli atleti permangono nelle popolazioni di partenza e si allenano senza infortunarsi. Quando $u(t)$ si avvicina a $0$ il diagramma coincide con quello del capitolo sul modello.
+Il diagramma dei flussi, riportato nella \autoref{fig:flussi-controllo}, è identico a quello del modello senza controllo, con l'unica differenza che le frecce rappresentanti gli infortuni, vale a dire quelle da $S$ e da $P$ verso $I$ e $M$ e quella da $M$ verso $I$, sono moltiplicate per $(1 - u(t))$. Quando $u(t)$ si avvicina a $1$ tali frecce diventano molto sottili: gli atleti permangono nelle popolazioni di partenza e si allenano senza infortunarsi. Quando $u(t)$ si avvicina a $0$ il diagramma coincide con quello del capitolo sul modello.
 
 \begin{figure}[ht]
     \centering
@@ -181,7 +181,7 @@ Il diagramma dei flussi è identico a quello del modello senza controllo, con l'
             line width = 2pt
         ] (M) -- node[right, font = \large, text = ColorM] {$ \nu_M $} ++(270:2cm);
     \end{tikzpicture}
-    \caption{Diagramma dei flussi con il controllo}
+    \caption{Diagramma dei flussi con il controllo}\label{fig:flussi-controllo}
 \end{figure}
 
 
@@ -223,9 +223,9 @@ dove $u_{\text{base}}$ è la prevenzione applicata nel giorno di randori. Con il
 \begin{itemize}
     \item nel giorno di randori, quando il carico è massimo, la prevenzione vale $u_{\text{base}}$;
     \item nel giorno di tecnica, quando il carico è la metà, anche la prevenzione è la metà, cioè $\frac{u_{\text{base}}}{2}$;
-    \item nel giorno di riposo, quando il carico è nullo, non si applica alcuna prevenzione.
+    \item nella seduta leggera, quando il carico è nullo, non si applica alcuna prevenzione.
 \end{itemize}
-Questa strategia corrisponde a un comportamento naturale per un allenatore: riscaldamento più prolungato, esercizi di rinforzo e sorveglianza più attenta delle coppie nei giorni di randori, prevenzione più leggera nei giorni di tecnica e nessuna attività particolare nei giorni di riposo. \par
+Questa strategia corrisponde a un comportamento naturale per un allenatore: riscaldamento più prolungato, esercizi di rinforzo e sorveglianza più attenta delle coppie nei giorni di randori, prevenzione più leggera nei giorni di tecnica e nessuna attività particolare nelle sedute leggere. \par
 
 Nelle simulazioni impieghiamo $u_{\text{base}} = 0.6$: nel giorno di randori la prevenzione riduce del $60\%$ il rischio di infortunio, nel giorno di tecnica del $30\%$. In media, sull'intero periodo, la prevenzione vale circa $0.3$ per seduta.
 La \autoref{fig:ctrl-strategia} mostra il carico e la prevenzione nelle prime nove sedute: la prevenzione segue esattamente l'andamento del carico, con un valore più basso.
@@ -287,7 +287,7 @@ La \autoref{fig:ctrl-popolazioni} mostra l'andamento delle quattro popolazioni n
 
 La prevenzione, dunque, non modifica la forma della dinamica, ma la rallenta. Un esempio è offerto dal momento in cui i malconci superano i pregressi e diventano la seconda popolazione del gruppo: senza prevenzione ciò avviene alla seduta $23$, con la prevenzione alla seduta $29$. I sani, invece, restano per tutto il periodo la popolazione più numerosa, e alla fine costituiscono il $63\%$ del gruppo, contro il $57\%$ dello scenario senza prevenzione. \par
 
-La curva degli infortunati gravi presenta un andamento a piccoli scalini, più evidente che nel capitolo precedente. La ragione è che la prevenzione varia da una seduta all'altra: nei giorni di randori riduce molto i nuovi infortuni, mentre nei giorni di riposo non agisce. Il numero di infortunati cresce quindi soprattutto dopo le sedute in cui la prevenzione è più bassa. \par
+La curva degli infortunati gravi presenta un andamento a piccoli scalini, più evidente che nel capitolo precedente. La ragione è che la prevenzione varia da una seduta all'altra: nei giorni di randori riduce molto i nuovi infortuni, mentre nelle sedute leggere non agisce. Il numero di infortunati cresce quindi soprattutto dopo le sedute in cui la prevenzione è più bassa. \par
 
 Per confrontare meglio i due scenari, la \autoref{fig:ctrl-confronto-popolazioni} mostra ogni popolazione in un grafico separato, con la curva senza prevenzione e quella con prevenzione.
 
@@ -329,7 +329,7 @@ Al termine del periodo il gruppo è più numeroso e in condizioni migliori: rest
 
 \subsection{Intensità della prevenzione}
 
-Infine, abbiamo ripetuto la simulazione con diversi valori della prevenzione nel giorno di randori $u_{\text{base}}$, mantenendo la stessa strategia: prevenzione piena nel giorno di randori, dimezzata nel giorno di tecnica e nulla nel giorno di riposo. I risultati sono riportati nella \autoref{tab:ctrl-intensita}.
+Infine, abbiamo ripetuto la simulazione con diversi valori della prevenzione nel giorno di randori $u_{\text{base}}$, mantenendo la stessa strategia: prevenzione piena nel giorno di randori, dimezzata nel giorno di tecnica e nulla nella seduta leggera. I risultati sono riportati nella \autoref{tab:ctrl-intensita}.
 
 \begin{table}[ht]
     \centering
@@ -347,12 +347,12 @@ Infine, abbiamo ripetuto la simulazione con diversi valori della prevenzione nel
     \end{tblr}
 \end{table}
 
-L'effetto della prevenzione cresce in modo regolare con la sua intensità: ogni incremento di $0.2$ di $u_{\text{base}}$ evita circa $44$ infortuni e circa $8$ abbandoni. Anche con la prevenzione massima nel giorno di randori, cioè $u_{\text{base}} = 1$, gli infortuni si riducono di circa la metà, ma non si annullano: la prevenzione è dimezzata nei giorni di tecnica e assente nei giorni di riposo, e in quelle sedute il rischio persiste. L'allenatore può quindi scegliere l'intensità della prevenzione in base alle risorse disponibili, sapendo che anche una prevenzione leggera produce un beneficio apprezzabile.
+L'effetto della prevenzione cresce in modo regolare con la sua intensità: ogni incremento di $0.2$ di $u_{\text{base}}$ evita circa $44$ infortuni e circa $8$ abbandoni. Anche con la prevenzione massima nel giorno di randori, cioè $u_{\text{base}} = 1$, gli infortuni si riducono di circa la metà, ma non si annullano: la prevenzione è dimezzata nei giorni di tecnica e assente nelle sedute leggere, e in quelle sedute il rischio persiste. La \autoref{fig:ctrl-intensita} mostra questo andamento regolare. L'allenatore può quindi scegliere l'intensità della prevenzione in base alle risorse disponibili, sapendo che anche una prevenzione leggera produce un beneficio apprezzabile.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{controllo/intensita.pdf}
-    \caption{Infortuni e abbandoni al variare dell'intensità della prevenzione}
+    \caption{Infortuni e abbandoni al variare dell'intensità della prevenzione}\label{fig:ctrl-intensita}
 \end{figure}
 
 
@@ -362,7 +362,7 @@ L'effetto della prevenzione cresce in modo regolare con la sua intensità: ogni 
 \begin{figure}[ht]
     \centering
     \includegraphics[width = 0.8\textwidth]{pictures/warm-up.jpeg}
-    \caption[Riscaldamento a terra]{Esercizi a terra durante il riscaldamento, una delle forme di prevenzione degli infortuni}
+    \caption[Riscaldamento a terra]{Esercizi a terra durante il riscaldamento, una delle forme di prevenzione degli infortuni.}
 \end{figure}
 
 La strategia di prevenzione proporzionale al carico migliora tutti gli aspetti dello scenario: riduce gli infortuni di circa un terzo, gli abbandoni di quasi un quinto e lascia al termine del periodo un gruppo più numeroso e più sano. I risultati confermano inoltre i tre aspetti emersi nel capitolo precedente: la prevenzione è più efficace nella seconda metà del periodo, quando la fatica è più alta, ha un effetto particolarmente marcato sui malconci, dei quali riduce sia il numero sia gli infortuni, e, riducendo gli infortuni, riduce anche gli abbandoni, pur senza agire direttamente sulla decisione di abbandonare. Come mostrato dall'analisi di sensibilità della \autoref{sec:sensibilita}, inoltre, la riduzione degli infortuni di circa il $31\%$ non dipende in modo rilevante dai parametri scelti: variando ciascun parametro del $20\%$ resta sempre compresa tra il $30\%$ e il $31.5\%$.

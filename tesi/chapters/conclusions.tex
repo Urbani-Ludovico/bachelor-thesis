@@ -6,7 +6,7 @@ Gli atleti sono suddivisi dal modello in quattro popolazioni: i sani, coloro che
 
 Per ogni funzione abbiamo adottato una forma analitica semplice, dotata di parametri interpretabili, e ne abbiamo esaminato le proprietà. In mancanza di dati reali, abbiamo proceduto a una calibrazione per plausibilità: dopo aver stabilito alcuni requisiti che la dinamica del gruppo deve soddisfare, abbiamo individuato, tramite la libreria SciPy, i parametri più prossimi a una stima iniziale che li rispettano. Ne è derivato uno scenario di riferimento che rappresenta un periodo di allenamento intenso privo di prevenzione. \par
 
-Abbiamo infine inserito nel modello un controllo, che esprime l'efficacia della prevenzione attuata dall'allenatore e riduce il rischio di infortunio per tutte le popolazioni. Abbiamo quindi simulato una strategia di prevenzione commisurata al carico, più incisiva nei giorni di randori, ridotta della metà nei giorni di tecnica e del tutto assente nei giorni di riposo, confrontandola con lo scenario privo di prevenzione.
+Abbiamo infine inserito nel modello un controllo, che esprime l'efficacia della prevenzione attuata dall'allenatore e riduce il rischio di infortunio per tutte le popolazioni. Abbiamo quindi simulato una strategia di prevenzione commisurata al carico, più incisiva nei giorni di randori, ridotta della metà nei giorni di tecnica e del tutto assente nelle sedute leggere, confrontandola con lo scenario privo di prevenzione.
 
 \section{Risultati principali}
 
@@ -19,12 +19,12 @@ Le simulazioni hanno messo in luce tre aspetti fondamentali.
     \item \textbf{Gli infortuni determinano gli abbandoni.} Gli infortunati e i malconci abbandonano con molta maggiore facilità rispetto agli atleti sani. Ridurre gli infortuni equivale dunque anche a mantenere unito il gruppo.
 \end{itemize}
 
-La prevenzione proporzionale al carico, con una prevenzione media di circa $0.3$ per seduta, determina una riduzione degli infortuni del $31\%$, da circa $428$ a circa $296$, e degli abbandoni del $18\%$, da circa $124$ a circa $102$. L'effetto risulta particolarmente marcato sui malconci, i cui infortuni calano quasi della metà, poiché la prevenzione impedisce che molti atleti diventino malconci. Infine, l'effetto della prevenzione cresce in modo regolare con l'intensità: anche una prevenzione leggera produce un beneficio apprezzabile.
+La prevenzione proporzionale al carico, con una prevenzione media di circa $0.3$ per seduta, determina una riduzione degli infortuni del $31\%$, da circa $428$ a circa $296$, e degli abbandoni del $18\%$, da circa $124$ a circa $102$. L'effetto risulta particolarmente marcato sui malconci, i cui infortuni calano quasi della metà, poiché la prevenzione impedisce che molti atleti diventino malconci. Infine, l'effetto della prevenzione cresce in modo regolare con l'intensità: anche una prevenzione leggera produce un beneficio apprezzabile. La \autoref{fig:riepilogo} riassume il confronto tra i due scenari.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{conclusioni/riepilogo.pdf}
-    \caption{Infortuni e abbandoni totali, con e senza prevenzione}
+    \caption{Infortuni e abbandoni totali, con e senza prevenzione}\label{fig:riepilogo}
 \end{figure}
 
 

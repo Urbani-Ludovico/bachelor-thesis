@@ -23,12 +23,12 @@ dove:
 \end{itemize}
 La funzione è una gaussiana centrata in $x = 0$, troncata al dominio $[0, 1]$. Il massimo si trova in $x = 0$ ed è pari a $\omega_\mu$, mentre il valore in $x = 1$ è $\omega_\mu \exp\left(-\frac{1}{2 \sigma_\mu^2}\right)$. La funzione è non negativa, continua, derivabile e decrescente su tutto il dominio. \par
 
-La scelta della gaussiana è motivata da tre ragioni. In primo luogo, è una funzione semplice e ben nota, con parametri interpretabili e proprietà analitiche note. In secondo luogo, centrata in $x = 0$ riflette il fatto che gli ingressi tendono a concentrarsi all'inizio del periodo, quando l'entusiasmo e la disponibilità sono maggiori, e a ridursi progressivamente nel tempo. In terzo luogo, ha una forma regolare e derivabile, che facilita l'analisi del modello e la derivazione di proprietà qualitative.
+La scelta della gaussiana è motivata da tre ragioni. In primo luogo, è una funzione semplice e ben nota, con parametri interpretabili e proprietà analitiche note. In secondo luogo, centrata in $x = 0$ riflette il fatto che gli ingressi tendono a concentrarsi all'inizio del periodo, quando l'entusiasmo e la disponibilità sono maggiori, e a ridursi progressivamente nel tempo. In terzo luogo, ha una forma regolare e derivabile, che facilita l'analisi del modello e la derivazione di proprietà qualitative. La \autoref{fig:function-mu} mostra l'andamento tipico della funzione.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/mu.pdf}
-    \caption{Funzione generica di crescita $\mu$}
+    \caption{Funzione generica di crescita $\mu$}\label{fig:function-mu}
 \end{figure}
 
 \subsection{Parametri}
@@ -39,7 +39,7 @@ Il parametro $\omega_\mu \in \mathbb{R}_{\geq 0}$ rappresenta l'ampiezza massima
 Nella pratica, $\omega_\mu$ è limitato dal numero massimo di atleti che la palestra può accogliere e dal bacino di utenza disponibile. Il parametro $\omega_\mu$ ha come unità di misura il numero di atleti. Un valore grande di $\omega_\mu$ corrisponde a una palestra capace di accogliere molti nuovi atleti, mentre un valore piccolo corrisponde a una palestra con capacità limitata. Il parametro $\omega_\mu$ può essere stimato dai dati storici di iscrizione, oppure scelto in base a scenari ipotetici.
 
 Il parametro $\sigma_\mu \in \mathbb{R}_{> 0}$ rappresenta la larghezza del picco della funzione di crescita, cioè la velocità con cui gli ingressi decadono nel tempo. Valori piccoli di $\sigma_\mu$ corrispondono a un picco stretto, cioè a ingressi concentrati nelle prime sedute e rapidamente decrescenti. Valori grandi di $\sigma_\mu$ corrispondono a un picco largo, cioè a ingressi distribuiti su un periodo più lungo. \\
-Un valore piccolo di $\sigma_\mu$, come mostrato in \autoref{fig:function-mu-sigma}, corrisponde a una stagione in cui gli ingressi si concentrano nelle prime settimane e poi si esauriscono, mentre un valore grande corrisponde a una stagione in cui gli ingressi sono distribuiti su un periodo più lungo.
+Un valore piccolo di $\sigma_\mu$, come mostrato in \autoref{fig:function-mu-sigma}, corrisponde a un periodo in cui gli ingressi si concentrano nelle prime sedute e poi si esauriscono, mentre un valore grande corrisponde a un periodo in cui gli ingressi sono distribuiti su un periodo più lungo.
 
 \begin{figure}[ht]
     \centering
@@ -95,12 +95,12 @@ A meno dell'ampiezza e della larghezza, la funzione è la riflessione della funz
 
 La funzione $\nu$ dipende anche dal moltiplicatore $\beta$, passato come argomento, che permette di differenziare il tasso di abbandono tra le diverse popolazioni. Nel modello, $\beta$ assume valori diversi a seconda della popolazione a cui la funzione si applica: $\beta_S$ per i sani, $\beta_P$ per i pregressi, $\beta_I$ per gli infortunati e $\beta_M$ per i malconci. Questa scelta riflette il fatto che gli atleti in popolazioni diverse possono avere comportamenti di abbandono diversi, a causa della loro condizione fisica, della loro motivazione o del loro rapporto con l'attività. Le ragioni dell'abbandono dello sport, infatti, sono numerose e comprendono sia fattori personali, come il divertimento e la percezione delle proprie capacità, sia fattori esterni, come un carico di allenamento eccessivo o la difficoltà di conciliare lo sport con lo studio~\cite{zhang2024}. \par
 
-Le proprietà della funzione $\nu$ sono le stesse della funzione $\mu$ descritte in \autoref{sec:function-mu-property}, con la sostituzione di $\omega_\mu$ con $\beta$ e di $\sigma_\mu$ con $\sigma_\nu$, e con la differenza che la funzione è crescente anziché decrescente.
+Le proprietà della funzione $\nu$ sono le stesse della funzione $\mu$ descritte in \autoref{sec:function-mu-property}, con la sostituzione di $\omega_\mu$ con $\beta$ e di $\sigma_\mu$ con $\sigma_\nu$, e con la differenza che la funzione è crescente anziché decrescente. L'andamento tipico della funzione è mostrato nella \autoref{fig:function-nu}.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/nu.pdf}
-    \caption{Funzione generica di abbandono $\nu$}
+    \caption{Funzione generica di abbandono $\nu$}\label{fig:function-nu}
 \end{figure}
 
 \subsection{Parametri}
@@ -137,12 +137,12 @@ dove:
 \end{itemize}
 Il suo valore è compreso tra $0$ e $\gamma$, ed è crescente rispetto a $f_f$, $f_p$ e $d$. \par
 
-La scelta della sigmoide è motivata da tre ragioni. In primo luogo, è una funzione limitata, con valori compresi tra $0$ e $1$, il che garantisce che la probabilità di infortunio non superi mai il moltiplicatore $\gamma$. In secondo luogo, è crescente e saturante, il che riflette il fatto che il rischio di infortunio cresce con la fatica e la densità, ma non può crescere all'infinito. In terzo luogo, è regolare e derivabile, il che facilita l'analisi del modello. Il fattore di soglia $b$ sposta la sigmoide verso destra, riducendo il rischio in assenza di fatica e densità.
+La scelta della sigmoide è motivata da tre ragioni. In primo luogo, è una funzione limitata, con valori compresi tra $0$ e $1$, il che garantisce che la probabilità di infortunio non superi mai il moltiplicatore $\gamma$. In secondo luogo, è crescente e saturante, il che riflette il fatto che il rischio di infortunio cresce con la fatica e la densità, ma non può crescere all'infinito. In terzo luogo, è regolare e derivabile, il che facilita l'analisi del modello. Il fattore di soglia $b$ sposta la sigmoide verso destra, riducendo il rischio in assenza di fatica e densità. La \autoref{fig:function-lambda} mostra come la probabilità di infortunio cresce con la fatica fisica.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/lambda_ff.pdf}
-    \caption{Funzione di infortunio $\lambda$ al variare della fatica fisica $f_f$}
+    \caption{Funzione di infortunio $\lambda$ al variare della fatica fisica $f_f$}\label{fig:function-lambda}
 \end{figure}
 
 \subsection{Parametri}
@@ -192,7 +192,7 @@ Il primo esempio è il carico costante, in cui le funzioni di carico assumono lo
     c_f(t) = c_{f, 0} \in \mathbb{R}_{\geq 0} \\
     c_p(t) = c_{p, 0} \in \mathbb{R}_{\geq 0}
 \end{gather*}
-dove $c_{f,0}$ e $c_{p,0}$ sono costanti non negative. Questo esempio, come rappresentato in \autoref{fig:function-c-costante}, corrisponde a un programma di allenamento uniforme, in cui ogni seduta ha lo stesso carico fisico e psicologico. È il caso più semplice e permette di studiare il comportamento del modello in condizioni stazionarie, senza l'effetto della stagionalità. Nella pratica, il carico costante è raramente realistico per un'intera stagione, ma può essere una buona approssimazione per periodi brevi o per studiare l'effetto della fatica in condizioni controllate.
+dove $c_{f,0}$ e $c_{p,0}$ sono costanti non negative. Questo esempio, come rappresentato in \autoref{fig:function-c-costante}, corrisponde a un programma di allenamento uniforme, in cui ogni seduta ha lo stesso carico fisico e psicologico. È il caso più semplice e permette di studiare il comportamento del modello in condizioni stazionarie, senza l'effetto della stagionalità. Nella pratica, il carico costante è raramente realistico per un intero periodo di preparazione, ma può essere una buona approssimazione per periodi brevi o per studiare l'effetto della fatica in condizioni controllate.
 
 \begin{figure}[ht]
     \centering
@@ -259,12 +259,12 @@ dove:
 \end{itemize}
 La funzione è una sigmoide decrescente, che parte da $\omega_r$ in $t = 0$ e tende a zero per $t \to +\infty$. La scelta della sigmoide decrescente è motivata dalla necessità di rappresentare il fatto che il recupero è massimo all'inizio del periodo, quando gli atleti sono freschi, e decresce nel tempo, man mano che la fatica si accumula. \par
 
-La forma sigmoide permette di rappresentare scenari diversi variando i parametri. Se $\sigma_r = 0$, la funzione è costante e pari a $\omega_r$. Se $\sigma_r$ è grande, la funzione decade rapidamente verso zero. La sigmoide decrescente è una scelta naturale per rappresentare un recupero che si riduce nel tempo, e ha il vantaggio di essere limitata e derivabile.
+La forma sigmoide permette di rappresentare scenari diversi variando i parametri. Se $\sigma_r = 0$, la funzione è costante e pari a $\omega_r$. Se $\sigma_r$ è grande, la funzione decade rapidamente verso zero. La sigmoide decrescente è una scelta naturale per rappresentare un recupero che si riduce nel tempo, e ha il vantaggio di essere limitata e derivabile. La \autoref{fig:function-r} mostra l'andamento tipico della funzione.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{functions/r.pdf}
-    \caption{Funzione generica di recupero $r$}
+    \caption{Funzione generica di recupero $r$}\label{fig:function-r}
 \end{figure}
 
 \subsection{Parametri}
