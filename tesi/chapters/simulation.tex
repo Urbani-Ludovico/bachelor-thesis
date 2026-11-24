@@ -1,4 +1,4 @@
-\chapter{Calibrazione dei parametri e simulazione}
+\chapter{Calibrazione dei parametri e simulazione}\label{chap:simulazione}
 
 Nei capitoli precedenti abbiamo costruito il modello e scelto una forma analitica per ciascuna delle sue funzioni. Per poterlo simulare, tuttavia, è necessario assegnare un valore a tutti i parametri. In questo capitolo scegliamo tali valori e descriviamo la dinamica che ne deriva. \par
 
@@ -214,7 +214,6 @@ Il risultato consiste nei parametri più vicini ai valori a priori tra tutti que
             node[right, font = \footnotesize] {requisiti rispettati?} ([xshift = 0.5cm] minimize.south);
     \end{tikzpicture}
     \caption{La procedura di calibrazione dei parametri}
-    \label{fig:calibrazione}
 \end{figure}
 
 
@@ -331,11 +330,63 @@ Gli infortuni si distribuiscono tra le popolazioni nel modo seguente: circa $184
 \begin{figure}[ht]
     \centering
     \includegraphics[width = \textwidth]{simulazione/infortuni_per_popolazione.pdf}
-    \caption{Infortuni per popolazione di provenienza}\label{fig:sim-infortuni-popolazione}
+    \caption{Infortuni per popolazione di provenienza}
 \end{figure}
 
 
 Una parte degli atleti si infortuna più di una volta, ad esempio prima in modo lieve, diventando malconci, e poi in modo grave. Rapportando gli infortuni al numero di presenze sul tatami si ottengono circa $17$ infortuni ogni $1000$ presenze, un valore elevato, coerente con uno scenario privo di prevenzione.
+
+\section{Analisi di sensibilità}\label{sec:sensibilita}
+
+I parametri del modello non sono stimati a partire da dati reali, ma scelti con la calibrazione per plausibilità. È quindi importante capire quanto i risultati dipendano dai valori scelti. Per farlo abbiamo ripetuto la simulazione variando un parametro alla volta del $20\%$ in più e in meno rispetto al suo valore, lasciando invariati tutti gli altri. Abbiamo considerato quattordici parametri: i moltiplicatori di rischio e di abbandono dei malconci e degli infortunati, la probabilità $\pi$, il tasso di recupero parziale $\rho$, i parametri della funzione di infortunio, la capienza del tatami, la velocità di decadimento del recupero e l'ampiezza degli ingressi. \par
+
+La \autoref{fig:sim-sensibilita} mostra la variazione degli infortuni totali, con i parametri ordinati dal più influente al meno influente, e la \autoref{tab:sim-sensibilita} riporta i valori.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = \textwidth]{simulazione/sensibilita.pdf}
+    \caption{Variazione degli infortuni totali al variare di ciascun parametro del $20\%$}\label{fig:sim-sensibilita}
+\end{figure}
+
+\begin{table}[ht]
+    \centering
+    \caption{Infortuni totali e riduzione con la prevenzione al variare di ciascun parametro del $20\%$}\label{tab:sim-sensibilita}
+    \begin{tblr}{
+        colspec = {X[c, m] X[c, m] X[c, m] X[c, m] X[c, m]},
+        width = \textwidth,
+        hline{2} = {0pt},
+        hline{2} = {2-3}{leftpos = -1, rightpos = -1, endpos, 0.05em},
+        hline{2} = {4-5}{leftpos = -1, rightpos = -1, endpos, 0.05em},
+        hline{3} = {0.05em},
+    }
+        \SetCell[r=2]{c} Parametro & \SetCell[c=2]{c} Infortuni totali & & \SetCell[c=2]{c} Riduzione con prevenzione & \\
+        & $-20\%$ & $+20\%$ & $-20\%$ & $+20\%$ \\
+        $\gamma_S$ & $377$ & $474$ & $31.2\%$ & $30.4\%$ \\
+        $b$ & $471$ & $385$ & $31.0\%$ & $30.7\%$ \\
+        $\sigma_r$ & $391$ & $469$ & $30.7\%$ & $31.0\%$ \\
+        $\gamma_M$ & $397$ & $457$ & $30.0\%$ & $31.5\%$ \\
+        $\omega_f$ & $403$ & $452$ & $31.0\%$ & $30.7\%$ \\
+        $\gamma_P$ & $411$ & $442$ & $31.2\%$ & $30.5\%$ \\
+        $\omega_p$ & $413$ & $443$ & $31.0\%$ & $30.8\%$ \\
+        $\pi$ & $442$ & $415$ & $31.4\%$ & $30.3\%$ \\
+        $\omega_\mu$ & $421$ & $435$ & $30.9\%$ & $30.8\%$ \\
+        $\rho$ & $421$ & $434$ & $30.5\%$ & $31.1\%$ \\
+        $A_{\max}$ & $435$ & $424$ & $30.9\%$ & $30.9\%$ \\
+        $\omega_d$ & $423$ & $433$ & $30.9\%$ & $30.9\%$ \\
+        $\beta_M$ & $431$ & $425$ & $30.9\%$ & $30.8\%$ \\
+        $\beta_I$ & $428$ & $428$ & $30.9\%$ & $30.8\%$ \\
+    \end{tblr}
+\end{table}
+
+Nessuna variazione modifica gli infortuni totali di più del $12\%$: con parametri variati del $20\%$, gli infortuni restano compresi tra circa $377$ e $474$, contro i $428$ dello scenario di riferimento. Il modello, quindi, non amplifica le incertezze sui parametri. \par
+
+I parametri più influenti sono quelli del rischio e del recupero. Il primo è il moltiplicatore di rischio dei sani $\gamma_S$, perché i sani sono la popolazione più numerosa. Seguono la soglia $b$, che con un valore più alto riduce il rischio di base, la velocità di decadimento del recupero $\sigma_r$, il moltiplicatore di rischio dei malconci $\gamma_M$ e il peso della fatica fisica $\omega_f$. I parametri degli abbandoni, $\beta_M$ e $\beta_I$, la capienza del tatami $A_{\max}$ e il peso della densità $\omega_d$ incidono invece per meno del $2\%$: gli abbandoni si concentrano nelle ultime sedute, quando la maggior parte degli infortuni è già avvenuta, e la densità varia poco nel corso del periodo. \par
+
+Un risultato meno intuitivo riguarda la probabilità $\pi$ che un infortunio sia grave: aumentandola, gli infortuni totali diminuiscono. Con più infortuni gravi, infatti, più atleti si fermano in $I$, dove non sono esposti al rischio, e meno atleti diventano malconci, che sono la popolazione più a rischio. Il numero di infortuni gravi aumenta, ma il numero complessivo diminuisce. \par
+
+Anche la popolazione finale varia poco: in tutti i casi resta compresa tra l'$83\%$ e l'$87\%$ di quella iniziale. \par
+
+Infine, l'analisi riguarda anche la prevenzione che introdurremo nel capitolo successivo. La riduzione degli infortuni ottenuta con la prevenzione è praticamente insensibile ai parametri: in tutti i casi resta compresa tra il $30.0\%$ e il $31.5\%$.
 
 \section{Considerazioni finali}
 
@@ -348,4 +399,4 @@ Dai risultati emergono tre aspetti sui quali il controllo potrà intervenire:
     \item gli infortunati e i malconci sono la causa principale degli abbandoni: ridurre gli infortuni aiuta anche a mantenere unito il gruppo.
 \end{itemize}
 
-I parametri scelti non sono stimati a partire da dati reali, bensì dai requisiti che abbiamo fissato e dai valori a priori. Con requisiti o valori a priori differenti si otterrebbe uno scenario diverso. Lo scenario va dunque inteso come un caso di riferimento, utile per confrontare strategie diverse, e non come una previsione di ciò che accade in una palestra reale. Disporre anche di pochi dati reali, come il numero di iscritti, di abbandoni e di infortuni in una stagione, permetterebbe di scegliere i requisiti in modo più oggettivo.
+I parametri scelti non sono stimati a partire da dati reali, bensì dai requisiti che abbiamo fissato e dai valori a priori. Con requisiti o valori a priori differenti si otterrebbe uno scenario diverso. Lo scenario va dunque inteso come un caso di riferimento, utile per confrontare strategie diverse, e non come una previsione di ciò che accade in una palestra reale. L'analisi di sensibilità mostra comunque che variazioni moderate dei parametri non cambiano la forma della dinamica né le conclusioni qualitative. Disporre anche di pochi dati reali, come il numero di iscritti, di abbandoni e di infortuni in una stagione, permetterebbe di scegliere i requisiti in modo più oggettivo.
