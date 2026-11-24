@@ -9,16 +9,20 @@
     Teacher = {{Prof.~Alberto d'Onofrio}}
 ]{unitsthesis}
 
+% Bibliography database
 \addbibresource{main.bib}
 
+% Diagrams
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, calc, positioning, decorations.pathreplacing}
 
+% One colour for each population, used in text, diagrams and plots
 \definecolor{ColorS}{HTML}{009933}
 \definecolor{ColorP}{HTML}{336699}
 \definecolor{ColorI}{HTML}{EE0000}
 \definecolor{ColorM}{HTML}{FFAD00}
 
+% Table of contents with chapters and sections only
 \setcounter{tocdepth}{1}
 
 % Figures and tables never float past the end of their subsection
@@ -28,12 +32,16 @@
 \NewCommandCopy{\placeinsSubsubsection}{\subsubsection}
 \RenewDocumentCommand{\subsubsection}{}{\FloatBarrier\placeinsSubsubsection}
 
+% Folder with plots and pictures
 \graphicspath{ {./images} }
 
+% Caption with attribution: \creditcaption[short title]{caption}{attribution}
+% The attribution goes on a new line, in small italics
 \NewDocumentCommand{\creditcaption}{O{#2} m m}{%
     \caption[#1]{#2\\{\footnotesize\itshape #3}}%
 }
 
+% Booktabs-style rules for every tblr
 \SetTblrInner{
     hline{1,Z} = {0.08em},
     hline{2} = {0.05em}
