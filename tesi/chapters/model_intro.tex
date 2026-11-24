@@ -54,7 +54,6 @@ Le popolazioni sono:
             node[midway, above = 8pt, font = \small] {non si allenano};
     \end{tikzpicture}
     \caption{Le quattro popolazioni del modello}
-    \label{fig:popolazioni}
 \end{figure}
 
 La scelta di distinguere quattro popolazioni, invece di due o tre, è motivata dalla necessità di rappresentare separatamente tre aspetti distinti: il rischio di infortunio, che è diverso per sani, pregressi e malconci; la capacità di allenarsi, che distingue gli infortunati dagli altri; il recupero parziale, che non riporta l'atleta allo stato di sano ma lo rende nuovamente allenabile. Se avessimo distinto solo sani e infortunati, non avremmo potuto differenziare il rischio tra sani e pregressi, né modellare il recupero parziale. Se avessimo distinto solo tre popolazioni, avremmo dovuto rinunciare a una di queste distinzioni, con una perdita di realismo. \par
@@ -109,7 +108,6 @@ Le variabili $\bar{F}_f$ e $\bar{F}_p$ sono rappresentate come numeri reali non 
         \draw[flow, draw = gray] (density) -- (risk);
     \end{tikzpicture}
     \caption{Dal carico di allenamento agli infortuni: il ruolo della fatica}
-    \label{fig:catena-fatica}
 \end{figure}
 
 \section{Ipotesi iniziali}
@@ -163,7 +161,6 @@ La prima è l'ipotesi di mescolamento. Durante l'allenamento di judo gli atleti 
         \pair{10.85}{0.75}{S}{S}
     \end{tikzpicture}
     \caption{Ipotesi di mescolamento: le coppie cambiano spesso durante la seduta}
-    \label{fig:mescolamento}
 \end{figure}
 
 
@@ -173,7 +170,7 @@ La terza riguarda il gruppo su cui si calcola la media. La fatica media è calco
 
 Queste ipotesi, insieme a quelle di omogeneità e di numerosità del gruppo discusse sopra, giustificano l'uso delle fatiche medie al posto delle fatiche individuali e permettono al modello di descrivere in modo adeguato le dinamiche collettive del gruppo.
 
-\subsection{Ipotesi sugli infortuni e sulle transizioni}\label{sec:ipotesi-transizioni}
+\subsection{Ipotesi sugli infortuni e sulle transizioni}
 
 Le equazioni del modello descrivono gli infortuni e i passaggi tra le popolazioni attraverso tassi e probabilità. Questo richiede alcune ipotesi su come avvengono gli infortuni durante una seduta e su come gli atleti cambiano popolazione. \par
 
