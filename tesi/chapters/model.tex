@@ -49,7 +49,7 @@ Gli atleti che si infortunano escono da $S$ ed entrano in $I$ o $M$, a seconda c
 
 \section{Equazione di P}
 
-La popolazione $P$ descrive l'evoluzione degli atleti con infortuni pregressi, cioè coloro che hanno avuto infortuni prima dell'inizio del periodo considerato e che, pur essendo pienamente allenabili, sono considerati più a rischio rispetto agli atleti sani. La dinamica è descritta dall'equazione:
+La popolazione $P$ descrive l'evoluzione degli atleti con infortuni pregressi, cioè coloro che hanno avuto infortuni prima dell'inizio del periodo considerato e che, pur essendo pienamente allenabili, sono considerati più a rischio rispetto agli atleti sani. Un infortunio pregresso è infatti uno dei fattori di rischio più noti per un nuovo infortunio~\cite{hagglund2006}. La dinamica è descritta dall'equazione:
 \begin{align*}
     P(t+1) &= P(t) \\
         &+ (1 - \alpha) \mu\left(\frac{t}{T}\right) \\
@@ -186,7 +186,7 @@ Le variabili $\bar{F}_f$ e $\bar{F}_p$ descrivono, rispettivamente, l'evoluzione
         - r(t) \bar{F}_p(t)
 \end{align*}
 
-Le due equazioni hanno la stessa struttura: la fatica al passo successivo è uguale alla fatica corrente, più il carico della seduta, meno la parte di fatica smaltita dal recupero. La differenza tra le due componenti sta nel carico, cioè $c_f$ per la fatica fisica e $c_p$ per quella psicologica, e nei valori iniziali. La struttura identica permette di trattare le due componenti in modo uniforme nell'analisi del modello. La scelta di separare le due componenti riflette il fatto che la fatica fisica e quella psicologica evolvono con dinamiche proprie e contribuiscono in modo distinto al rischio di infortunio.
+Le due equazioni hanno la stessa struttura: la fatica al passo successivo è uguale alla fatica corrente, più il carico della seduta, meno la parte di fatica smaltita dal recupero. Si tratta di una media mobile esponenziale dei carichi, in cui le sedute più recenti pesano più di quelle lontane. La differenza tra le due componenti sta nel carico, cioè $c_f$ per la fatica fisica e $c_p$ per quella psicologica, e nei valori iniziali. La struttura identica permette di trattare le due componenti in modo uniforme nell'analisi del modello. La scelta di separare le due componenti riflette il fatto che la fatica fisica e quella psicologica evolvono con dinamiche proprie e contribuiscono in modo distinto al rischio di infortunio.
 
 \paragraph{Carico della seduta}
 Il termine $c_f(t)$ rappresenta il carico fisico della seduta al tempo $t$, mentre $c_p(t)$ rappresenta il carico psicologico. Le due funzioni sono parametri esogeni, assegnati dall'esterno, e possono essere costanti, periodiche o variabili nel tempo. Il carico rappresenta la quantità di fatica aggiunta in una singola seduta: non è un tasso, ma un flusso assoluto. Ogni seduta aggiunge $c_f(t)$ alla fatica fisica e $c_p(t)$ alla fatica psicologica, indipendentemente dal livello di fatica corrente. \par
