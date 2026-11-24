@@ -10,18 +10,6 @@
 ]{unitsthesis}
 
 \addbibresource{main.bib}
-\setcounter{biburllcpenalty}{7000}
-\setcounter{biburlucpenalty}{8000}
-
-\makeatletter
-\addto\extrasitalian{%
-    \renewcommand{\sectionautorefname}{Sezione}%
-    \renewcommand{\subsectionautorefname}{Sezione}%
-    \renewcommand{\subsubsectionautorefname}{Sezione}%
-    \renewcommand{\figureautorefname}{Figura}%
-    \renewcommand{\tableautorefname}{Tabella}%
-}
-\makeatother
 
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, calc, positioning, decorations.pathreplacing}
@@ -42,7 +30,6 @@
 
 \graphicspath{ {./images} }
 
-\captionsetup{justification = centering}
 \NewDocumentCommand{\creditcaption}{O{#2} m m}{%
     \caption[#1]{#2\\{\footnotesize\itshape #3}}%
 }
